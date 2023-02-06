@@ -3,9 +3,7 @@ import Layout from '../../Components/Layout'
 export const ProfilePage = () => {
   return (
     <div>
-      <Layout>
-        Profile
-      </Layout>
+      <Layout>Profile</Layout>
     </div>
   )
 }

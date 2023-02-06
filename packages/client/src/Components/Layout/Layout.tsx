@@ -1,45 +1,43 @@
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'antd'
-import * as ROUTES from "../../constants/routes";
+import * as ROUTES from '../../constants/routes'
 
 const links = [
   {
     to: ROUTES.MAIN_PAGE_PATH,
-    text: "Main"
+    text: 'Main',
   },
   {
     to: ROUTES.AUTH_PAGE_PATH,
-    text: "Auth"
+    text: 'Auth',
   },
   {
     to: ROUTES.REGISTRY_PAGE_PATH,
-    text: "Registry"
+    text: 'Registry',
   },
   {
     to: ROUTES.GAME_PAGE_PATH,
-    text: "Game"
+    text: 'Game',
   },
   {
     to: ROUTES.LEADERBOARD_PAGE_PATH,
-    text: "Leaderboard"
+    text: 'Leaderboard',
   },
   {
     to: ROUTES.PROFILE_PAGE_PATH,
-    text: "Profile"
+    text: 'Profile',
   },
 ]
 
 //TODO: правильный тип данных поставить
-export const Layout = ({children}) => {
+export const Layout = ({ children }) => {
   return (
     <div>
       <nav>
         <Row>
-          {links.map(({to, text}, index) => (
+          {links.map(({ to, text }, index) => (
             <Col key={index}>
-              <Link to={to}>
-                {text}
-              </Link>
+              <Link to={to}>{text}</Link>
             </Col>
           ))}
         </Row>

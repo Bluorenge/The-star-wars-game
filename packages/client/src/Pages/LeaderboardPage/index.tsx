@@ -1,1 +1,1 @@
-export {LeaderboardPage as default} from './LeaderboardPage'
+export { LeaderboardPage as default } from './LeaderboardPage'

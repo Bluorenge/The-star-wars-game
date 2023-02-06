@@ -3,9 +3,7 @@ import Layout from '../../Components/Layout'
 export const MainPage = () => {
   return (
     <div>
-      <Layout>
-        Main
-      </Layout>
+      <Layout>Main</Layout>
     </div>
   )
 }

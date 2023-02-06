@@ -13,4 +13,4 @@
 //   expect(screen.getByText(appContent)).toBeDefined()
 // })
 
-export {};
+export {}
