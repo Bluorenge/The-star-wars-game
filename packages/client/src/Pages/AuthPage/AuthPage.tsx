@@ -8,4 +8,4 @@ export const AuthPage = () => {
       </Layout>
     </div>
   )
-};
+}
