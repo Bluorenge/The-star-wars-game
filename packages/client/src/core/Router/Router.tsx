@@ -1,11 +1,11 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
-import * as ROUTES from '../../constants/routes'
-import MainPage from '../../Pages/MainPage'
-import AuthPage from '../../Pages/AuthPage'
-import RegistryPage from '../../Pages/RegistryPage'
-import GamePage from '../../Pages/GamePage'
-import LeaderboardPage from '../../Pages/LeaderboardPage'
-import ProfilePage from '../../Pages/ProfilePage'
+import * as ROUTES from 'constants/routes'
+import MainPage from 'pages/MainPage'
+import AuthPage from 'pages/AuthPage'
+import RegistryPage from 'pages/RegistryPage'
+import GamePage from 'pages/GamePage'
+import LeaderboardPage from 'pages/LeaderboardPage'
+import ProfilePage from 'pages/ProfilePage'
 
 export const Router = () => (
   <RouterProvider

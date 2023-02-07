@@ -1,12 +1,10 @@
+import Router from 'core/Router'
 import './App.scss'
-import Router from './core/Router'
 
-function App() {
+export const App = () => {
   return (
     <div className="App">
       <Router />
     </div>
   )
 }
-
-export default App

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Col, Row } from 'antd'
-import * as ROUTES from '../../constants/routes'
+import * as ROUTES from 'constants/routes'
 
 const links = [
   {
