@@ -15,7 +15,7 @@ export default defineConfig({
       components: path.join(__dirname, './src/components'),
       constants: path.join(__dirname, './src/constants'),
       core: path.join(__dirname, './src/core'),
-      HOC: path.join(__dirname, './src/HOC'),
+      hoc: path.join(__dirname, './src/hoc'),
       hooks: path.join(__dirname, './src/hooks'),
       pages: path.join(__dirname, './src/pages'),
     },
