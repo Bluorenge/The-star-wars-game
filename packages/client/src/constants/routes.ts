@@ -1,6 +1,8 @@
-export const MAIN_PAGE_PATH = '/'
-export const AUTH_PAGE_PATH = '/auth'
-export const REGISTRY_PAGE_PATH = '/registry'
-export const GAME_PAGE_PATH = '/game'
-export const LEADERBOARD_PAGE_PATH = '/leaderboard'
-export const PROFILE_PAGE_PATH = '/profile'
+export const routes = {
+  MAIN_PAGE_PATH: '/',
+  LOGIN_PAGE: '/signin',
+  REGISTER_PAGE_PATH: '/register',
+  GAME_PAGE_PATH: '/game',
+  LEADERBOARD_PAGE_PATH: '/leaderboard',
+  PROFILE_PAGE_PATH: '/profile',
+};

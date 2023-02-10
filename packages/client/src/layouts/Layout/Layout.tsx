@@ -1,9 +1,14 @@
-import { Link } from 'react-router-dom'
-import { Col, Row } from 'antd'
-import { links } from './data'
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { Col, Row } from 'antd';
+import { links } from './data';
+
+interface LayoutProps {
+  children: any;
+}
 
 //TODO: правильный тип данных поставить
-export const Layout = ({ children }) => {
+export const Layout: React.FC<LayoutProps> = ({ children }) => {
   return (
     <div>
       <nav>
@@ -17,5 +22,5 @@ export const Layout = ({ children }) => {
       </nav>
       {children}
     </div>
-  )
-}
+  );
+};
