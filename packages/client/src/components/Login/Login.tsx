@@ -2,23 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, message, Typography } from 'antd';
 import { authApi } from 'api/auth';
-import {
-  LOGIN_BUTTON,
-  LOGIN_FORM_HEADING,
-  LOGIN_LABEL,
-  LOGIN_PLACEHOLDER,
-  MAX_LOGIN_LENGTH,
-  MAX_PASSWORD_LENGTH,
-  MIN_LOGIN_LENGTH,
-  MIN_PASSWORD_LENGTH,
-  NO_ACCOUNT_QUESTION,
-  PASSWORD_LABEL,
-  PASSWORD_PLACEHOLDER,
-  REGISTER_BUTTON,
-} from 'constants/text/auth';
-import { REQUIRED_FIELD_ERROR } from 'constants/text/default';
 import { routes } from 'constants/routes';
 import { LoginInput } from 'models/auth.model';
+import { en } from 'translations';
 
 import './Login.scss';
 
@@ -58,29 +44,29 @@ export const Login = () => {
     <div className="form">
       {contextHolder}
       <Typography.Title className="form__heading">
-        {LOGIN_FORM_HEADING}
+        {en['auth.form.headgin.login']}
       </Typography.Title>
       <Form form={form} name="loginForm" onFinish={onSubmit} layout="vertical">
         <Form.Item
           name="login"
-          label={LOGIN_LABEL}
+          label={en['auth.form.label.login']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 3, message: MIN_LOGIN_LENGTH },
-            { max: 20, message: MAX_LOGIN_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            { min: 3, message: en['validation.min-length.login'] },
+            { max: 20, message: en['validation.max-length.login'] },
           ]}>
-          <Input placeholder={LOGIN_PLACEHOLDER} />
+          <Input placeholder={en['auth.form.placeholder.login']} />
         </Form.Item>
 
         <Form.Item
           name="password"
-          label={PASSWORD_LABEL}
+          label={en['auth.form.label.password']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 4, message: MIN_PASSWORD_LENGTH },
-            { max: 40, message: MAX_PASSWORD_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            { min: 4, message: en['validation.min-length.password'] },
+            { max: 40, message: en['validation.max-length.password'] },
           ]}>
-          <Input.Password placeholder={PASSWORD_PLACEHOLDER} />
+          <Input.Password placeholder={en['auth.form.placeholder.password']} />
         </Form.Item>
 
         <Form.Item shouldUpdate>
@@ -93,14 +79,14 @@ export const Login = () => {
                 form.getFieldsError().filter(({ errors }) => errors.length)
                   .length > 0
               }>
-              {LOGIN_BUTTON}
+              {en['auth.button.login']}
             </Button>
           )}
         </Form.Item>
       </Form>
       <Typography.Text className="form__linkText">
-        {NO_ACCOUNT_QUESTION}{' '}
-        <Link to={routes.REGISTER_PAGE_PATH}>{REGISTER_BUTTON}</Link>
+        {en['auth.question.no-account-question']}{' '}
+        <Link to={routes.REGISTER_PAGE_PATH}>{en['auth.button.register']}</Link>
       </Typography.Text>
     </div>
   );

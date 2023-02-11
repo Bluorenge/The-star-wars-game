@@ -8,7 +8,7 @@ export class LoginInputDto {
   password: string;
 
   constructor(info: LoginInput) {
-    this.login = info.login;
+    this.login = info.login.toLocaleLowerCase();
     this.password = info.password;
   }
 }
@@ -33,8 +33,8 @@ export class RegisterInputDto {
   constructor(info: RegisterInput) {
     this.first_name = info.firstName;
     this.second_name = info.secondName;
-    this.login = info.login;
-    this.email = info.email;
+    this.login = info.login.toLowerCase();
+    this.email = info.email.toLowerCase();
     this.password = info.password;
     this.phone = info.phone;
   }

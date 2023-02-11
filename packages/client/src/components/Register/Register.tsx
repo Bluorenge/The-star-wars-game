@@ -2,40 +2,9 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button, Form, Input, Typography, message } from 'antd';
 import { authApi } from 'api/auth';
-import {
-  ALREADY_HAVE_ACCOUNT_QUESTION,
-  EMAIL_INVALID_FORMAT,
-  EMAIL_LABEL,
-  EMAIL_PLACEHOLDER,
-  FIRST_NAME_LABEL,
-  FIRST_NAME_PLACEHOLDER,
-  LOGIN_BUTTON,
-  LOGIN_LABEL,
-  LOGIN_PLACEHOLDER,
-  MAX_EMAIL_LENGTH,
-  MAX_FIRST_NAME_LENGTH,
-  MAX_LOGIN_LENGTH,
-  MAX_PASSWORD_LENGTH,
-  MAX_PHONE_LENGTH,
-  MAX_SECOND_NAME_LENGTH,
-  MIN_EMAIL_LENGTH,
-  MIN_FIRST_NAME_LENGTH,
-  MIN_LOGIN_LENGTH,
-  MIN_PASSWORD_LENGTH,
-  MIN_PHONE_LENGTH,
-  MIN_SECOND_NAME_LENGTH,
-  PASSWORD_LABEL,
-  PASSWORD_PLACEHOLDER,
-  PHONE_LABEL,
-  PHONE_PLACEHOLDER,
-  REGISTER_BUTTON,
-  REGISTER_FORM_HEADING,
-  SECOND_NAME_LABEL,
-  SECOND_NAME_PLACEHOLDER,
-} from 'constants/text/auth';
-import { REQUIRED_FIELD_ERROR } from 'constants/text/default';
-import { RegisterInput } from 'models/auth.model';
 import { routes } from 'constants/routes';
+import { RegisterInput } from 'models/auth.model';
+import { en } from 'translations';
 
 export const Register = () => {
   const navigate = useNavigate();
@@ -70,7 +39,7 @@ export const Register = () => {
     <div className="form">
       {contextHolder}
       <Typography.Title className="form__heading">
-        {REGISTER_FORM_HEADING}
+        {en['auth.form.heading.registration']}
       </Typography.Title>
       <Form
         form={form}
@@ -79,64 +48,71 @@ export const Register = () => {
         layout="vertical">
         <Form.Item
           name="firstName"
-          label={FIRST_NAME_LABEL}
+          label={en['auth.form.label.first-name']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 1, message: MIN_FIRST_NAME_LENGTH },
-            { max: 30, message: MAX_FIRST_NAME_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            { min: 1, message: en['validation.min-length.first-name'] },
+            { max: 30, message: en['validation.max-length.first-name'] },
           ]}>
-          <Input placeholder={FIRST_NAME_PLACEHOLDER} />
+          <Input placeholder={en['auth.form.placeholder.first-name']} />
         </Form.Item>
         <Form.Item
           name="secondName"
-          label={SECOND_NAME_LABEL}
+          label={en['auth.form.label.second-name']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 1, message: MIN_SECOND_NAME_LENGTH },
-            { max: 30, message: MAX_SECOND_NAME_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            { min: 1, message: en['validation.min-length.second-name'] },
+            { max: 30, message: en['validation.max-length.second-name'] },
           ]}>
-          <Input placeholder={SECOND_NAME_PLACEHOLDER} />
+          <Input placeholder={en['auth.form.placeholder.second-name']} />
         </Form.Item>
         <Form.Item
           name="login"
-          label={LOGIN_LABEL}
+          label={en['auth.form.label.login']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 3, message: MIN_LOGIN_LENGTH },
-            { max: 20, message: MAX_LOGIN_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            { min: 3, message: en['validation.min-length.login'] },
+            { max: 20, message: en['validation.max-length.login'] },
           ]}>
-          <Input placeholder={LOGIN_PLACEHOLDER} />
+          <Input placeholder={en['auth.form.placeholder.login']} />
         </Form.Item>
         <Form.Item
           name="email"
-          label={EMAIL_LABEL}
+          label={en['auth.form.label.email']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { type: 'email', message: EMAIL_INVALID_FORMAT },
-            { min: 5, message: MIN_EMAIL_LENGTH },
-            { max: 30, message: MAX_EMAIL_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            {
+              pattern: new RegExp(/[a-z0-9\-_]+@[a-z0-9\-_]+\.[a-z0-9]+/gi),
+              message: en['validation.invalid-format.email'],
+            },
+            { min: 5, message: en['validation.min-length.email'] },
+            { max: 30, message: en['validation.max-length.email'] },
           ]}>
-          <Input placeholder={EMAIL_PLACEHOLDER} />
+          <Input placeholder={en['auth.form.placeholder.email']} />
         </Form.Item>
         <Form.Item
           name="password"
-          label={PASSWORD_LABEL}
+          label={en['auth.form.label.password']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 4, message: MIN_PASSWORD_LENGTH },
-            { max: 40, message: MAX_PASSWORD_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            { min: 4, message: en['validation.min-length.password'] },
+            { max: 40, message: en['validation.max-length.password'] },
           ]}>
-          <Input.Password placeholder={PASSWORD_PLACEHOLDER} />
+          <Input.Password placeholder={en['auth.form.placeholder.password']} />
         </Form.Item>
         <Form.Item
           name="phone"
-          label={PHONE_LABEL}
+          label={en['auth.form.label.phone']}
           rules={[
-            { required: true, message: REQUIRED_FIELD_ERROR },
-            { min: 10, message: MIN_PHONE_LENGTH },
-            { max: 15, message: MAX_PHONE_LENGTH },
+            { required: true, message: en['validation.required-field'] },
+            {
+              pattern: new RegExp(/^[+*\d]{10,15}$/),
+              message: en['validation.invalid-format.phone'],
+            },
+            { min: 10, message: en['validation.min-length.phone'] },
+            { max: 15, message: en['validation.max-length.phone'] },
           ]}>
-          <Input placeholder={PHONE_PLACEHOLDER} />
+          <Input placeholder={en['auth.form.placeholder.phone']} />
         </Form.Item>
 
         <Form.Item shouldUpdate>
@@ -149,14 +125,14 @@ export const Register = () => {
                 form.getFieldsError().filter(({ errors }) => errors.length)
                   .length > 0
               }>
-              {REGISTER_BUTTON}
+              {en['auth.button.register']}
             </Button>
           )}
         </Form.Item>
       </Form>
       <Typography.Text className="form__linkText">
-        {ALREADY_HAVE_ACCOUNT_QUESTION}{' '}
-        <Link to={routes.LOGIN_PAGE}>{LOGIN_BUTTON}</Link>
+        {en['auth.question.already-have-account']}{' '}
+        <Link to={routes.LOGIN_PAGE}>{en['auth.button.login']}</Link>
       </Typography.Text>
     </div>
   );
