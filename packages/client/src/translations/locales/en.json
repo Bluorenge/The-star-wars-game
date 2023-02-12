@@ -1,7 +1,7 @@
 {
   "auth.button.login": "Sign in",
   "auth.button.register": "Sign up",
-  "auth.form.headgin.login": "Sign in",
+  "auth.form.heading.login": "Sign in",
   "auth.form.heading.registration": "Sign up",
   "auth.form.label.email": "Email",
   "auth.form.label.first-name": "First name",

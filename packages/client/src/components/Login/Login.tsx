@@ -44,7 +44,7 @@ export const Login = () => {
     <div className="form">
       {contextHolder}
       <Typography.Title className="form__heading">
-        {en['auth.form.headgin.login']}
+        {en['auth.form.heading.login']}
       </Typography.Title>
       <Form form={form} name="loginForm" onFinish={onSubmit} layout="vertical">
         <Form.Item
