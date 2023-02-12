@@ -1,9 +1,16 @@
-import axios from 'axios'
+import { api } from 'api';
+import {
+  LoginInput,
+  LoginInputDto,
+  RegisterInput,
+  RegisterInputDto,
+} from 'models/auth.model';
 
-class Auth {
-  login(payload: any) {
-    return axios.put('auth', payload)
-  }
-}
-
-export const auth = new Auth()
+export const authApi = {
+  register: (data: RegisterInput) => {
+    return api.post('/auth/signup', new RegisterInputDto(data));
+  },
+  login: (data: LoginInput) => {
+    return api.post('/auth/signin', new LoginInputDto(data));
+  },
+};
