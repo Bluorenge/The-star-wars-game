@@ -41,12 +41,12 @@ export const Login = () => {
   }
 
   return (
-    <div className="form">
+    <div className="formLogin">
       {contextHolder}
-      <Typography.Title className="form__heading">
+      <Typography.Title className="formLogin__heading">
         {en['auth.form.heading.login']}
       </Typography.Title>
-      <Form form={form} name="loginForm" onFinish={onSubmit} layout="vertical">
+      <Form form={form} name="formLogin" onFinish={onSubmit} layout="vertical">
         <Form.Item
           name="login"
           label={en['auth.form.label.login']}
@@ -54,7 +54,8 @@ export const Login = () => {
             { required: true, message: en['validation.required-field'] },
             { min: 3, message: en['validation.min-length.login'] },
             { max: 20, message: en['validation.max-length.login'] },
-          ]}>
+          ]}
+        >
           <Input placeholder={en['auth.form.placeholder.login']} />
         </Form.Item>
 
@@ -65,7 +66,8 @@ export const Login = () => {
             { required: true, message: en['validation.required-field'] },
             { min: 4, message: en['validation.min-length.password'] },
             { max: 40, message: en['validation.max-length.password'] },
-          ]}>
+          ]}
+        >
           <Input.Password placeholder={en['auth.form.placeholder.password']} />
         </Form.Item>
 
@@ -74,17 +76,18 @@ export const Login = () => {
             <Button
               type="primary"
               htmlType="submit"
-              className="form__submitButton"
+              className="formLogin__submitButton"
               disabled={
                 form.getFieldsError().filter(({ errors }) => errors.length)
                   .length > 0
-              }>
+              }
+            >
               {en['auth.button.login']}
             </Button>
           )}
         </Form.Item>
       </Form>
-      <Typography.Text className="form__linkText">
+      <Typography.Text className="formLogin__linkText">
         {en['auth.question.no-account-question']}{' '}
         <Link to={routes.REGISTER_PAGE_PATH}>{en['auth.button.register']}</Link>
       </Typography.Text>

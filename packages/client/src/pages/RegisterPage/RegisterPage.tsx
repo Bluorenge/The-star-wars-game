@@ -6,7 +6,7 @@ export const RegisterPage = () => {
   // some logic
 
   return (
-    <div className="wrapper">
+    <div className="wrapperRegisterPage">
       <Register />
     </div>
   );
