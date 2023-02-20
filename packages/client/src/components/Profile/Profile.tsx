@@ -86,6 +86,9 @@ export const Profile = () => {
           onFinish={onSubmit}
           disabled={!isEditing}
           requiredMark={false}
+          labelCol={{ span: 4 }}
+          labelAlign="left"
+          colon={false}
         >
           <Form.Item
             name="firstName"
@@ -167,7 +170,7 @@ export const Profile = () => {
               <Button
                 danger
                 onClick={handleCancelEditing}
-                className="form__editButton"
+                className="formProfile__editButton"
               >
                 {en['universal.button.cancel']}
               </Button>
@@ -175,7 +178,7 @@ export const Profile = () => {
                 <Button
                   type="primary"
                   htmlType="submit"
-                  className="form__editButton"
+                  className="formProfile__editButton"
                 >
                   {en['universal.button.save']}
                 </Button>
