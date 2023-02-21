@@ -1,4 +1,4 @@
-import { ProfileChangePassword } from 'components/ProfileChangePassword';
+import { ProfileChangePassword } from 'components/Profile/ProfileChangePassword';
 
 import './ProfileChangePasswordPage.scss';
 

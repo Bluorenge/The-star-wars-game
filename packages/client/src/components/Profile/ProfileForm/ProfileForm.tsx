@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Avatar, Button, Form, Input, Modal, Typography, message } from 'antd';
 import { LeftOutlined, UserOutlined } from '@ant-design/icons';
 import { profileApi } from 'api/profile';
-import { ProfileChangeAvatar } from 'components/ProfileChangeAvatar';
+import { ProfileChangeAvatar } from 'components/Profile/ProfileChangeAvatar';
 import { routes } from 'constants/routes';
 import { ProfileInput } from 'models/profile.model';
 import { en } from 'translations';
@@ -11,7 +11,7 @@ import { initialUserInfo } from './mock';
 
 import './Profile.scss';
 
-export const Profile = () => {
+export const ProfileForm = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [messageApi, contextHolder] = message.useMessage();
@@ -212,7 +212,7 @@ export const Profile = () => {
         <Button
           shape="circle"
           icon={<LeftOutlined />}
-          className="buttonBackChangePassword"
+          className="buttonBackProfile"
           onClick={() => {
             navigate(-1);
           }}

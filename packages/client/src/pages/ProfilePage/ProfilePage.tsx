@@ -1,5 +1,4 @@
-import { Profile } from 'components/Profile';
-
+import { ProfileForm } from 'components/Profile';
 import './ProfilePage.scss';
 
 export const ProfilePage = () => {
@@ -7,7 +6,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="wrapperProfilePage">
-      <Profile />
+      <ProfileForm />
     </div>
   );
 };
