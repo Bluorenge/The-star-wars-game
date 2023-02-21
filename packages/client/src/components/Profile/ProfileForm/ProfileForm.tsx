@@ -9,7 +9,7 @@ import { ProfileInput } from 'models/profile.model';
 import { en } from 'translations';
 import { initialUserInfo } from './mock';
 
-import './Profile.scss';
+import './ProfileForm.scss';
 
 export const ProfileForm = () => {
   const navigate = useNavigate();
