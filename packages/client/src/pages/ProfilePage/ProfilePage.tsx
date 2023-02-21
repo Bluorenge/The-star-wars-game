@@ -1,9 +1,12 @@
-import { Layout } from 'layouts/Layout';
+import { ProfileForm } from 'components/Profile';
+import './ProfilePage.scss';
 
 export const ProfilePage = () => {
+  // some logic
+
   return (
-    <div>
-      <Layout>Profile</Layout>
+    <div className="wrapperProfilePage">
+      <ProfileForm />
     </div>
   );
 };

@@ -5,4 +5,5 @@ export const routes = {
   GAME_PAGE_PATH: '/game',
   LEADERBOARD_PAGE_PATH: '/leaderboard',
   PROFILE_PAGE_PATH: '/profile',
+  PROFILE_CHANGE_PASSWORD_PAGE_PATH: '/profile/change-password',
 };

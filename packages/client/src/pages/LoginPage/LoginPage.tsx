@@ -6,7 +6,7 @@ export const LoginPage = () => {
   // some logic
 
   return (
-    <div className="wrapper">
+    <div className="wrapperLoginPage">
       <Login />
     </div>
   );
