@@ -7,6 +7,7 @@ import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { ProfileChangePasswordPage } from 'pages/ProfileChangePasswordPage';
+import { ForumMainPage } from 'pages/ForumMainPage';
 
 export const Router = () => (
   <RouterProvider
@@ -38,6 +39,10 @@ export const Router = () => (
       {
         path: routes.PROFILE_CHANGE_PASSWORD_PAGE_PATH,
         element: <ProfileChangePasswordPage />,
+      },
+      {
+        path: routes.FORUM_MAIN_PAGE_PATH,
+        element: <ForumMainPage />,
       },
     ])}
   />

@@ -1,0 +1,24 @@
+@import 'core/utils';
+
+.forumPage {
+  max-width: 1140px;
+  margin: auto;
+  padding: 24px;
+
+  &__topicQuantityWrap,
+  &__answerQuantity {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 54px;
+    border: 1px solid;
+    border-radius: 30px;
+  }
+
+  &__topicQuantity {
+    min-width: 50px;
+    margin-right: 16px;
+    text-align: right;
+  }
+}

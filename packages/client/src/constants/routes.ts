@@ -6,4 +6,5 @@ export const routes = {
   LEADERBOARD_PAGE_PATH: '/leaderboard',
   PROFILE_PAGE_PATH: '/profile',
   PROFILE_CHANGE_PASSWORD_PAGE_PATH: '/profile/change-password',
+  FORUM_MAIN_PAGE_PATH: '/forum',
 };
