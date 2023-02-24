@@ -6,6 +6,7 @@ import { AddTopicModal } from 'components/Forum/AddTopicModal';
 import './ForumMainPage.scss';
 
 import { forums } from './mock';
+import { ForumListItem } from 'models/forum.model';
 
 const { Title, Link } = Typography;
 const plusCircleOutlinedIcon = (
@@ -21,6 +22,9 @@ const plusCircleOutlinedIcon = (
 export const ForumMainPage = () => {
   const [isModalAddTopicOpen, setIsModalAddTopicOpen] =
     useState<boolean>(false);
+  const [selectedForum, setSelectedForum] = useState<ForumListItem | null>(
+    null
+  );
 
   const toggleOpenModalCreateTopic = () => {
     setIsModalAddTopicOpen((prevState) => !prevState);
@@ -65,7 +69,10 @@ export const ForumMainPage = () => {
                   type="primary"
                   shape="circle"
                   icon={plusCircleOutlinedIcon}
-                  onClick={toggleOpenModalCreateTopic}
+                  onClick={() => {
+                    toggleOpenModalCreateTopic();
+                    setSelectedForum(topic);
+                  }}
                 />
               </div>
             </Col>
@@ -80,6 +87,7 @@ export const ForumMainPage = () => {
       </Space>
 
       <AddTopicModal
+        selectedForum={selectedForum}
         isModalAddTopicOpen={isModalAddTopicOpen}
         toggleOpenModalCreateTopic={toggleOpenModalCreateTopic}
       />

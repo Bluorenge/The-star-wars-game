@@ -5,6 +5,7 @@ import { AddTopicModalProps } from 'models/forum.model';
 const { Title, Text } = Typography;
 
 export const AddTopicModal: React.FC<AddTopicModalProps> = ({
+  selectedForum,
   isModalAddTopicOpen,
   toggleOpenModalCreateTopic,
 }) => {
@@ -32,7 +33,7 @@ export const AddTopicModal: React.FC<AddTopicModalProps> = ({
     <Modal
       title={
         <Title level={3} style={{ marginTop: 10, marginBottom: 20 }}>
-          Добавление новой темы
+          Добавление новой темы для форума "{selectedForum?.title}"
         </Title>
       }
       open={isModalAddTopicOpen}

@@ -6,6 +6,7 @@ export interface ForumListItem {
 }
 
 export interface AddTopicModalProps {
+  selectedForum: ForumListItem | null;
   isModalAddTopicOpen: boolean;
   toggleOpenModalCreateTopic: () => void;
 }
