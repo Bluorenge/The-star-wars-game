@@ -13,6 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       api: path.join(__dirname, './src/api'),
+      app: path.join(__dirname, './src/app'),
       components: path.join(__dirname, './src/components'),
       'components-ui': path.join(__dirname, './src/components-ui'),
       constants: path.join(__dirname, './src/constants'),

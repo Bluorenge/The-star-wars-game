@@ -19,6 +19,12 @@
     margin: $paddingL;
   }
 
+  &__avatar {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
   &__editButtons {
     display: flex;
     flex-direction: row;
