@@ -2,61 +2,59 @@ import { Typography, Col, Row, Space, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
-import { AddTopicModal } from 'components/Forum/AddTopicModal';
+import { ForumAddTopicModal } from 'components/Forum/ForumAddTopicModal';
 import './ForumMainPage.scss';
+import { en } from 'translations';
 
 import { forums } from './mock';
 import { ForumListItem } from 'models/forum.model';
 
-const { Title, Link } = Typography;
 const plusCircleOutlinedIcon = (
-  <PlusCircleOutlined
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      fontSize: 16,
-    }}
-  />
+  <PlusCircleOutlined className="flex justify-center text-base" />
 );
 
 export const ForumMainPage = () => {
-  const [isModalAddTopicOpen, setIsModalAddTopicOpen] =
+  const [isForumAddTopicModalOpen, setisForumAddTopicModalOpen] =
     useState<boolean>(false);
   const [selectedForum, setSelectedForum] = useState<ForumListItem | null>(
     null
   );
 
   const toggleOpenModalCreateTopic = () => {
-    setIsModalAddTopicOpen((prevState) => !prevState);
+    setisForumAddTopicModalOpen((prevState) => !prevState);
   };
 
   return (
     <div className="forumPage">
-      <Title style={{ marginTop: 0 }}>Форум</Title>
+      <Typography.Title className="mt-0">
+        {en['forum.main-title']}
+      </Typography.Title>
 
-      <Space direction="vertical" size={20} style={{ display: 'flex' }}>
+      <Space direction="vertical" size={20} className="flex">
         <Row gutter={[20, 50]}>
           <Col span={19}>
-            <Title level={4}>Форумы</Title>
+            <Typography.Title level={4}>
+              {en['forum.main-page.col-title.forums']}
+            </Typography.Title>
           </Col>
 
           <Col span={3}>
-            <Title level={4} className="text-center">
-              Темы
-            </Title>
+            <Typography.Title level={4} className="text-center">
+              {en['forum.main-page.col-title.topics']}
+            </Typography.Title>
           </Col>
 
           <Col span={2}>
-            <Title level={4} className="text-center">
-              Ответы
-            </Title>
+            <Typography.Title level={4} className="text-center">
+              {en['forum.main-page.col-title.answers']}
+            </Typography.Title>
           </Col>
         </Row>
 
         {forums.map((topic) => (
           <Row key={topic.id} align="middle" gutter={[20, 50]}>
             <Col span={19}>
-              <Link>{topic.title}</Link>
+              <Typography.Link>{topic.title}</Typography.Link>
             </Col>
 
             <Col span={3}>
@@ -86,9 +84,9 @@ export const ForumMainPage = () => {
         ))}
       </Space>
 
-      <AddTopicModal
+      <ForumAddTopicModal
         selectedForum={selectedForum}
-        isModalAddTopicOpen={isModalAddTopicOpen}
+        isForumAddTopicModalOpen={isForumAddTopicModalOpen}
         toggleOpenModalCreateTopic={toggleOpenModalCreateTopic}
       />
     </div>
