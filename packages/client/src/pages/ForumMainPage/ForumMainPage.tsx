@@ -3,15 +3,11 @@ import { PlusCircleOutlined } from '@ant-design/icons';
 import { useState } from 'react';
 
 import { ForumAddTopicModal } from 'components/Forum/ForumAddTopicModal';
-import './ForumMainPage.scss';
 import { en } from 'translations';
+import './ForumMainPage.scss';
 
 import { forums } from './mock';
 import { ForumListItem } from 'models/forum.model';
-
-const plusCircleOutlinedIcon = (
-  <PlusCircleOutlined className="flex justify-center text-base" />
-);
 
 export const ForumMainPage = () => {
   const [isForumAddTopicModalOpen, setisForumAddTopicModalOpen] =
@@ -26,26 +22,36 @@ export const ForumMainPage = () => {
 
   return (
     <div className="forumPage">
-      <Typography.Title className="mt-0">
+      <Typography.Title className="forumPage__title">
         {en['forum.main-title']}
       </Typography.Title>
 
-      <Space direction="vertical" size={20} className="flex">
+      <Space
+        direction="vertical"
+        size={20}
+        className="forumPage__mainContentWrap"
+      >
         <Row gutter={[20, 50]}>
           <Col span={19}>
-            <Typography.Title level={4}>
+            <Typography.Title level={4} className="forumPage__colTitle">
               {en['forum.main-page.col-title.forums']}
             </Typography.Title>
           </Col>
 
           <Col span={3}>
-            <Typography.Title level={4} className="text-center">
+            <Typography.Title
+              level={4}
+              className="forumPage__colTitle forumPage__colTitle--centered"
+            >
               {en['forum.main-page.col-title.topics']}
             </Typography.Title>
           </Col>
 
           <Col span={2}>
-            <Typography.Title level={4} className="text-center">
+            <Typography.Title
+              level={4}
+              className="forumPage__colTitle forumPage__colTitle--centered"
+            >
               {en['forum.main-page.col-title.answers']}
             </Typography.Title>
           </Col>
@@ -66,7 +72,9 @@ export const ForumMainPage = () => {
                 <Button
                   type="primary"
                   shape="circle"
-                  icon={plusCircleOutlinedIcon}
+                  icon={
+                    <PlusCircleOutlined className="forumPage__addBtnIcon" />
+                  }
                   onClick={() => {
                     toggleOpenModalCreateTopic();
                     setSelectedForum(topic);

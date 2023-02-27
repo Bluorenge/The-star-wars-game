@@ -5,6 +5,18 @@
   margin: auto;
   padding: 24px;
 
+  &__mainContentWrap {
+    display: flex;
+  }
+
+  &__title {
+    margin-top: 0;
+  }
+
+  &__colTitle--centered {
+    text-align: center;
+  }
+
   &__topicQuantityWrap,
   &__answerQuantity {
     box-sizing: border-box;
@@ -14,6 +26,12 @@
     height: 54px;
     border: 1px solid;
     border-radius: 30px;
+  }
+
+  &__addBtnIcon {
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
   }
 
   &__topicQuantity {

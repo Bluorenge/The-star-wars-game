@@ -1,7 +1,9 @@
 import { Typography, Modal, Input, message } from 'antd';
 import { useState } from 'react';
+
 import { ForumAddTopicModalProps } from 'models/forum.model';
 import { en } from 'translations';
+import './ForumAddTopicModal.scss';
 
 export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
   selectedForum,
@@ -37,7 +39,7 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
   return (
     <Modal
       title={
-        <Typography.Title level={3} className="mt-2_5 mb-5">
+        <Typography.Title level={3} className="forumAddTopicModal__title">
           {en['forum.add-topic-modal.title']} "{selectedForum?.title}"
         </Typography.Title>
       }
@@ -47,6 +49,7 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
       onCancel={toggleOpenModalCreateTopic}
       okText={en['forum.add-topic-modal.ok-text']}
       cancelText={en['forum.add-topic-modal.cancel-text']}
+      className="forumAddTopicModal"
     >
       {contextHolder}
       <Input placeholder={en['forum.add-topic-modal.input-placeholder']} />
