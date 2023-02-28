@@ -10,14 +10,14 @@ import { forums } from './mock';
 import { ForumListItem } from 'models/forum.model';
 
 export const ForumMainPage = () => {
-  const [isForumAddTopicModalOpen, setisForumAddTopicModalOpen] =
+  const [isForumAddTopicModalOpen, setIsForumAddTopicModalOpen] =
     useState<boolean>(false);
   const [selectedForum, setSelectedForum] = useState<ForumListItem | null>(
     null
   );
 
   const toggleOpenModalCreateTopic = () => {
-    setisForumAddTopicModalOpen((prevState) => !prevState);
+    setIsForumAddTopicModalOpen((prevState) => !prevState);
   };
 
   return (
