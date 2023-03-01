@@ -22,6 +22,7 @@ export default defineConfig({
       models: path.join(__dirname, './src/models'),
       pages: path.join(__dirname, './src/pages'),
       translations: path.join(__dirname, './src/translations'),
+      assets: path.join(__dirname, './src/assets'),
     },
   },
   define: {
