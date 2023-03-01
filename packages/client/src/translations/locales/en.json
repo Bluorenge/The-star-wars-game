@@ -42,6 +42,7 @@
   "universal.cancel": "Cancel",
   "universal.save": "Save",
   "universal.sign-out": "Sign out",
+  "universal.success": "Success",
   "universal.upload": "Upload",
   "validation.avatar.invalid-extension": "You can only upload JPG/PNG file",
   "validation.avatar.size-limit": "Image must smaller than 2MB",

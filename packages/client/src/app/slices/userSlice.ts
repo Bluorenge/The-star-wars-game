@@ -11,16 +11,7 @@ const initialState: {
 } = {
   isAuth: false,
   isFetching: false,
-  currentUser: {
-    id: 0,
-    firstName: '',
-    secondName: '',
-    displayName: '',
-    login: '',
-    email: '',
-    phone: '',
-    avatar: '',
-  },
+  currentUser: null,
 };
 
 export const getCurrentUser = createAsyncThunk(

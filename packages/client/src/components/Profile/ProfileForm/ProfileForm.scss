@@ -20,9 +20,14 @@
   }
 
   &__avatar {
+    border: 1px solid $lightGrayColor;
     &:hover {
       cursor: pointer;
     }
+  }
+
+  &__form {
+    width: 100%;
   }
 
   &__editButtons {
