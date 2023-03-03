@@ -4,16 +4,7 @@ import {
 } from 'react';
 import { useNavigate } from 'react-router-dom';
 // import { useIntl } from 'react-intl';
-import {
-  Avatar,
-  Button,
-  Form,
-  Input,
-  Modal,
-  Spin,
-  Typography,
-  message,
-} from 'antd';
+import { Avatar, Button, Form, Input, Modal, Typography, message } from 'antd';
 import { LeftOutlined, UserOutlined } from '@ant-design/icons';
 import { authApi } from 'api/auth';
 import { profileApi } from 'api/profile';
@@ -29,6 +20,7 @@ import { useAppDispatch } from 'hooks/useAppDispatch';
 import { en } from 'translations';
 
 import './ProfileForm.scss';
+import { Loader } from 'components-ui/Loader';
 
 export const ProfileForm = () => {
   // const { formatMessage: fm } = useIntl();
@@ -37,7 +29,6 @@ export const ProfileForm = () => {
   const { isFetching: isUserFetching, currentUser } = useAppSelector(
     (state) => state.user
   );
-  const isCurrentUser = currentUser !== null;
 
   const navigate = useNavigate();
   const [form] = Form.useForm();
@@ -126,9 +117,7 @@ export const ProfileForm = () => {
             className="formProfile__avatar"
           />
         </div>
-        {/* TODO: <Loader> */}
-        {isUserFetching && <Spin spinning />}
-        {!isUserFetching && isCurrentUser ? (
+        <Loader loading={isUserFetching} spinning showChildrenWhileFetching>
           <Form
             form={form}
             name="formProfile"
@@ -271,8 +260,7 @@ export const ProfileForm = () => {
               </div>
             ) : null}
           </Form>
-        ) : null}
-
+        </Loader>
         <Button
           onClick={handleChangeProfileInfo}
           type="link"
