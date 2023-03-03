@@ -52,6 +52,7 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
       confirmLoading={isAddTopicLoading}
       cancelText={en['forum.add-topic-modal.cancel-text']}
       onCancel={toggleOpenModalCreateTopic}
+      afterClose={formAddTopic.resetFields}
       className="forumAddTopicModal"
     >
       {contextHolder}
