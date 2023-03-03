@@ -59,40 +59,41 @@ export const userSlice = createSlice({
     /**
      * getCurrentUser
      */
-    builder.addCase(getCurrentUser.pending, (state) => {
-      state.isFetching = true;
-    });
-    builder.addCase(
-      getCurrentUser.fulfilled,
-      (state, action: PayloadAction<CurrentUserDto, string>) => {
-        const {
-          id,
-          first_name,
-          second_name,
-          display_name,
-          login,
-          email,
-          phone,
-          avatar,
-        } = action.payload;
+    builder
+      .addCase(getCurrentUser.pending, (state) => {
+        state.isFetching = true;
+      })
+      .addCase(
+        getCurrentUser.fulfilled,
+        (state, action: PayloadAction<CurrentUserDto, string>) => {
+          const {
+            id,
+            first_name,
+            second_name,
+            display_name,
+            login,
+            email,
+            phone,
+            avatar,
+          } = action.payload;
 
-        state.isAuth = true;
+          state.isAuth = true;
+          state.isFetching = false;
+          state.currentUser = {
+            id,
+            firstName: first_name,
+            secondName: second_name,
+            displayName: display_name,
+            login,
+            email,
+            phone,
+            avatar,
+          } as CurrentUser;
+        }
+      )
+      .addCase(getCurrentUser.rejected, (state) => {
         state.isFetching = false;
-        state.currentUser = {
-          id,
-          firstName: first_name,
-          secondName: second_name,
-          displayName: display_name,
-          login,
-          email,
-          phone,
-          avatar,
-        } as CurrentUser;
-      }
-    );
-    builder.addCase(getCurrentUser.rejected, (state) => {
-      state.isFetching = false;
-    });
+      });
   },
 });
 

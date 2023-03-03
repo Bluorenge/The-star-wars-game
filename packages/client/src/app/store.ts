@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
-// import localeReducer from 'app/slices/localeSlice';
+import localeReducer from 'app/slices/localeSlice';
 import userReducer from 'app/slices/userSlice';
 
 export const store = configureStore({
   reducer: {
-    // locale: localeReducer,
+    locale: localeReducer,
     user: userReducer,
   },
 });
