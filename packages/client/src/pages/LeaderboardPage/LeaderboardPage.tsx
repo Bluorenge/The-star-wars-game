@@ -12,12 +12,12 @@ interface IData {
 
 const columns = [
   {
-    title: 'Имя',
+    title: en['leaderboard.table.name'],
     dataIndex: 'name',
   },
   {
     title: 'Очки',
-    dataIndex: 'score',
+    dataIndex: en['leaderboard.table.score'],
   },
 ];
 

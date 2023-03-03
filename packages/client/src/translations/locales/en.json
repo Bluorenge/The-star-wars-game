@@ -18,6 +18,8 @@
   "auth.question.already-have-account": "Already have account?",
   "auth.question.no-account-question": "No account?",
   "leaderboard.title": "Leaderboard",
+  "leaderboard.table.name": "Name",
+  "leaderboard.table.score": "Score",
   "profile.button.change-password": "Change password",
   "profile.button.change-profile-info": "Change profile info",
   "profile.form.heading": "Profile",
