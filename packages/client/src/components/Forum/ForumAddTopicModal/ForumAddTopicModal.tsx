@@ -1,4 +1,4 @@
-import { Typography, Modal, Input, message } from 'antd';
+import { Typography, Modal, Input, message, Form } from 'antd';
 import { useState } from 'react';
 
 import { ForumAddTopicModalProps } from 'models/forum.model';
@@ -12,6 +12,7 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
 }) => {
   const [isAddTopicLoading, setIsAddTopicLoading] = useState<boolean>(false);
   const [messageApi, contextHolder] = message.useMessage();
+  const [formAddTopic] = Form.useForm();
 
   const handleAddTopic = async () => {
     setIsAddTopicLoading(true);
@@ -25,6 +26,8 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
         type: 'success',
         content: en['forum.add-topic-modal.success-message'],
       });
+
+      formAddTopic.resetFields();
       toggleOpenModalCreateTopic();
     } catch (err) {
       messageApi.open({
@@ -44,15 +47,28 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
         </Typography.Title>
       }
       open={isForumAddTopicModalOpen}
-      onOk={handleAddTopic}
-      confirmLoading={isAddTopicLoading}
-      onCancel={toggleOpenModalCreateTopic}
       okText={en['forum.add-topic-modal.ok-text']}
+      onOk={formAddTopic.submit}
+      confirmLoading={isAddTopicLoading}
       cancelText={en['forum.add-topic-modal.cancel-text']}
+      onCancel={toggleOpenModalCreateTopic}
       className="forumAddTopicModal"
     >
       {contextHolder}
-      <Input placeholder={en['forum.add-topic-modal.input-placeholder']} />
+
+      <Form form={formAddTopic} onFinish={handleAddTopic}>
+        <Form.Item
+          name="topic-name"
+          rules={[
+            {
+              required: true,
+              message: en['forum.add-topic-modal.input-error-required'],
+            },
+          ]}
+        >
+          <Input placeholder={en['forum.add-topic-modal.input-placeholder']} />
+        </Form.Item>
+      </Form>
     </Modal>
   );
 };
