@@ -41,7 +41,7 @@ export const ForumMainPage = () => {
           <Col span={3}>
             <Typography.Title
               level={4}
-              className="forumPage__colTitle forumPage__colTitle--centered"
+              className="forumPage__colTitle forumPage__colTitle_centered"
             >
               {en['forum.main-page.col-title.topics']}
             </Typography.Title>
@@ -50,7 +50,7 @@ export const ForumMainPage = () => {
           <Col span={2}>
             <Typography.Title
               level={4}
-              className="forumPage__colTitle forumPage__colTitle--centered"
+              className="forumPage__colTitle forumPage__colTitle_centered"
             >
               {en['forum.main-page.col-title.answers']}
             </Typography.Title>
