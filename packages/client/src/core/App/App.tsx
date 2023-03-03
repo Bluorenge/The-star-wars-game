@@ -4,6 +4,8 @@ import { Router } from 'core/Router';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 
+import './App.scss';
+
 export const App = () => {
   const dispatch = useAppDispatch();
 
