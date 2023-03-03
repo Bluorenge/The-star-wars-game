@@ -39,9 +39,11 @@
   "profile.form-change-password.placeholder.confirm-password": "Confirm password",
   "profile.form-change-password.placeholder.old-password": "Old password",
   "profile.form-change-password.placeholder.password": "Password",
-  "universal.button.cancel": "Cancel",
-  "universal.button.save": "Save",
-  "universal.button.sign-out": "Sign out",
+  "universal.cancel": "Cancel",
+  "universal.save": "Save",
+  "universal.sign-out": "Sign out",
+  "universal.success": "Success",
+  "universal.upload": "Upload",
   "validation.avatar.invalid-extension": "You can only upload JPG/PNG file",
   "validation.avatar.size-limit": "Image must smaller than 2MB",
   "validation.invalid-format.email": "Email must be of 'email@example.com' format",
@@ -57,7 +59,7 @@
   "validation.min-length.login": "Login must be at least 4 characters",
   "validation.min-length.password": "Password must be at least 4 characters",
   "validation.min-length.phone": "Phone must be at least 10 characters",
-  "validation.min-length.second-name": "Second name must be at least 1 characters",
+  "validation.min-length.second-name": "Second name must be at least 1 character",
   "validation.required-field": "This field is required",
   "validation.password.unmatched-passwords": "Passwords must match"
 }
