@@ -27,7 +27,6 @@ export const ForumAddTopicModal: React.FC<ForumAddTopicModalProps> = ({
         content: en['forum.add-topic-modal.success-message'],
       });
 
-      formAddTopic.resetFields();
       toggleOpenModalCreateTopic();
     } catch (err) {
       messageApi.open({
