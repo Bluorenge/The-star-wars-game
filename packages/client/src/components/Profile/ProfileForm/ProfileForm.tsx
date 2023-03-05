@@ -3,7 +3,7 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useIntl } from 'react-intl';
+import { useIntl } from 'react-intl';
 import { Avatar, Button, Form, Input, Modal, Typography, message } from 'antd';
 import { LeftOutlined, UserOutlined } from '@ant-design/icons';
 import { authApi } from 'api/auth';
@@ -13,17 +13,16 @@ import { ProfileChangeAvatar } from 'components/Profile/ProfileChangeAvatar';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { API_URL } from 'constants/main';
 import { routes } from 'constants/routes';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { ProfileInput } from 'models/profile.model';
-// import { messages } from './common';
-import { useAppDispatch } from 'hooks/useAppDispatch';
-import { en } from 'translations';
+import { messages } from './common';
 
 import './ProfileForm.scss';
 import { Loader } from 'components-ui/Loader';
 
 export const ProfileForm = () => {
-  // const { formatMessage: fm } = useIntl();
+  const { formatMessage: fm } = useIntl();
 
   const dispatch = useAppDispatch();
   const { isFetching: isUserFetching, currentUser } = useAppSelector(
@@ -81,7 +80,7 @@ export const ProfileForm = () => {
 
         messageApi.open({
           type: 'success',
-          content: en['universal.success'],
+          content: fm(messages.textSuccess),
         });
 
         handleCancelEditing();
@@ -101,7 +100,7 @@ export const ProfileForm = () => {
       <div className="formProfile">
         {contextHolder}
         <Typography.Title className="formProfile__heading">
-          {en['profile.form.heading']}
+          {fm(messages.formHeading)}
         </Typography.Title>
 
         <div className="formProfile__avatarContainer">
@@ -133,108 +132,92 @@ export const ProfileForm = () => {
           >
             <Form.Item
               name="firstName"
-              // label={fm(messages.labelFirstName)}
-              label={en['profile.form.label.first-name']}
+              label={fm(messages.labelFirstName)}
               rules={[
-                // { required: true, message: fm(messages.validationRequiredField) },
-                // { min: 1, message: fm(messages.validationFirstNameMinLength) },
-                // { max: 30, message: fm(messages.validationFirstNameMaxLength) },
-                { required: true, message: en['validation.required-field'] },
-                { min: 1, message: en['validation.min-length.first-name'] },
-                { max: 30, message: en['validation.max-length.first-name'] },
+                {
+                  required: true,
+                  message: fm(messages.validationRequiredField),
+                },
+                { min: 1, message: fm(messages.validationFirstNameMinLength) },
+                { max: 30, message: fm(messages.validationFirstNameMaxLength) },
               ]}
             >
-              {/* <Input placeholder={fm(messages.placeholderFirstName)} /> */}
-              <Input placeholder={en['profile.form.label.first-name']} />
+              <Input placeholder={fm(messages.placeholderFirstName)} />
             </Form.Item>
 
             <Form.Item
               name="secondName"
-              // label={fm(messages.labelSecondName)}
-              label={en['profile.form.label.second-name']}
+              label={fm(messages.labelSecondName)}
               rules={[
-                // { required: true, message: fm(messages.validationRequiredField) },
-                // { min: 1, message: fm(messages.validationSecondNameMinLength) },
-                // { max: 30, message: fm(messages.validationSecondNameMaxLength) },
-                { required: true, message: en['validation.required-field'] },
-                { min: 1, message: en['validation.min-length.second-name'] },
-                { max: 30, message: en['validation.max-length.second-name'] },
+                {
+                  required: true,
+                  message: fm(messages.validationRequiredField),
+                },
+                { min: 1, message: fm(messages.validationSecondNameMinLength) },
+                {
+                  max: 30,
+                  message: fm(messages.validationSecondNameMaxLength),
+                },
               ]}
             >
-              {/* <Input placeholder={fm(messages.placeholderSecondName)} /> */}
-              <Input placeholder={en['profile.form.placeholder.second-name']} />
+              <Input placeholder={fm(messages.placeholderSecondName)} />
             </Form.Item>
 
-            <Form.Item
-              name="displayName"
-              // label={fm(messages.labelDisplayName)}
-              label={en['profile.form.label.display-name']}
-            >
-              {/* <Input placeholder={fm(messages.placeholderDisplayName)} /> */}
-              <Input
-                placeholder={en['profile.form.placeholder.display-name']}
-              />
+            <Form.Item name="displayName" label={fm(messages.labelDisplayName)}>
+              <Input placeholder={fm(messages.placeholderDisplayName)} />
             </Form.Item>
 
             <Form.Item
               name="login"
-              // label={fm(messages.labelLogin)}
-              label={en['profile.form.label.login']}
+              label={fm(messages.labelLogin)}
               rules={[
-                // { required: true, message: fm(messages.validationRequiredField) },
-                // { min: 3, message: fm(messages.validationLoginMinLength) },
-                // { max: 20, message: fm(messages.validationLoginMaxLength) },
-                { required: true, message: en['validation.required-field'] },
-                { min: 3, message: en['validation.min-length.login'] },
-                { max: 20, message: en['validation.max-length.login'] },
+                {
+                  required: true,
+                  message: fm(messages.validationRequiredField),
+                },
+                { min: 3, message: fm(messages.validationLoginMinLength) },
+                { max: 20, message: fm(messages.validationLoginMaxLength) },
               ]}
             >
-              {/* <Input placeholder={fm(messages.placeholderLogin)} /> */}
-              <Input placeholder={en['profile.form.placeholder.login']} />
+              <Input placeholder={fm(messages.placeholderLogin)} />
             </Form.Item>
 
             <Form.Item
               name="email"
-              // label={fm(messages.labelEmail)}
-              label={en['profile.form.label.email']}
+              label={fm(messages.labelEmail)}
               rules={[
-                // { required: true, message: fm(messages.validationRequiredField) },
-                { required: true, message: en['validation.required-field'] },
+                {
+                  required: true,
+                  message: fm(messages.validationRequiredField),
+                },
                 {
                   pattern: new RegExp(/[a-z0-9\-_]+@[a-z0-9\-_]+\.[a-z0-9]+/gi),
-                  // message: fm(messages.validationEmailInvalidFormat),
-                  message: en['validation.invalid-format.email'],
+                  message: fm(messages.validationEmailInvalidFormat),
                 },
-                // { min: 5, message: fm(messages.validationEmailMinLength) },
-                // { max: 30, message: fm(messages.validationEmailMaxLength) },
-                { min: 5, message: en['validation.min-length.email'] },
-                { max: 30, message: en['validation.max-length.email'] },
+                { min: 5, message: fm(messages.validationEmailMinLength) },
+                { max: 30, message: fm(messages.validationEmailMaxLength) },
               ]}
             >
-              {/* <Input placeholder={fm(messages.placeholderEmail)} /> */}
-              <Input placeholder={en['profile.form.placeholder.email']} />
+              <Input placeholder={fm(messages.placeholderEmail)} />
             </Form.Item>
 
             <Form.Item
               name="phone"
-              // label={fm(messages.labelPhone)}
-              label={en['profile.form.label.phone']}
+              label={fm(messages.labelPhone)}
               rules={[
-                // { required: true, message: fm(messages.validationRequiredField) },
-                { required: true, message: en['validation.required-field'] },
+                {
+                  required: true,
+                  message: fm(messages.validationRequiredField),
+                },
                 {
                   pattern: new RegExp(/^[+*\d]{10,15}$/),
-                  // message: fm(messages.validationPhoneInvalidFormat),
-                  message: en['validation.invalid-format.phone'],
+                  message: fm(messages.validationPhoneInvalidFormat),
                 },
-                // { min: 10, message: fm(messages.validationPhoneMinLength) },
-                // { max: 15, message: fm(messages.validationPhoneMaxLength) },
-                { min: 10, message: en['validation.min-length.phone'] },
-                { max: 15, message: en['validation.max-length.phone'] },
+                { min: 10, message: fm(messages.validationPhoneMinLength) },
+                { max: 15, message: fm(messages.validationPhoneMaxLength) },
               ]}
             >
-              {/* <Input placeholder={fm(messages.placeholderPhone)} /> */}
-              <Input placeholder={en['profile.form.placeholder.phone']} />
+              <Input placeholder={fm(messages.placeholderPhone)} />
             </Form.Item>
 
             {isEditing ? (
@@ -244,8 +227,7 @@ export const ProfileForm = () => {
                   onClick={handleCancelEditing}
                   className="formProfile__editButton"
                 >
-                  {/* {fm(messages.buttonCancel)} */}
-                  {en['universal.cancel']}
+                  {fm(messages.buttonCancel)}
                 </Button>
                 <Form.Item style={{ margin: 0 }}>
                   <Button
@@ -253,8 +235,7 @@ export const ProfileForm = () => {
                     htmlType="submit"
                     className="formProfile__editButton"
                   >
-                    {/* {fm(messages.buttonSave)} */}
-                    {en['universal.save']}
+                    {fm(messages.buttonSave)}
                   </Button>
                 </Form.Item>
               </div>
@@ -266,24 +247,21 @@ export const ProfileForm = () => {
           type="link"
           className="formProfile__button"
         >
-          {/* {fm(messages.buttonChangeProfileInfo)} */}
-          {en['profile.button.change-profile-info']}
+          {fm(messages.buttonChangeProfileInfo)}
         </Button>
         <Button
           onClick={handleChangePassword}
           type="link"
           className="formProfile__button"
         >
-          {/* {fm(messages.buttonChangePassword)} */}
-          {en['profile.button.change-password']}
+          {fm(messages.buttonChangePassword)}
         </Button>
         <Button
           onClick={handleSignOut}
           type="link"
           className="formProfile__button_signOut"
         >
-          {/* {fm(messages.buttonSignOut)} */}
-          {en['universal.sign-out']}
+          {fm(messages.buttonSignOut)}
         </Button>
 
         <Button
