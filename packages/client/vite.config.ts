@@ -14,6 +14,7 @@ export default defineConfig({
     alias: {
       api: path.join(__dirname, './src/api'),
       app: path.join(__dirname, './src/app'),
+      assets: path.join(__dirname, './src/assets'),
       components: path.join(__dirname, './src/components'),
       'components-ui': path.join(__dirname, './src/components-ui'),
       constants: path.join(__dirname, './src/constants'),
