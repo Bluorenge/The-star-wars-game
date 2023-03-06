@@ -1,20 +1,40 @@
 import React from 'react';
+import { IntlFormatters, defineMessages, useIntl } from 'react-intl';
 import { Upload, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
-import { profileApi } from 'api/profile';
 import { RcFile } from 'antd/es/upload/interface';
+import { PlusOutlined } from '@ant-design/icons';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
-import { en } from 'translations';
+import { profileApi } from 'api/profile';
+import { setCurrentUser } from 'app/slices/userSlice';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 
 import './ProfileChangeAvatar.scss';
 
-function beforeUpload(file: RcFile) {
+const messages = defineMessages({
+  textUpload: {
+    id: 'universal.upload',
+    defaultMessage: 'Upload',
+  },
+  validationAvatarInvalidExtension: {
+    id: 'validation.avatar.invalid-extension',
+    defaultMessage: 'You can only upload JPG/PNG file',
+  },
+  validationAvatarSizeLimit: {
+    id: 'validation.avatar.size-limit',
+    defaultMessage: 'Image must smaller than 2MB',
+  },
+});
+
+function beforeUpload(
+  file: RcFile,
+  { fm }: { fm: IntlFormatters['formatMessage'] }
+) {
   const isJpgOrPng = file.type === 'image/jpeg' || file.type === 'image/png';
 
   if (!isJpgOrPng) {
     message.open({
       type: 'error',
-      content: en['validation.avatar.invalid-extension'],
+      content: fm(messages.validationAvatarInvalidExtension),
     });
   }
 
@@ -23,7 +43,7 @@ function beforeUpload(file: RcFile) {
   if (!isLt2M) {
     message.open({
       type: 'error',
-      content: en['validation.avatar.size-limit'],
+      content: fm(messages.validationAvatarSizeLimit),
     });
   }
 
@@ -37,6 +57,8 @@ interface ProfileChangeAvatarProps {
 export const ProfileChangeAvatar: React.FC<ProfileChangeAvatarProps> = ({
   onSuccess,
 }) => {
+  const { formatMessage: fm } = useIntl();
+  const dispatch = useAppDispatch();
   const [messageApi, contextHolder] = message.useMessage();
 
   async function uploadAvatar(data: UploadRequestOption) {
@@ -46,8 +68,11 @@ export const ProfileChangeAvatar: React.FC<ProfileChangeAvatarProps> = ({
 
       const response = await profileApi.changeProfileAvatar(formData);
 
-      console.log({ response });
-      onSuccess();
+      if (response.status === 200) {
+        dispatch(setCurrentUser(response.data));
+
+        onSuccess();
+      }
     } catch (err) {
       console.error({ err });
 
@@ -66,13 +91,15 @@ export const ProfileChangeAvatar: React.FC<ProfileChangeAvatarProps> = ({
         name="avatar"
         listType="picture-circle"
         showUploadList={false}
-        beforeUpload={beforeUpload}
+        beforeUpload={(file: RcFile) => beforeUpload(file, { fm })}
         customRequest={uploadAvatar}
         className="uploadContainer"
       >
         <div>
           <PlusOutlined />
-          <div style={{ marginTop: 8 }}>Upload</div>
+          <div className="uploadContainer__textUpload">
+            {fm(messages.textUpload)}
+          </div>
         </div>
       </Upload>
     </>

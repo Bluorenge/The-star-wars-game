@@ -7,10 +7,16 @@ import {
 } from 'models/auth.model';
 
 export const authApi = {
-  register: (data: RegisterInput) => {
-    return api.post('/auth/signup', new RegisterInputDto(data));
+  getCurrentUser: async () => {
+    return api.get('/auth/user');
   },
   login: (data: LoginInput) => {
     return api.post('/auth/signin', new LoginInputDto(data));
+  },
+  register: (data: RegisterInput) => {
+    return api.post('/auth/signup', new RegisterInputDto(data));
+  },
+  signOut: () => {
+    return api.post('/auth/logout');
   },
 };
