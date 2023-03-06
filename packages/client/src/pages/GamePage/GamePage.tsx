@@ -1,36 +1,43 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 import Display from './canvas';
 
 import './GamePage.scss';
 
 export const GamePage = () => {
-  const ref = useRef<any>();
+  const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
 
   const [gameInfo, setGameInfo] = useState('');
   const [games, setGames] = useState(0);
 
   useEffect(() => {
-    const canvas: HTMLCanvasElement = ref.current;
-    let interval: any;
-    let display: any;
+    let canvas: HTMLCanvasElement;
+    let interval: ReturnType<typeof setInterval>;
 
-    if (canvas) {
-      canvas.width = window.innerWidth - 20;
-      canvas.height = window.innerHeight - 80;
-      canvas.style.width = `${window.innerWidth - 20}px`;
-      canvas.style.height = `${window.innerHeight - 80}px`;
+    let display: Display;
+
+    const widthMargin = 20;
+    const heightMargin = 80;
+    const updateInterval = 20;
+
+    if (canvasRef.current) {
+      canvas = canvasRef.current;
+
+      canvas.width = window.innerWidth - widthMargin;
+      canvas.height = window.innerHeight - heightMargin;
+      canvas.style.width = `${window.innerWidth - widthMargin}px`;
+      canvas.style.height = `${window.innerHeight - heightMargin}px`;
 
       display = new Display(
-        window.innerWidth - 20,
-        window.innerHeight - 80,
+        window.innerWidth - widthMargin,
+        window.innerHeight - heightMargin,
         setGameInfo
       );
       display.context = canvas.getContext('2d');
       display.setGameInfo = setGameInfo;
 
       display.init();
-      interval = setInterval(() => display.update(), 20);
+      interval = setInterval(() => display.update(), updateInterval);
       window.addEventListener('keydown', display.buttonDownHandler);
       window.addEventListener('keyup', display.buttonUpHandler);
     }
@@ -42,12 +49,12 @@ export const GamePage = () => {
   }, [games]);
 
   return (
-    <div className="game-wrapper">
-      <p>Игр сыграно: {games}</p>
-      <canvas ref={ref} />
+    <div className="gameWrapper">
+      <p className="gameWrapper__gamesCount">Игр сыграно: {games}</p>
+      <canvas ref={canvasRef} />
       {gameInfo === 'end' && (
         <button
-          style={{ display: 'block' }}
+          className="gameWrapper__newGame"
           onClick={() => {
             setGames(games + 1);
             setGameInfo('');

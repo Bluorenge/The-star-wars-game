@@ -1,14 +1,15 @@
-.game-wrapper {
+.gameWrapper {
   width: 100%;
   background: #000;
   height: 100%;
 
-  p {
+  .gameWrapper__gamesCount {
     padding: 20px;
     color: white;
   }
 
-  button {
+  .gameWrapper__newGame {
+    display: block;
     position: absolute;
     top: 50%;
     right: calc(50% - 100px);

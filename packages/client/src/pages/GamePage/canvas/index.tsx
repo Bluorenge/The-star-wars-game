@@ -1,6 +1,7 @@
 import { CloneShip } from './CloneShip';
 import { Bullet } from './Bullet';
 import { MillenniumFalcon } from './MillenniumFalcon';
+import { EventHandler, KeyboardEvent } from 'react';
 
 class Display {
   scope = 0;
@@ -9,8 +10,8 @@ class Display {
   context: any;
   interval: any;
 
-  bullets: Array<any> = [];
-  cloneShips: Array<any> = [];
+  bullets: Array<Bullet> = [];
+  cloneShips: Array<CloneShip> = [];
   millenniumFalcon = new MillenniumFalcon();
 
   setGameInfo: React.Dispatch<React.SetStateAction<string>>;
@@ -32,14 +33,13 @@ class Display {
       this.context.fillStyle = 'black';
       this.context.fillRect(0, 0, this.width, this.height);
 
-      this.millenniumFalcon.pic instanceof HTMLImageElement &&
-        this.context.drawImage(
-          this.millenniumFalcon.pic,
-          this.millenniumFalcon.x,
-          this.millenniumFalcon.y,
-          this.millenniumFalcon.width,
-          this.millenniumFalcon.height
-        );
+      this.context.drawImage(
+        this.millenniumFalcon.pic,
+        this.millenniumFalcon.x,
+        this.millenniumFalcon.y,
+        this.millenniumFalcon.width,
+        this.millenniumFalcon.height
+      );
 
       if (this.millenniumFalcon.health > 70) this.context.fillStyle = 'green';
       if (this.millenniumFalcon.health < 70) this.context.fillStyle = 'yellow';
@@ -52,7 +52,7 @@ class Display {
       this.context.fillText(String(this.scope), this.width - 50, 50);
 
       if (this.bullets.length > 0) {
-        this.bullets = this.bullets.filter((bullet: Bullet) => {
+        this.bullets = this.bullets.filter((bullet) => {
           if (bullet.isVisible) {
             this.context.fillStyle = 'red';
             this.context.fillRect(
@@ -72,17 +72,15 @@ class Display {
       }
 
       if (this.cloneShips.length > 0) {
-        this.cloneShips = this.cloneShips.filter((cloneShip: CloneShip) => {
+        this.cloneShips = this.cloneShips.filter((cloneShip) => {
           if (cloneShip.isVisible) {
-            if (cloneShip?.pic instanceof HTMLImageElement) {
-              this.context.drawImage(
-                cloneShip?.pic,
-                cloneShip.x,
-                cloneShip.y,
-                cloneShip.width,
-                cloneShip.height
-              );
-            }
+            this.context.drawImage(
+              cloneShip?.pic,
+              cloneShip.x,
+              cloneShip.y,
+              cloneShip.width,
+              cloneShip.height
+            );
 
             cloneShip.update();
             if (cloneShip.y < this.height) {
@@ -138,7 +136,7 @@ class Display {
 
   reload = true;
 
-  buttonDownHandler = (e: any) => {
+  buttonDownHandler = (e: KeyboardEvent) => {
     //UP
     if (e.keyCode === 38) {
       this.activeActions.upUpdate = true;
@@ -161,8 +159,7 @@ class Display {
       this.activeActions.fireUpdate = true;
     }
   };
-
-  buttonUpHandler = (e: any) => {
+  buttonUpHandler = (e: KeyboardEvent) => {
     //UP
     if (e.keyCode === 38) {
       this.activeActions.upUpdate = false;
