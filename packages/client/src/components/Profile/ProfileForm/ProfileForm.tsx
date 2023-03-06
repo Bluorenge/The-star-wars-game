@@ -274,15 +274,13 @@ export const ProfileForm = () => {
         />
       </div>
 
-      {isModalAvatarOpen ? (
-        <Modal
-          open={isModalAvatarOpen}
-          footer={null}
-          onCancel={handleProfileAvatarModal}
-        >
-          <ProfileChangeAvatar onSuccess={handleProfileAvatarModal} />
-        </Modal>
-      ) : null}
+      <Modal
+        open={isModalAvatarOpen}
+        footer={null}
+        onCancel={handleProfileAvatarModal}
+      >
+        <ProfileChangeAvatar onSuccess={handleProfileAvatarModal} />
+      </Modal>
     </>
   );
 };
