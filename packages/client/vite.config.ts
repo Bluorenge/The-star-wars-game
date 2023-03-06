@@ -13,15 +13,19 @@ export default defineConfig({
   resolve: {
     alias: {
       api: path.join(__dirname, './src/api'),
+      app: path.join(__dirname, './src/app'),
       components: path.join(__dirname, './src/components'),
+      'components-ui': path.join(__dirname, './src/components-ui'),
       constants: path.join(__dirname, './src/constants'),
       core: path.join(__dirname, './src/core'),
+      helpers: path.join(__dirname, './src/helpers'),
       hoc: path.join(__dirname, './src/hoc'),
       hooks: path.join(__dirname, './src/hooks'),
       layouts: path.join(__dirname, './src/layouts'),
       models: path.join(__dirname, './src/models'),
       pages: path.join(__dirname, './src/pages'),
       translations: path.join(__dirname, './src/translations'),
+      typings: path.join(__dirname, './src/typings'),
     },
   },
   define: {
