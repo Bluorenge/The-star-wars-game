@@ -1,1 +1,1 @@
-export { LoginPage } from './LoginPage';
+export { withRedirectLoginPage as LoginPage } from './LoginPage';

@@ -1,1 +1,1 @@
-export { ProfilePage } from './ProfilePage';
+export { withRedirectProfilePage as ProfilePage } from './ProfilePage';

@@ -1,7 +1,8 @@
 import { ProfileForm } from 'components/Profile';
 import './ProfilePage.scss';
+import withRedirect from 'hocs/withRedirect';
 
-export const ProfilePage = () => {
+const ProfilePage = () => {
   // some logic
 
   return (
@@ -10,3 +11,5 @@ export const ProfilePage = () => {
     </div>
   );
 };
+
+export const withRedirectProfilePage = withRedirect(ProfilePage);

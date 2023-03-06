@@ -1,8 +1,9 @@
 import { Login } from 'components/Login';
 
 import './LoginPage.scss';
+import withRedirect from 'hocs/withRedirect';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   // some logic
 
   return (
@@ -11,3 +12,5 @@ export const LoginPage = () => {
     </div>
   );
 };
+
+export const withRedirectLoginPage = withRedirect(LoginPage);
