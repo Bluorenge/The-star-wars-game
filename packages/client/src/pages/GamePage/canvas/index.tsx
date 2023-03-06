@@ -136,7 +136,7 @@ class Display {
 
   reload = true;
 
-  buttonDownHandler = (e: KeyboardEvent) => {
+  buttonDownHandler = (e: any) => {
     //UP
     if (e.keyCode === 38) {
       this.activeActions.upUpdate = true;
@@ -159,7 +159,7 @@ class Display {
       this.activeActions.fireUpdate = true;
     }
   };
-  buttonUpHandler = (e: KeyboardEvent) => {
+  buttonUpHandler = (e: any) => {
     //UP
     if (e.keyCode === 38) {
       this.activeActions.upUpdate = false;
