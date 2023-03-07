@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { GlobalOutlined } from '@ant-design/icons';
 import { getCurrentUser } from 'app/slices/userSlice';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { Router } from 'core/Router';
@@ -10,11 +9,9 @@ import { en, ru } from 'translations';
 
 import './App.scss';
 
-import './App.scss';
-
 export const App = () => {
   const dispatch = useAppDispatch();
-  const [locale, toggleLocale] = useLocale();
+  const [locale] = useLocale();
 
   useEffect(() => {
     if (localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY)) {
@@ -29,13 +26,6 @@ export const App = () => {
         messages={locale === 'en' ? en : ru}
         defaultLocale="en"
       >
-        {/* временное решение до внедрения navbar */}
-        <GlobalOutlined
-          className="locIcon"
-          onClick={() => {
-            toggleLocale();
-          }}
-        />
         <Router />
       </IntlProvider>
     </div>

@@ -1,25 +1,21 @@
-import {
-  // useEffect,
-  useState,
-} from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Avatar, Button, Form, Input, Modal, Typography, message } from 'antd';
 import { LeftOutlined, UserOutlined } from '@ant-design/icons';
-import { authApi } from 'api/auth';
 import { profileApi } from 'api/profile';
-import { getCurrentUser, setCurrentUser } from 'app/slices/userSlice';
+import { getCurrentUser, signOut } from 'app/slices/userSlice';
 import { ProfileChangeAvatar } from 'components/Profile/ProfileChangeAvatar';
-import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
+import { Loader } from 'components-ui/Loader';
 import { API_URL } from 'constants/main';
-import { routes } from 'constants/routes';
+import { ROUTES } from 'constants/routes';
+import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { ProfileInput } from 'models/profile.model';
 import { messages } from './common';
 
 import './ProfileForm.scss';
-import { Loader } from 'components-ui/Loader';
 
 export const ProfileForm = () => {
   const { formatMessage: fm } = useIntl();
@@ -51,24 +47,13 @@ export const ProfileForm = () => {
   };
 
   const handleChangePassword = () => {
-    navigate(routes.PROFILE_CHANGE_PASSWORD_PAGE_PATH);
+    navigate(ROUTES.PROFILE_CHANGE_PASSWORD_PAGE_PATH);
   };
 
   const handleSignOut = async () => {
-    try {
-      await authApi.signOut();
-    } catch (err) {
-      console.error({ err });
-      messageApi.open({
-        type: 'error',
-        // @ts-expect-error: needs typing
-        content: err.response.data.reason,
-      });
-    }
+    dispatch(signOut());
 
-    dispatch(setCurrentUser(null));
-    localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
-    navigate(routes.LOGIN_PAGE);
+    navigate(ROUTES.LOGIN_PAGE);
   };
 
   async function onSubmit(values: ProfileInput) {
@@ -86,12 +71,7 @@ export const ProfileForm = () => {
         handleCancelEditing();
       }
     } catch (err) {
-      console.error({ err });
-      messageApi.open({
-        type: 'error',
-        // @ts-expect-error: needs typing
-        content: err.response.data.reason,
-      });
+      handleErrorFromServer(err);
     }
   }
 

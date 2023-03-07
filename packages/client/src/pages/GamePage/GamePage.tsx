@@ -1,4 +1,4 @@
-import React, { MutableRefObject, useEffect, useRef, useState } from 'react';
+import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
 import Display from './canvas';
 

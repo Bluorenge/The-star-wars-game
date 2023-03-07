@@ -11,10 +11,7 @@ export const messages = defineMessages({
     defaultMessage: 'Change profile info',
   },
   buttonSave: { id: 'universal.save', defaultMessage: 'Save' },
-  buttonSignOut: {
-    id: 'universal.sign-out',
-    defaultMessage: 'Sign out',
-  },
+  buttonSignOut: { id: 'universal.sign-out', defaultMessage: 'Sign out' },
   formHeading: { id: 'profile.form.heading', defaultMessage: 'Profile' },
   labelDisplayName: {
     id: 'profile.form.label.display-name',
@@ -55,10 +52,7 @@ export const messages = defineMessages({
     id: 'profile.form.placeholder.second-name',
     defaultMessage: 'Second name',
   },
-  textSuccess: {
-    id: 'universal.success',
-    defaultMessage: 'Success',
-  },
+  textSuccess: { id: 'universal.success', defaultMessage: 'Success' },
   validationEmailInvalidFormat: {
     id: 'validation.invalid-format.email',
     defaultMessage: 'Email must be of "email@example.com" format',

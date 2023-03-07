@@ -1,6 +1,8 @@
+@import 'core/vars';
+
 .forumPage {
   max-width: 1140px;
-  margin: auto;
+  margin: $headerHeight auto 0;
   padding: 24px;
 
   &__mainContentWrap {
