@@ -10,8 +10,6 @@ import { en, ru } from 'translations';
 
 import './App.scss';
 
-import './App.scss';
-
 export const App = () => {
   const dispatch = useAppDispatch();
   const [locale, toggleLocale] = useLocale();

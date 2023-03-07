@@ -3,18 +3,20 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const withRedirect = (Component: React.FC) => (props: any) => {
+const ProtectedRouteWrap = ({ children }: { children: JSX.Element }) => {
   const { currentUser } = useAppSelector((state) => state.user);
   const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
-    if (!currentUser) {
-      return navigate(routes.LOGIN_PAGE, { state: { from: location } });
+    if (currentUser) {
+      return navigate(location.state?.from?.pathname || routes.MAIN_PAGE_PATH, {
+        replace: true,
+      });
     }
   }, []);
 
-  return <Component {...props} />;
+  return children;
 };
 
-export default withRedirect;
+export default ProtectedRouteWrap;
