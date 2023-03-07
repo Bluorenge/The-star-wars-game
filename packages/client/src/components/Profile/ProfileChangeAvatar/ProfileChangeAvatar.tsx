@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import { IntlFormatters, defineMessages, useIntl } from 'react-intl';
 import { Upload, message } from 'antd';
 import { RcFile } from 'antd/es/upload/interface';
@@ -6,15 +6,13 @@ import { PlusOutlined } from '@ant-design/icons';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
 import { profileApi } from 'api/profile';
 import { setCurrentUser } from 'app/slices/userSlice';
+import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 
 import './ProfileChangeAvatar.scss';
 
 const messages = defineMessages({
-  textUpload: {
-    id: 'universal.upload',
-    defaultMessage: 'Upload',
-  },
+  textUpload: { id: 'universal.upload', defaultMessage: 'Upload' },
   validationAvatarInvalidExtension: {
     id: 'validation.avatar.invalid-extension',
     defaultMessage: 'You can only upload JPG/PNG file',
@@ -54,12 +52,11 @@ interface ProfileChangeAvatarProps {
   onSuccess: () => void;
 }
 
-export const ProfileChangeAvatar: React.FC<ProfileChangeAvatarProps> = ({
+export const ProfileChangeAvatar: FC<ProfileChangeAvatarProps> = ({
   onSuccess,
 }) => {
   const { formatMessage: fm } = useIntl();
   const dispatch = useAppDispatch();
-  const [messageApi, contextHolder] = message.useMessage();
 
   async function uploadAvatar(data: UploadRequestOption) {
     try {
@@ -74,19 +71,12 @@ export const ProfileChangeAvatar: React.FC<ProfileChangeAvatarProps> = ({
         onSuccess();
       }
     } catch (err) {
-      console.error({ err });
-
-      messageApi.open({
-        type: 'error',
-        // @ts-expect-error: needs typing
-        content: err.response.data.reason,
-      });
+      handleErrorFromServer(err);
     }
   }
 
   return (
     <>
-      {contextHolder}
       <Upload
         name="avatar"
         listType="picture-circle"

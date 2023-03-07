@@ -1,4 +1,4 @@
-export const routes = {
+export const ROUTES = {
   MAIN_PAGE_PATH: '/',
   LOGIN_PAGE: '/signin',
   REGISTER_PAGE_PATH: '/register',

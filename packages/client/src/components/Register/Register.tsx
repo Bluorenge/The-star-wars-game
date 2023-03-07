@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
-import { Button, Form, Input, Typography, message } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import { authApi } from 'api/auth';
 import { getCurrentUser } from 'app/slices/userSlice';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
-import { routes } from 'constants/routes';
+import { ROUTES } from 'constants/routes';
+import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { RegisterInput } from 'models/auth.model';
 import { messages } from './common';
@@ -17,12 +17,6 @@ export const Register = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
-  const [, forceUpdate] = useState({});
-
-  useEffect(() => {
-    forceUpdate({});
-  }, []);
 
   async function onSubmit(values: RegisterInput) {
     try {
@@ -31,22 +25,16 @@ export const Register = () => {
       if (response.status === 200) {
         localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
         dispatch(getCurrentUser());
-        navigate(routes.MAIN_PAGE_PATH);
+
+        navigate(ROUTES.MAIN_PAGE_PATH);
       }
     } catch (err) {
-      console.error({ err });
-
-      messageApi.open({
-        type: 'error',
-        // @ts-expect-error: needs typing
-        content: err.response.data.reason,
-      });
+      handleErrorFromServer(err);
     }
   }
 
   return (
     <div className="formRegister">
-      {contextHolder}
       <Typography.Title className="formRegister__heading">
         {fm(messages.formHeading)}
       </Typography.Title>
@@ -149,7 +137,7 @@ export const Register = () => {
       </Form>
       <Typography.Text className="formRegister__linkText">
         {fm(messages.textAlreadyHaveAccount)}{' '}
-        <Link to={routes.LOGIN_PAGE}>{fm(messages.buttonLogin)}</Link>
+        <Link to={ROUTES.LOGIN_PAGE}>{fm(messages.buttonLogin)}</Link>
       </Typography.Text>
     </div>
   );

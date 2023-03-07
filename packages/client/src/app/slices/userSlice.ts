@@ -2,6 +2,8 @@ import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
 import { authApi } from 'api/auth';
 import { profileApi } from 'api/profile';
+import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
+import { handleErrorFromServer } from 'helpers/errorNotification';
 import { CurrentUser, CurrentUserDto } from 'models/auth.model';
 
 const initialState: {
@@ -24,10 +26,22 @@ export const getCurrentUser = createAsyncThunk(
         return { ...response.data };
       }
     } catch (err) {
-      console.error({ err });
+      handleErrorFromServer(err);
     }
   }
 );
+
+export const signOut = createAsyncThunk('user/signOut', async () => {
+  try {
+    const resopnse = await authApi.signOut();
+
+    if (resopnse.status === 200) {
+      localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
+    }
+  } catch (err) {
+    handleErrorFromServer(err);
+  }
+});
 
 export const updateUserAvatar = createAsyncThunk(
   'user/updateAvatar',
@@ -42,7 +56,7 @@ export const updateUserAvatar = createAsyncThunk(
         return { ...response.data };
       }
     } catch (err) {
-      console.error({ err });
+      handleErrorFromServer(err);
     }
   }
 );
@@ -92,6 +106,21 @@ export const userSlice = createSlice({
         }
       )
       .addCase(getCurrentUser.rejected, (state) => {
+        state.isFetching = false;
+      });
+    /**
+     * signOut
+     */
+    builder
+      .addCase(signOut.pending, (state) => {
+        state.isFetching = true;
+      })
+      .addCase(signOut.fulfilled, (state) => {
+        state.isFetching = false;
+        state.isAuth = false;
+        state.currentUser = null;
+      })
+      .addCase(signOut.rejected, (state) => {
         state.isFetching = false;
       });
   },
