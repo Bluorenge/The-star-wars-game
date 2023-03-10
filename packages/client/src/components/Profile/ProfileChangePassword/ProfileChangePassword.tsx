@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
-import { Button, Form, Input, Typography, message } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import { profileApi } from 'api/profile';
-import { routes } from 'constants/routes';
+import { ROUTES } from 'constants/routes';
+import { handleErrorFromServer } from 'helpers/errorNotification';
 import { ProfileChangePasswordInput } from 'models/profile.model';
 
 import './ProfileChangePassword.scss';
@@ -60,7 +61,6 @@ export const ProfileChangePassword = () => {
   const { formatMessage: fm } = useIntl();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
 
   async function onSubmit(values: ProfileChangePasswordInput) {
     console.log({ values });
@@ -68,22 +68,15 @@ export const ProfileChangePassword = () => {
       const response = await profileApi.changeProfilePassword(values);
 
       if (response.status === 200) {
-        navigate(routes.PROFILE_PAGE_PATH);
+        navigate(ROUTES.PROFILE_PAGE_PATH);
       }
     } catch (err) {
-      console.error({ err });
-
-      messageApi.open({
-        type: 'error',
-        // @ts-expect-error: needs typing
-        content: err.response.data.reason,
-      });
+      handleErrorFromServer(err);
     }
   }
 
   return (
     <div className="formProfileChangePassword">
-      {contextHolder}
       <Typography.Title>{fm(messages.formHeading)}</Typography.Title>
       <Form
         form={form}

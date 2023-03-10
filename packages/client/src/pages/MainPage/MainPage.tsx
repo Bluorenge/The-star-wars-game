@@ -1,9 +1,7 @@
-import { Layout } from 'layouts/Layout';
+import { FC } from 'react';
 
-export const MainPage = () => {
-  return (
-    <div>
-      <Layout>Main</Layout>
-    </div>
-  );
+import './MainPage.scss';
+
+export const MainPage: FC = () => {
+  return <div className="wrapperMainPage">MainPage</div>;
 };

@@ -1,15 +1,32 @@
+import { useState } from 'react';
 import { Typography, Col, Row, Space, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
-import { useState } from 'react';
-
+import { defineMessages, useIntl } from 'react-intl';
 import { ForumAddTopicModal } from 'components/Forum/ForumAddTopicModal';
-import { en } from 'translations';
+import { ForumListItem } from 'models/forum.model';
+import { forums } from './mock';
+
 import './ForumMainPage.scss';
 
-import { forums } from './mock';
-import { ForumListItem } from 'models/forum.model';
+const messages = defineMessages({
+  titleMain: { id: 'forum.main-title', defaultMessage: 'Forum' },
+  titleColumnForums: {
+    id: 'forum.main-page.col-title.forums',
+    defaultMessage: 'Forums',
+  },
+  titleColumnTopics: {
+    id: 'forum.main-page.col-title.topics',
+    defaultMessage: 'Topics',
+  },
+  titleColumnReplies: {
+    id: 'forum.main-page.col-title.replies',
+    defaultMessage: 'Replies',
+  },
+});
 
 export const ForumMainPage = () => {
+  const { formatMessage: fm } = useIntl();
+
   const [isForumAddTopicModalOpen, setIsForumAddTopicModalOpen] =
     useState<boolean>(false);
   const [selectedForum, setSelectedForum] = useState<ForumListItem | null>(
@@ -23,7 +40,7 @@ export const ForumMainPage = () => {
   return (
     <div className="forumPage">
       <Typography.Title className="forumPage__title">
-        {en['forum.main-title']}
+        {fm(messages.titleMain)}
       </Typography.Title>
 
       <Space
@@ -34,7 +51,7 @@ export const ForumMainPage = () => {
         <Row gutter={[20, 50]}>
           <Col span={19}>
             <Typography.Title level={4} className="forumPage__colTitle">
-              {en['forum.main-page.col-title.forums']}
+              {fm(messages.titleColumnForums)}
             </Typography.Title>
           </Col>
 
@@ -43,7 +60,7 @@ export const ForumMainPage = () => {
               level={4}
               className="forumPage__colTitle forumPage__colTitle_centered"
             >
-              {en['forum.main-page.col-title.topics']}
+              {fm(messages.titleColumnTopics)}
             </Typography.Title>
           </Col>
 
@@ -52,7 +69,7 @@ export const ForumMainPage = () => {
               level={4}
               className="forumPage__colTitle forumPage__colTitle_centered"
             >
-              {en['forum.main-page.col-title.answers']}
+              {fm(messages.titleColumnReplies)}
             </Typography.Title>
           </Col>
         </Row>

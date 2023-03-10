@@ -1,10 +1,11 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
-import { Button, Form, Input, message, Typography } from 'antd';
+import { Button, Form, Input, Typography } from 'antd';
 import { authApi } from 'api/auth';
 import { getCurrentUser } from 'app/slices/userSlice';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
-import { routes } from 'constants/routes';
+import { ROUTES } from 'constants/routes';
+import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { LoginInput } from 'models/auth.model';
 
@@ -13,10 +14,7 @@ import './Login.scss';
 const messages = defineMessages({
   buttonRegister: { id: 'auth.button.register', defaultMessage: 'Sign up' },
   buttonSignIn: { id: 'auth.button.login', defaultMessage: 'Sign in' },
-  formHeading: {
-    id: 'auth.form.heading.login',
-    defaultMessage: 'Sign in',
-  },
+  formHeading: { id: 'auth.form.heading.login', defaultMessage: 'Sign in' },
   labelLogin: { id: 'auth.form.label.login', defaultMessage: 'Login' },
   labelPassword: { id: 'auth.form.label.password', defaultMessage: 'Password' },
   placeholderLogin: {
@@ -58,7 +56,6 @@ export const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  const [messageApi, contextHolder] = message.useMessage();
 
   const location = useLocation();
   const redirectTo = location.state?.from?.pathname || routes.MAIN_PAGE_PATH;
@@ -74,12 +71,7 @@ export const Login = () => {
         navigate(redirectTo, { replace: true });
       }
     } catch (err) {
-      console.error({ err });
-      messageApi.open({
-        type: 'error',
-        // @ts-expect-error: needs typing
-        content: err.response.data.reason,
-      });
+      handleErrorFromServer(err);
     }
 
     form.resetFields();
@@ -87,7 +79,6 @@ export const Login = () => {
 
   return (
     <div className="formLogin">
-      {contextHolder}
       <Typography.Title className="formLogin__heading">
         {fm(messages.formHeading)}
       </Typography.Title>
@@ -134,7 +125,7 @@ export const Login = () => {
       </Form>
       <Typography.Text className="formLogin__linkText">
         {fm(messages.textNoAccount)}{' '}
-        <Link to={routes.REGISTER_PAGE_PATH}>
+        <Link to={ROUTES.REGISTER_PAGE_PATH}>
           {fm(messages.buttonRegister)}
         </Link>
       </Typography.Text>
