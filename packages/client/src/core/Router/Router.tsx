@@ -1,5 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { routes } from 'constants/routes';
+import { ROUTES } from 'constants/routes';
 import ProtectedRouteWrap from './ProtectedRouteWrap';
 import checkAuthLoader from 'helpers/checkAuthLoader';
 
@@ -16,12 +16,12 @@ export const Router = () => (
   <RouterProvider
     router={createBrowserRouter([
       {
-        path: routes.MAIN_PAGE_PATH,
+        path: ROUTES.MAIN_PAGE_PATH,
         element: <MainPage />,
         loader: checkAuthLoader,
       },
       {
-        path: routes.LOGIN_PAGE,
+        path: ROUTES.LOGIN_PAGE,
         element: (
           <ProtectedRouteWrap>
             <LoginPage />
@@ -29,7 +29,7 @@ export const Router = () => (
         ),
       },
       {
-        path: routes.REGISTER_PAGE_PATH,
+        path: ROUTES.REGISTER_PAGE_PATH,
         element: (
           <ProtectedRouteWrap>
             <RegisterPage />
@@ -37,29 +37,33 @@ export const Router = () => (
         ),
       },
       {
-        path: routes.GAME_PAGE_PATH,
+        path: ROUTES.GAME_PAGE_PATH,
         element: <GamePage />,
         loader: checkAuthLoader,
       },
       {
-        path: routes.LEADERBOARD_PAGE_PATH,
+        path: ROUTES.LEADERBOARD_PAGE_PATH,
         element: <LeaderboardPage />,
         loader: checkAuthLoader,
       },
       {
-        path: routes.PROFILE_PAGE_PATH,
+        path: ROUTES.PROFILE_PAGE_PATH,
         element: <ProfilePage />,
         loader: checkAuthLoader,
       },
       {
-        path: routes.PROFILE_CHANGE_PASSWORD_PAGE_PATH,
+        path: ROUTES.PROFILE_CHANGE_PASSWORD_PAGE_PATH,
         element: <ProfileChangePasswordPage />,
         loader: checkAuthLoader,
       },
       {
-        path: routes.FORUM_MAIN_PAGE_PATH,
+        path: ROUTES.FORUM_MAIN_PAGE_PATH,
         element: <ForumMainPage />,
         loader: checkAuthLoader,
+      },
+      {
+        path: '*',
+        element: <p>404</p>,
       },
     ])}
   />

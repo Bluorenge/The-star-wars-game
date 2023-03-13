@@ -58,7 +58,7 @@ export const Login = () => {
   const [form] = Form.useForm();
 
   const location = useLocation();
-  const redirectTo = location.state?.from?.pathname || routes.MAIN_PAGE_PATH;
+  const redirectTo = location.state?.from?.pathname || ROUTES.MAIN_PAGE_PATH;
 
   async function onSubmit(values: LoginInput) {
     try {
