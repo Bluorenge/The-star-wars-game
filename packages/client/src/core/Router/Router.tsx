@@ -1,6 +1,7 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
-import ProtectedRouteWrap from './ProtectedRouteWrap';
+
+import RequireAuthRoute from './RequireAuthRoute';
 import checkAuthLoader from 'helpers/checkAuthLoader';
 
 import { LoginPage } from 'pages/LoginPage';
@@ -16,50 +17,62 @@ export const Router = () => (
   <RouterProvider
     router={createBrowserRouter([
       {
-        path: ROUTES.MAIN_PAGE_PATH,
-        element: <MainPage />,
+        path: ROUTES.LOGIN_PAGE,
+        element: <LoginPage />,
         loader: checkAuthLoader,
       },
       {
-        path: ROUTES.LOGIN_PAGE,
-        element: (
-          <ProtectedRouteWrap>
-            <LoginPage />
-          </ProtectedRouteWrap>
-        ),
+        path: ROUTES.REGISTER_PAGE_PATH,
+        element: <RegisterPage />,
+        loader: checkAuthLoader,
       },
       {
-        path: ROUTES.REGISTER_PAGE_PATH,
+        path: ROUTES.MAIN_PAGE_PATH,
         element: (
-          <ProtectedRouteWrap>
-            <RegisterPage />
-          </ProtectedRouteWrap>
+          <RequireAuthRoute>
+            <MainPage />
+          </RequireAuthRoute>
         ),
       },
       {
         path: ROUTES.GAME_PAGE_PATH,
-        element: <GamePage />,
-        loader: checkAuthLoader,
+        element: (
+          <RequireAuthRoute>
+            <GamePage />
+          </RequireAuthRoute>
+        ),
       },
       {
         path: ROUTES.LEADERBOARD_PAGE_PATH,
-        element: <LeaderboardPage />,
-        loader: checkAuthLoader,
+        element: (
+          <RequireAuthRoute>
+            <LeaderboardPage />
+          </RequireAuthRoute>
+        ),
       },
       {
         path: ROUTES.PROFILE_PAGE_PATH,
-        element: <ProfilePage />,
-        loader: checkAuthLoader,
+        element: (
+          <RequireAuthRoute>
+            <ProfilePage />
+          </RequireAuthRoute>
+        ),
       },
       {
         path: ROUTES.PROFILE_CHANGE_PASSWORD_PAGE_PATH,
-        element: <ProfileChangePasswordPage />,
-        loader: checkAuthLoader,
+        element: (
+          <RequireAuthRoute>
+            <ProfileChangePasswordPage />
+          </RequireAuthRoute>
+        ),
       },
       {
         path: ROUTES.FORUM_MAIN_PAGE_PATH,
-        element: <ForumMainPage />,
-        loader: checkAuthLoader,
+        element: (
+          <RequireAuthRoute>
+            <ForumMainPage />
+          </RequireAuthRoute>
+        ),
       },
       {
         path: '*',

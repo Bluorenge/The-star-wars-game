@@ -58,7 +58,7 @@ export const Login = () => {
   const [form] = Form.useForm();
 
   const location = useLocation();
-  const redirectTo = location.state?.from?.pathname || ROUTES.MAIN_PAGE_PATH;
+  const redirectPath = location.state?.from?.pathname || ROUTES.MAIN_PAGE_PATH;
 
   async function onSubmit(values: LoginInput) {
     try {
@@ -68,7 +68,7 @@ export const Login = () => {
         localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
         dispatch(getCurrentUser());
 
-        navigate(redirectTo, { replace: true });
+        navigate(redirectPath, { replace: true });
       }
     } catch (err) {
       handleErrorFromServer(err);

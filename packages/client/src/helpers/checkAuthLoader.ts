@@ -6,9 +6,10 @@ import { ROUTES } from 'constants/routes';
 const checkAuthLoader = () => {
   const isAuth = localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY);
 
-  if (!isAuth) {
-    return redirect(ROUTES.LOGIN_PAGE);
+  if (isAuth) {
+    return redirect(ROUTES.MAIN_PAGE_PATH);
   }
+
   return null;
 };
 
