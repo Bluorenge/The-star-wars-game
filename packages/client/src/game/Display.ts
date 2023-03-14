@@ -1,9 +1,8 @@
 import { CloneShip } from './CloneShip';
 import { Bullet } from './Bullet';
 import { MillenniumFalcon } from './MillenniumFalcon';
-import { EventHandler, KeyboardEvent } from 'react';
 
-class Display {
+export default class Display {
   scope = 0;
   public width = 0;
   public height = 0;
@@ -221,5 +220,3 @@ class Display {
     }
   };
 }
-
-export default Display;

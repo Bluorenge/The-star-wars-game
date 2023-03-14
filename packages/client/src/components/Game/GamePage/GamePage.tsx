@@ -1,6 +1,6 @@
 import { MutableRefObject, useEffect, useRef, useState } from 'react';
 
-import Display from './canvas';
+import Display from 'game/Display';
 
 import './GamePage.scss';
 

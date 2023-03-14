@@ -5,7 +5,6 @@ import RequireAuthRoute from './RequireAuthRoute';
 import checkAuthLoader from 'helpers/checkAuthLoader';
 
 import { LoginPage } from 'pages/LoginPage';
-import { GamePage } from 'pages/GamePage';
 import { LeaderboardPage } from 'pages/LeaderboardPage';
 import { MainPage } from 'pages/MainPage';
 import { ProfilePage } from 'pages/ProfilePage';
@@ -31,14 +30,6 @@ export const Router = () => (
         element: (
           <RequireAuthRoute>
             <MainPage />
-          </RequireAuthRoute>
-        ),
-      },
-      {
-        path: ROUTES.GAME_PAGE_PATH,
-        element: (
-          <RequireAuthRoute>
-            <GamePage />
           </RequireAuthRoute>
         ),
       },

@@ -1,7 +1,26 @@
 import { FC } from 'react';
 
-import './MainPage.scss';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { GameStatus } from 'models/game.auth';
+
+import { WelcomePage } from 'components/Game/WelcomePage';
+import { GamePage } from 'components/Game/GamePage';
+import { EndGamePage } from 'components/Game/EndGamePage';
 
 export const MainPage: FC = () => {
-  return <div className="wrapperMainPage">MainPage</div>;
+  const { status } = useAppSelector((state) => state.game);
+  let page;
+
+  switch (status) {
+    case GameStatus.Start:
+      page = <GamePage />;
+      break;
+    case GameStatus.End:
+      page = <EndGamePage />;
+      break;
+    default:
+      page = <WelcomePage />;
+  }
+
+  return page;
 };

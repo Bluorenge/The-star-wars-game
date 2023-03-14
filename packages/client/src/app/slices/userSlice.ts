@@ -1,9 +1,11 @@
 import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
+
 import { authApi } from 'api/auth';
 import { profileApi } from 'api/profile';
-import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { handleErrorFromServer } from 'helpers/errorNotification';
+
+import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { CurrentUser, CurrentUserDto } from 'models/auth.model';
 
 const initialState: {
