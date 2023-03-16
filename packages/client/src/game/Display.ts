@@ -1,98 +1,93 @@
-import { CloneShip } from './CloneShip';
-import { Bullet } from './Bullet';
 import { MillenniumFalcon } from './MillenniumFalcon';
+import { Bullet } from './Bullet';
+import { CloneShip } from './CloneShip';
 
 export default class Display {
-  scope = 0;
+  private score = 0;
+
+  private readonly _context: CanvasRenderingContext2D;
   public width = 0;
   public height = 0;
-  context: any;
-  interval: any;
+  private setGameInfo: any;
 
-  bullets: Array<Bullet> = [];
-  cloneShips: Array<CloneShip> = [];
-  millenniumFalcon = new MillenniumFalcon();
+  private interval: ReturnType<typeof setInterval> | undefined;
 
-  setGameInfo: React.Dispatch<React.SetStateAction<string>>;
+  private millenniumFalcon: MillenniumFalcon;
+  private bullets: Array<Bullet> = [];
+  private cloneShips: Array<CloneShip> = [];
 
   constructor(
+    context: CanvasRenderingContext2D,
     width: number,
     height: number,
-    setGameInfo: React.Dispatch<React.SetStateAction<string>>
+    setGameInfo: any
   ) {
+    this._context = context;
     this.width = width;
     this.height = height;
     this.setGameInfo = setGameInfo;
+
+    this.millenniumFalcon = new MillenniumFalcon(this);
+  }
+
+  public get context() {
+    return this._context;
   }
 
   draw = () => {
-    if (this.context) {
-      this.context.clearRect(0, 0, this.width, this.height);
+    this.context.clearRect(0, 0, this.width, this.height);
 
-      this.context.fillStyle = 'black';
-      this.context.fillRect(0, 0, this.width, this.height);
+    this.context.fillStyle = 'black';
+    this.context.fillRect(0, 0, this.width, this.height);
 
-      this.context.drawImage(
-        this.millenniumFalcon.pic,
-        this.millenniumFalcon.x,
-        this.millenniumFalcon.y,
-        this.millenniumFalcon.width,
-        this.millenniumFalcon.height
-      );
+    this.millenniumFalcon.draw();
 
-      if (this.millenniumFalcon.health > 70) this.context.fillStyle = 'green';
-      if (this.millenniumFalcon.health < 70) this.context.fillStyle = 'yellow';
-      if (this.millenniumFalcon.health < 30) this.context.fillStyle = 'red';
+    if (this.millenniumFalcon.health > 70) this.context.fillStyle = 'green';
+    if (this.millenniumFalcon.health < 70) this.context.fillStyle = 'yellow';
+    if (this.millenniumFalcon.health < 30) this.context.fillStyle = 'red';
 
-      this.context.fillRect(10, 10, this.millenniumFalcon.health, 10);
+    this.context.fillRect(10, 10, this.millenniumFalcon.health, 10);
 
-      this.context.fillStyle = 'yellow';
-      this.context.font = 'bold 46px Arial';
-      this.context.fillText(String(this.scope), this.width - 50, 50);
+    this.context.fillStyle = 'yellow';
+    this.context.font = 'bold 46px Arial';
+    this.context.fillText(String(this.score), this.width - 50, 50);
 
-      if (this.bullets.length > 0) {
-        this.bullets = this.bullets.filter((bullet) => {
-          if (bullet.isVisible) {
-            this.context.fillStyle = 'red';
-            this.context.fillRect(
-              bullet.x,
-              bullet.y,
-              bullet.width,
-              bullet.height
-            );
-            bullet.update();
-            if (bullet.y > 0) {
-              return true;
-            }
+    if (this.bullets.length > 0) {
+      this.bullets = this.bullets.filter((bullet) => {
+        if (bullet.isVisible) {
+          this.context.fillStyle = 'red';
+          this.context.fillRect(
+            bullet.x,
+            bullet.y,
+            bullet.width,
+            bullet.height
+          );
+          bullet.update();
+          if (bullet.y > 0) {
+            return true;
           }
-          bullet.clearSelf();
-          return false;
-        });
-      }
+        }
+        bullet.clearSelf();
+        return false;
+      });
+    }
 
-      if (this.cloneShips.length > 0) {
-        this.cloneShips = this.cloneShips.filter((cloneShip) => {
-          if (cloneShip.isVisible) {
-            this.context.drawImage(
-              cloneShip?.pic,
-              cloneShip.x,
-              cloneShip.y,
-              cloneShip.width,
-              cloneShip.height
-            );
+    if (this.cloneShips.length > 0) {
+      this.cloneShips = this.cloneShips.filter((cloneShip) => {
+        if (cloneShip.isVisible) {
+          cloneShip.draw();
 
-            cloneShip.update();
-            if (cloneShip.y < this.height) {
-              return true;
-            }
+          cloneShip.update();
+          if (cloneShip.y < this.height) {
+            return true;
           }
-          if (!cloneShip.isVisible) {
-            this.scope++;
-          }
-          cloneShip.clearSelf();
-          return false;
-        });
-      }
+        }
+        if (!cloneShip.isVisible) {
+          this.score++;
+        }
+        cloneShip.clearSelf();
+        return false;
+      });
     }
   };
 
@@ -182,13 +177,13 @@ export default class Display {
     }
   };
 
-  init = () => {
+  public init = () => {
     this.interval = setInterval(() => {
       this.reload = true;
     }, 500);
 
     setInterval(() => {
-      this.cloneShips.push(new CloneShip(this.width));
+      this.cloneShips.push(new CloneShip(this, this.width));
     }, 1000);
   };
 
@@ -207,16 +202,10 @@ export default class Display {
       }
     });
 
-    if (this.millenniumFalcon.health > 0) this.draw();
-    else {
-      this.context.fillStyle = 'yellow';
-      this.context.font = 'bold 46px Arial';
-      this.context.fillText(
-        'GameOver',
-        this.width / 2 - 150,
-        this.height / 2 - 100
-      );
-      this.setGameInfo('end');
+    if (this.millenniumFalcon.health > 0) {
+      this.draw();
+    } else {
+      this.setGameInfo();
     }
   };
 }
