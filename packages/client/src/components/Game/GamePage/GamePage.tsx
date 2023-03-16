@@ -15,7 +15,7 @@ export const GamePage = () => {
     const canvas: HTMLCanvasElement = canvasRef.current;
     const context = canvas.getContext('2d');
 
-    let interval: ReturnType<typeof requestAnimationFrame>;
+    let requestAnimationFrameId: ReturnType<typeof requestAnimationFrame>;
 
     let display: Display;
 
@@ -40,7 +40,7 @@ export const GamePage = () => {
       const render = () => {
         display.update();
 
-        interval = requestAnimationFrame(render);
+        requestAnimationFrameId = requestAnimationFrame(render);
       };
       render();
 
@@ -52,7 +52,7 @@ export const GamePage = () => {
       window.removeEventListener('keydown', display.buttonDownHandler);
       window.removeEventListener('keyup', display.buttonUpHandler);
 
-      cancelAnimationFrame(interval);
+      cancelAnimationFrame(requestAnimationFrameId);
     };
   });
 
