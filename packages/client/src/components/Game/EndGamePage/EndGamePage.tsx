@@ -3,7 +3,7 @@ import { Button, Col, Row, Space } from 'antd';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { setGameStatus } from 'app/slices/gameSlice';
-import { GameStatus } from 'models/game.auth';
+import { GameStatus } from 'constants/game';
 
 import './EndGamePage.scss';
 

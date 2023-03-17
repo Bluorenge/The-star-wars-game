@@ -4,7 +4,7 @@ import { Button, Row, Space, Spin } from 'antd';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { setGameStatus } from 'app/slices/gameSlice';
-import { GameStatus } from 'models/game.auth';
+import { GameStatus } from 'constants/game';
 
 import './WelcomePage.scss';
 

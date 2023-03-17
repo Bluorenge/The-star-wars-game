@@ -1,3 +1,5 @@
+import { GameStatus } from 'constants/game';
+
 export interface GameInfo {
   status: GameStatus;
   gamesPlayed: number;
@@ -5,11 +7,4 @@ export interface GameInfo {
   bestScore: number;
   time?: number;
   hp?: number;
-}
-
-export enum GameStatus {
-  Welcome = 'welcome',
-  Start = 'start',
-  Pause = 'pause',
-  End = 'end',
 }

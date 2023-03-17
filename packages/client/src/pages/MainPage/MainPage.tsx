@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import { useAppSelector } from 'hooks/useAppSelector';
-import { GameStatus } from 'models/game.auth';
+import { GameStatus } from 'constants/game';
 
 import { WelcomePage } from 'components/Game/WelcomePage';
 import { GamePage } from 'components/Game/GamePage';

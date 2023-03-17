@@ -2,8 +2,8 @@ import { MutableRefObject, useEffect, useRef } from 'react';
 
 import Display from 'game/Display';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { GameStatus } from 'models/game.auth';
 import { setGameStatus } from 'app/slices/gameSlice';
+import { GameStatus } from 'constants/game';
 
 import './GamePage.scss';
 

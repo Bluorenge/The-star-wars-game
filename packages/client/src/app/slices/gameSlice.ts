@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { GameInfo, GameStatus } from 'models/game.auth';
+import { GameStatus } from 'constants/game';
+import { GameInfo } from 'models/game.auth';
 
 const initialState: GameInfo = {
   status: GameStatus.Welcome,
