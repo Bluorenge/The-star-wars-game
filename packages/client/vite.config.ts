@@ -19,6 +19,7 @@ export default defineConfig({
       'components-ui': path.join(__dirname, './src/components-ui'),
       constants: path.join(__dirname, './src/constants'),
       core: path.join(__dirname, './src/core'),
+      game: path.join(__dirname, './src/game'),
       helpers: path.join(__dirname, './src/helpers'),
       hocs: path.join(__dirname, './src/hocs'),
       hooks: path.join(__dirname, './src/hooks'),

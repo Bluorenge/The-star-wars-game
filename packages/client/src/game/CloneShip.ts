@@ -1,4 +1,5 @@
 import { Entity } from './Entity';
+import Display from 'game/Display';
 
 import cloneShipPic from 'assets/img/cel.png';
 import bum1 from 'assets/img/bum1.png';
@@ -15,18 +16,20 @@ function getRandomArbitrary(min: number, max: number) {
 }
 
 export class CloneShip extends Entity {
-  pic = {};
+  private pic: HTMLImageElement;
+  private readonly context: CanvasRenderingContext2D;
 
-  constructor(screenWidth: number) {
+  constructor(context: Display, screenWidth: number) {
     super(getRandomArbitrary(0, screenWidth - 120), 0, 60, 40);
-    const picLoad = new Image();
-    picLoad.src = cloneShipPic;
 
-    picLoad.onload = () => {
-      this.pic = picLoad;
+    this.context = context.context;
 
-      return true;
-    };
+    this.pic = new Image();
+    this.pic.src = cloneShipPic;
+  }
+
+  draw() {
+    this.context.drawImage(this.pic, this.x, this.y, this.width, this.height);
   }
 
   update() {
@@ -51,6 +54,7 @@ export class CloneShip extends Entity {
 
     setTimeout(() => {
       this.isVisible = false;
+
       clearInterval(interval);
     }, 600);
   }
