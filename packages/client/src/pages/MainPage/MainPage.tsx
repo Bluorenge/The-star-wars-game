@@ -6,6 +6,7 @@ import { GameStatus } from 'constants/game';
 import { WelcomePage } from 'components/Game/WelcomePage';
 import { GamePage } from 'components/Game/GamePage';
 import { EndGamePage } from 'components/Game/EndGamePage';
+import { Layout } from 'layouts/Layout';
 
 export const MainPage: FC = () => {
   const { status } = useAppSelector((state) => state.game);
@@ -22,5 +23,10 @@ export const MainPage: FC = () => {
       page = <WelcomePage />;
   }
 
-  return page;
+  return (
+    <>
+      <Layout></Layout>
+      {page}
+    </>
+  );
 };

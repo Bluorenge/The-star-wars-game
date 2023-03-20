@@ -6,7 +6,7 @@ export const links = [
     key: 'forum-page',
   },
   {
-    to: ROUTES.GAME_PAGE_PATH,
+    to: ROUTES.MAIN_PAGE_PATH,
     key: 'game-page',
   },
   {

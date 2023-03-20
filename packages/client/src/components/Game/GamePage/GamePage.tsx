@@ -19,20 +19,20 @@ export const GamePage = () => {
 
     let display: Display;
 
-    const widthMargin = 20;
-    const heightMargin = 80;
+    const WIDTH_MARGIN = 20;
+    const HEIGHT_MARGIN = 80;
 
     if (context) {
-      canvas.width = window.innerWidth - widthMargin;
-      canvas.height = window.innerHeight - heightMargin;
-      canvas.style.width = `${window.innerWidth - widthMargin}px`;
-      canvas.style.height = `${window.innerHeight - heightMargin}px`;
+      const widthCanvas = window.innerWidth - WIDTH_MARGIN;
+      const heightCanvas = window.innerHeight - HEIGHT_MARGIN;
 
-      display = new Display(
-        context,
-        window.innerWidth - widthMargin,
-        window.innerHeight - heightMargin,
-        () => dispatch(setGameStatus(GameStatus.End))
+      canvas.width = widthCanvas;
+      canvas.height = heightCanvas;
+      canvas.style.width = `${widthCanvas}px`;
+      canvas.style.height = `${heightCanvas}px`;
+
+      display = new Display(context, widthCanvas, heightCanvas, () =>
+        dispatch(setGameStatus(GameStatus.End))
       );
 
       display.init();
