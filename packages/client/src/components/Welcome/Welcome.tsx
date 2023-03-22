@@ -33,7 +33,7 @@ export const Welcome: FC = () => {
 
           <Button
             type="primary"
-            onClick={() => dispatch(setGameStatus(GameStatus.Playing))}
+            onClick={() => dispatch(setGameStatus(GameStatus.New))}
           >
             <Link to={ROUTES.GAME_PAGE_PATH}>Начать игру</Link>
           </Button>

@@ -47,7 +47,7 @@ export const GameMain: FC = () => {
 
       cancelAnimationFrame(requestAnimationFrameId);
     };
-  }, [status]);
+  });
 
   return (
     <Space direction="vertical" align="center" className="gameMainWrapper">

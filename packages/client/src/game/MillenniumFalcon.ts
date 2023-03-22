@@ -1,15 +1,12 @@
 import { Entity } from './Entity';
-import galaxy from './Galaxy';
 import Display from 'game/Display';
-import { setShipInfo } from 'app/slices/gameSlice';
-import { store } from 'app/store';
-
-import ship from 'assets/img/socol1.png';
 import {
   LOCAL_STORAGE_PLAYER_SHIP_X_CORD,
   LOCAL_STORAGE_PLAYER_SHIP_Y_CORD,
   LOCAL_STORAGE_PLAYER_SHIP_HEALTH,
 } from 'constants/localStorage';
+
+import ship from 'assets/img/socol1.png';
 
 export class MillenniumFalcon extends Entity {
   private readonly pic: HTMLImageElement;
@@ -22,27 +19,40 @@ export class MillenniumFalcon extends Entity {
 
     this.context = context.context;
 
-    this.x = store.getState().game.playerShip.xCord;
-    this.y = store.getState().game.playerShip.yCord;
-    this.health = store.getState().game.playerShip.health;
+    this.x =
+      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_X_CORD)) ||
+      0;
+    this.y =
+      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_Y_CORD)) ||
+      0;
+    this.health =
+      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_HEALTH)) ||
+      100;
 
     this.pic = new Image();
     this.pic.src = ship;
   }
 
+  public draw() {
+    this.context.drawImage(this.pic, this.x, this.y, this.width, this.height);
+  }
+
   public updateShipInfo() {
-    store.dispatch(
-      setShipInfo({
-        xCord: this.x,
-        yCord: this.y,
-        health: this.health,
-      })
+    window.localStorage.setItem(
+      LOCAL_STORAGE_PLAYER_SHIP_X_CORD,
+      this.x.toString()
+    );
+    window.localStorage.setItem(
+      LOCAL_STORAGE_PLAYER_SHIP_Y_CORD,
+      this.y.toString()
+    );
+    window.localStorage.setItem(
+      LOCAL_STORAGE_PLAYER_SHIP_HEALTH,
+      this.health.toString()
     );
   }
 
-  public clearSelf() {
-    galaxy.clearSame(this);
-
+  public clearShipInfo() {
     for (const key of Object.keys(window.localStorage)) {
       const isPlayerKey = [
         LOCAL_STORAGE_PLAYER_SHIP_X_CORD,
@@ -54,10 +64,6 @@ export class MillenniumFalcon extends Entity {
         window.localStorage.removeItem(key);
       }
     }
-  }
-
-  public draw() {
-    this.context.drawImage(this.pic, this.x, this.y, this.width, this.height);
   }
 
   setUnVisible() {

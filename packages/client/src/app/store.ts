@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import localeReducer from 'app/slices/localeSlice';
 import userReducer from 'app/slices/userSlice';
-import gameSlice, { listenerMiddleware } from 'app/slices/gameSlice';
+import gameSlice from 'app/slices/gameSlice';
+import { listenerMiddleware } from 'app/middlewares/middlewares';
 
 export const store = configureStore({
   reducer: {

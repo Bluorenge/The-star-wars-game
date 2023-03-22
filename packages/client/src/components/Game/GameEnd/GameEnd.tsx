@@ -14,7 +14,6 @@ import './GameEnd.scss';
 
 export const GameEnd = () => {
   const dispatch = useAppDispatch();
-  // const { status } = useAppSelector((state) => state.game);
 
   const gamesPlayed =
     Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_GAMES_PLAYED)) || 0;
@@ -53,7 +52,7 @@ export const GameEnd = () => {
 
         <Button
           type="primary"
-          onClick={() => dispatch(setGameStatus(GameStatus.Playing))}
+          onClick={() => dispatch(setGameStatus(GameStatus.New))}
         >
           Новая игра
         </Button>

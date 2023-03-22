@@ -2,12 +2,13 @@ import { MillenniumFalcon } from './MillenniumFalcon';
 import { Bullet } from './Bullet';
 import { CloneShip } from './CloneShip';
 
+import { setGameStatus } from 'app/slices/gameSlice';
+import { GameStatus } from 'constants/game';
 import {
   LOCAL_STORAGE_CURRENT_GAME_SCORE,
   LOCAL_STORAGE_PLAYER_BEST_GAME_SCORE,
+  LOCAL_STORAGE_PLAYER_GAMES_PLAYED,
 } from 'constants/localStorage';
-import { setGameStatus } from 'app/slices/gameSlice';
-import { GameStatus } from 'constants/game';
 
 export default class Display {
   public width = 0;
@@ -21,6 +22,14 @@ export default class Display {
   private reload = true;
 
   private interval: ReturnType<typeof setInterval> | undefined;
+
+  private activeActions: { [index: string]: boolean } = {
+    upUpdate: false,
+    downUpdate: false,
+    RRrightUpdate: false,
+    leftUpdate: false,
+    fireUpdate: false,
+  };
 
   private readonly _context: CanvasRenderingContext2D;
   private isPaused: boolean;
@@ -124,14 +133,6 @@ export default class Display {
     this.context.fillText(String(this.currentScore), this.width - 50, 50);
   }
 
-  private activeActions: { [index: string]: boolean } = {
-    upUpdate: false,
-    downUpdate: false,
-    RRrightUpdate: false,
-    leftUpdate: false,
-    fireUpdate: false,
-  };
-
   upUpdate = () => {
     if (this.millenniumFalcon.y > 50)
       this.millenniumFalcon.update({ moveX: 0, moveY: -10 });
@@ -224,6 +225,10 @@ export default class Display {
   };
 
   public updateState = () => {
+    if (this.isPaused) {
+      return;
+    }
+
     this.millenniumFalcon.updateShipInfo();
 
     window.localStorage.setItem(
@@ -254,15 +259,31 @@ export default class Display {
     if (this.millenniumFalcon.health > 0) {
       this.draw();
     } else {
-      if (this.currentScore > this.bestScore) {
-        this.bestScore = this.currentScore;
-        window.localStorage.setItem('bestScore', String(this.bestScore));
-      }
-
       setTimeout(() => {
-        this.millenniumFalcon.clearSelf();
+        if (this.currentScore > this.bestScore) {
+          this.bestScore = this.currentScore;
+
+          window.localStorage.setItem(
+            LOCAL_STORAGE_PLAYER_BEST_GAME_SCORE,
+            String(this.bestScore)
+          );
+        }
+
+        let gamesPlayed =
+          Number(
+            window.localStorage.getItem(LOCAL_STORAGE_PLAYER_GAMES_PLAYED)
+          ) || 0;
+        gamesPlayed++;
+
+        window.localStorage.setItem(
+          LOCAL_STORAGE_PLAYER_GAMES_PLAYED,
+          gamesPlayed.toString()
+        );
+
+        this.millenniumFalcon.clearShipInfo();
+
         this.setGameInfo(setGameStatus(GameStatus.End));
-      }, 1000);
+      }, 0);
     }
   };
 }
