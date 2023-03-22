@@ -1,15 +1,18 @@
-import { MutableRefObject, useEffect, useRef } from 'react';
+import { FC, MutableRefObject, useEffect, useRef } from 'react';
+import { Button, Space } from 'antd';
 
 import Display from 'game/Display';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
 import { setGameStatus } from 'app/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 
-import './GamePage.scss';
+import './GameMain.scss';
 
-export const GamePage = () => {
+export const GameMain: FC = () => {
   const canvasRef = useRef() as MutableRefObject<HTMLCanvasElement>;
   const dispatch = useAppDispatch();
+  const { status } = useAppSelector((state) => state.game);
 
   useEffect(() => {
     const canvas: HTMLCanvasElement = canvasRef.current;
@@ -19,26 +22,16 @@ export const GamePage = () => {
 
     let display: Display;
 
-    const WIDTH_MARGIN = 20;
-    const HEIGHT_MARGIN = 80;
-
     if (context) {
-      const widthCanvas = window.innerWidth - WIDTH_MARGIN;
-      const heightCanvas = window.innerHeight - HEIGHT_MARGIN;
+      const isPaused = status === GameStatus.Pause;
 
-      canvas.width = widthCanvas;
-      canvas.height = heightCanvas;
-      canvas.style.width = `${widthCanvas}px`;
-      canvas.style.height = `${heightCanvas}px`;
-
-      display = new Display(context, widthCanvas, heightCanvas, () =>
-        dispatch(setGameStatus(GameStatus.End))
-      );
+      display = new Display(context, isPaused, dispatch);
 
       display.init();
 
       const render = () => {
         display.update();
+        display.updateState();
 
         requestAnimationFrameId = requestAnimationFrame(render);
       };
@@ -54,11 +47,26 @@ export const GamePage = () => {
 
       cancelAnimationFrame(requestAnimationFrameId);
     };
-  });
+  }, [status]);
 
   return (
-    <div className="gameWrapper">
-      <canvas ref={canvasRef} />
-    </div>
+    <Space direction="vertical" align="center" className="gameMainWrapper">
+      <canvas ref={canvasRef} width={800} height={500} />
+
+      <Button
+        onKeyDown={(e) => e.preventDefault()}
+        onClick={() =>
+          dispatch(
+            setGameStatus(
+              status === GameStatus.Pause
+                ? GameStatus.Playing
+                : GameStatus.Pause
+            )
+          )
+        }
+      >
+        {status === GameStatus.Pause ? 'Играть' : 'Пауза'}
+      </Button>
+    </Space>
   );
 };

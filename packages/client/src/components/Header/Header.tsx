@@ -9,7 +9,7 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { signOut } from 'app/slices/userSlice';
 
-import { links } from 'constants/navbar';
+import { navbarLinks } from 'constants/navbar';
 import { ROUTES } from 'constants/routes';
 
 import './Header.scss';
@@ -38,7 +38,7 @@ export const Header: FC = () => {
         {isAuth && (
           <nav className="header__navbar">
             <Row>
-              {links.map(({ to, key }) => (
+              {navbarLinks.map(({ to, key }) => (
                 <Col key={key} className="header__navbarItem">
                   <Link to={to} className="header__link">
                     <FormattedMessage

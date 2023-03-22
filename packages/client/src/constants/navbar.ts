@@ -1,12 +1,12 @@
 import { ROUTES } from 'constants/routes';
 
-export const links = [
+export const navbarLinks = [
   {
     to: ROUTES.FORUM_MAIN_PAGE_PATH,
     key: 'forum-page',
   },
   {
-    to: ROUTES.MAIN_PAGE_PATH,
+    to: ROUTES.GAME_PAGE_PATH,
     key: 'game-page',
   },
   {

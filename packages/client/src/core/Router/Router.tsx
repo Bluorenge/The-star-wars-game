@@ -11,6 +11,7 @@ import { ProfilePage } from 'pages/ProfilePage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { ProfileChangePasswordPage } from 'pages/ProfileChangePasswordPage';
 import { ForumMainPage } from 'pages/ForumMainPage';
+import { GamePage } from 'pages/GamePage';
 
 export const Router = () => (
   <RouterProvider
@@ -30,6 +31,14 @@ export const Router = () => (
         element: (
           <RequireAuthRoute>
             <MainPage />
+          </RequireAuthRoute>
+        ),
+      },
+      {
+        path: ROUTES.GAME_PAGE_PATH,
+        element: (
+          <RequireAuthRoute>
+            <GamePage />
           </RequireAuthRoute>
         ),
       },
