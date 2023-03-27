@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Button, Form, Input, Typography } from 'antd';
+
 import { authApi } from 'api/auth';
 import { getCurrentUser } from 'app/slices/userSlice';
+import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';
 import { handleErrorFromServer } from 'helpers/errorNotification';
@@ -23,8 +25,8 @@ export const Register = () => {
       const response = await authApi.register(values);
 
       if (response.status === 200) {
-        localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
-        dispatch(getCurrentUser());
+        window.localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
+        await dispatch(getCurrentUser());
 
         navigate(ROUTES.MAIN_PAGE_PATH);
       }

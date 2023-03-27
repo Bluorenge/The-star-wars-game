@@ -1,33 +1,33 @@
-import { useEffect } from 'react';
 import { IntlProvider } from 'react-intl';
-import { getCurrentUser } from 'app/slices/userSlice';
-import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
-import { Router } from 'core/Router';
-import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useRoutes } from 'react-router-dom';
+
+import { routes } from 'core/Router';
 import { useLocale } from 'hooks/useLocale';
 import { en, ru } from 'translations';
 
 import './App.scss';
+import { store } from 'app/store';
+import { Provider } from 'react-redux';
 
-export const App = () => {
-  const dispatch = useAppDispatch();
+function Main() {
   const [locale] = useLocale();
-
-  useEffect(() => {
-    if (localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY)) {
-      dispatch(getCurrentUser());
-    }
-  }, []);
+  const routing = useRoutes(routes);
 
   return (
-    <div className="App">
-      <IntlProvider
-        locale={locale}
-        messages={locale === 'en' ? en : ru}
-        defaultLocale="en"
-      >
-        <Router />
-      </IntlProvider>
-    </div>
+    <IntlProvider
+      locale={locale}
+      messages={locale === 'en' ? en : ru}
+      defaultLocale="en"
+    >
+      {routing}
+    </IntlProvider>
+  );
+}
+
+export const App = () => {
+  return (
+    <Provider store={store}>
+      <Main />
+    </Provider>
   );
 };

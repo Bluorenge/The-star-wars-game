@@ -4,6 +4,7 @@ import Display from 'game/Display';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { setGameStatus } from 'app/slices/gameSlice';
 import { GameStatus } from 'constants/game';
+import window from 'helpers/window';
 
 import './GamePage.scss';
 

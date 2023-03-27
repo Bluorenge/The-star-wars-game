@@ -1,4 +1,5 @@
 import { Entity } from './Entity';
+import window from 'helpers/window';
 
 class Galaxy {
   pole: any[] = [];

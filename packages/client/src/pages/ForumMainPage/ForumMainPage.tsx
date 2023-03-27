@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Typography, Col, Row, Space, Button } from 'antd';
 import { PlusCircleOutlined } from '@ant-design/icons';
 import { defineMessages, useIntl } from 'react-intl';
+
 import { ForumAddTopicModal } from 'components/Forum/ForumAddTopicModal';
 import { ForumListItem } from 'models/forum.model';
 import { forums } from './mock';

@@ -30,6 +30,10 @@ export default defineConfig({
       typings: path.join(__dirname, './src/typings'),
     },
   },
+  ssr: {
+    target: 'node',
+    format: 'cjs',
+  },
   define: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
