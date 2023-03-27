@@ -1,14 +1,16 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import { Button, Row, Space, Spin } from 'antd';
 
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { setGameStatus } from 'app/slices/gameSlice';
 import { GameStatus } from 'constants/game';
+import { ROUTES } from 'constants/routes';
 
-import './WelcomePage.scss';
+import './Welcome.scss';
 
-export const WelcomePage: FC = () => {
+export const Welcome: FC = () => {
   const { isFetching: isUserFetching, currentUser } = useAppSelector(
     (state) => state.user
   );
@@ -16,10 +18,10 @@ export const WelcomePage: FC = () => {
 
   return (
     <>
-      <Row className="welcomePageWrapper" align="middle" justify="center">
+      <Row className="welcomeWrapper" align="middle" justify="center">
         <Space direction="vertical" align="center">
-          <div className="welcomePageWrapper__topContent">
-            <div className="welcomePageWrapper__greetings">
+          <div className="welcomeWrapper__topContent">
+            <div className="welcomeWrapper__greetings">
               Добро пожаловать, {isUserFetching ? <Spin /> : currentUser?.login}{' '}
               !
             </div>
@@ -31,9 +33,9 @@ export const WelcomePage: FC = () => {
 
           <Button
             type="primary"
-            onClick={() => dispatch(setGameStatus(GameStatus.Start))}
+            onClick={() => dispatch(setGameStatus(GameStatus.New))}
           >
-            Начать игру
+            <Link to={ROUTES.GAME_PAGE_PATH}>Начать игру</Link>
           </Button>
         </Space>
       </Row>

@@ -7,6 +7,7 @@ import AuthRedirectRoute from 'core/Router/AuthRedirectRoute';
 import { LoginPage } from 'pages/LoginPage';
 import { LeaderboardPage } from 'pages/LeaderboardPage';
 import { MainPage } from 'pages/MainPage';
+import { GamePage } from 'pages/GamePage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { ProfileChangePasswordPage } from 'pages/ProfileChangePasswordPage';
@@ -34,6 +35,14 @@ export const routes: RouteObject[] = [
     element: (
       <RequireAuthRoute>
         <MainPage />
+      </RequireAuthRoute>
+    ),
+  },
+  {
+    path: ROUTES.GAME_PAGE_PATH,
+    element: (
+      <RequireAuthRoute>
+        <GamePage />
       </RequireAuthRoute>
     ),
   },

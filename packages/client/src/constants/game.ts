@@ -1,6 +1,6 @@
 export enum GameStatus {
-  Welcome = 'welcome',
-  Start = 'start',
+  New = 'new',
+  Playing = 'playing',
   Pause = 'pause',
   End = 'end',
 }
