@@ -35,6 +35,9 @@ export default class Display {
   private isPaused: boolean;
   private setGameInfo: any;
 
+  private MILLENNIUM_FALCON_HEALTH_GOOD = 70;
+  private MILLENNIUM_FALCON_HEALTH_BAD = 30;
+
   constructor(
     context: CanvasRenderingContext2D,
     isPaused: boolean,
@@ -120,9 +123,12 @@ export default class Display {
   };
 
   private drawHealthBar() {
-    if (this.millenniumFalcon.health > 70) this.context.fillStyle = 'green';
-    if (this.millenniumFalcon.health < 70) this.context.fillStyle = 'yellow';
-    if (this.millenniumFalcon.health < 30) this.context.fillStyle = 'red';
+    if (this.millenniumFalcon.health > this.MILLENNIUM_FALCON_HEALTH_GOOD)
+      this.context.fillStyle = 'green';
+    if (this.millenniumFalcon.health < this.MILLENNIUM_FALCON_HEALTH_GOOD)
+      this.context.fillStyle = 'yellow';
+    if (this.millenniumFalcon.health < this.MILLENNIUM_FALCON_HEALTH_BAD)
+      this.context.fillStyle = 'red';
 
     this.context.fillRect(10, 10, this.millenniumFalcon.health, 10);
   }

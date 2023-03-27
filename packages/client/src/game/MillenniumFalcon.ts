@@ -19,16 +19,7 @@ export class MillenniumFalcon extends Entity {
 
     this.context = context.context;
 
-    this.x =
-      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_X_CORD)) ||
-      0;
-    this.y =
-      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_Y_CORD)) ||
-      0;
-    this.health =
-      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_HEALTH)) ||
-      100;
-
+    this.loadShipInfo();
     this.pic = new Image();
     this.pic.src = ship;
   }
@@ -64,6 +55,18 @@ export class MillenniumFalcon extends Entity {
         window.localStorage.removeItem(key);
       }
     }
+  }
+
+  private loadShipInfo() {
+    this.x =
+      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_X_CORD)) ||
+      0;
+    this.y =
+      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_Y_CORD)) ||
+      0;
+    this.health =
+      Number(window.localStorage.getItem(LOCAL_STORAGE_PLAYER_SHIP_HEALTH)) ||
+      100;
   }
 
   setUnVisible() {
