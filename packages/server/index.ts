@@ -19,13 +19,13 @@ async function startServer() {
 
   let vite: ViteDevServer | undefined;
   const distPath = path.dirname(require.resolve('client/dist/index.html'));
-  const srcPath = path.dirname(require.resolve('client/src/client.entry.tsx'));
+  const srcPath = path.dirname(require.resolve('client/src/server.entry.tsx'));
   const ssrClientPath = require.resolve('client/dist/server/server.entry.cjs');
 
   if (isDev()) {
     vite = await createViteServer({
       server: { middlewareMode: true },
-      root: srcPath,
+      root: path.resolve(srcPath, '../'),
       appType: 'custom',
     });
 
@@ -38,6 +38,7 @@ async function startServer() {
 
   if (!isDev()) {
     app.use('/assets', express.static(path.resolve(distPath, 'assets')));
+    app.use('/images', express.static(path.resolve(distPath, 'images')));
   }
 
   app.use('*', async (req, res, next) => {
@@ -53,23 +54,24 @@ async function startServer() {
         );
       } else {
         template = fs.readFileSync(
-          path.resolve(srcPath, 'index.html'),
+          path.resolve(path.resolve(srcPath, '../'), 'index.html'),
           'utf-8'
         );
 
         template = await vite!.transformIndexHtml(url, template);
       }
 
-      let render: () => Promise<string>;
+      let render: (url: string) => Promise<string>;
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;
       } else {
-        render = (await vite!.ssrLoadModule(path.resolve(srcPath, 'ssr.tsx')))
-          .render;
+        render = (
+          await vite!.ssrLoadModule(path.resolve(srcPath, 'server.entry.tsx'))
+        ).render;
       }
 
-      const appHtml = await render();
+      const appHtml = await render(url);
 
       const html = template.replace(`<!--ssr-outlet-->`, appHtml);
 
