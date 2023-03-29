@@ -71,9 +71,11 @@ async function startServer() {
         ).render;
       }
 
-      const appHtml = await render(url);
+      const [appHtml, styleText] = await render(url);
 
-      const html = template.replace(`<!--ssr-outlet-->`, appHtml);
+      const html = template
+        .replace(`<!--ssr-outlet-->`, appHtml)
+        .replace(`<!--inline-css-outlet-->`, styleText);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {
