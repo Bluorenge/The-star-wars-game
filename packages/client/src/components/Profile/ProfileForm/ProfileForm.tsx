@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useIntl } from 'react-intl';
 import { Avatar, Button, Form, Input, Modal, Typography, message } from 'antd';
 import { LeftOutlined, UserOutlined } from '@ant-design/icons';
+
 import { profileApi } from 'api/profile';
 import { getCurrentUser, signOut } from 'app/slices/userSlice';
 import { ProfileChangeAvatar } from 'components/Profile/ProfileChangeAvatar';
@@ -63,7 +64,7 @@ export const ProfileForm = () => {
       const response = await profileApi.changeProfileInfo(values);
 
       if (response.status === 200) {
-        dispatch(getCurrentUser());
+        await dispatch(getCurrentUser());
 
         messageApi.open({
           type: 'success',

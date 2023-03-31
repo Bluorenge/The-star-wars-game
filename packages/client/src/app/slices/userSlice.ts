@@ -5,6 +5,7 @@ import { authApi } from 'api/auth';
 import { profileApi } from 'api/profile';
 import { handleErrorFromServer } from 'helpers/errorNotification';
 
+import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { CurrentUser, CurrentUserDto } from 'models/auth.model';
 
@@ -38,7 +39,7 @@ export const signOut = createAsyncThunk('user/signOut', async () => {
     const resopnse = await authApi.signOut();
 
     if (resopnse.status === 200) {
-      localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
+      window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
     }
   } catch (err) {
     handleErrorFromServer(err);

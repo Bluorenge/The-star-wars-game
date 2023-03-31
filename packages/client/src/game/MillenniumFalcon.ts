@@ -10,7 +10,7 @@ import ship from 'assets/img/socol1.png';
 
 export class MillenniumFalcon extends Entity {
   private readonly pic: HTMLImageElement;
-  public health: number;
+  public health!: number;
 
   private readonly context: CanvasRenderingContext2D;
 
