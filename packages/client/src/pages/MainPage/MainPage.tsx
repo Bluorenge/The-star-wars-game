@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 
 import { useAppSelector } from 'hooks/useAppSelector';
 import { GameStatus } from 'constants/game';

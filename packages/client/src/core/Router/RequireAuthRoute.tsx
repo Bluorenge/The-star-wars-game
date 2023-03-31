@@ -4,7 +4,7 @@ import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';
 
 const RequireAuthRoute = ({ children }: { children: JSX.Element }) => {
-  const isAuth = localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY);
+  const isAuth = localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY) === 'true';
   const location = useLocation();
 
   if (!isAuth) {

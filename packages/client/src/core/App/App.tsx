@@ -14,7 +14,7 @@ export const App = () => {
   const [locale] = useLocale();
 
   useEffect(() => {
-    if (localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY)) {
+    if (localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY) === 'true') {
       dispatch(getCurrentUser());
     }
   }, []);

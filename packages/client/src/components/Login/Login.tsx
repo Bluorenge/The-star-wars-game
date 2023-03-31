@@ -9,7 +9,11 @@ import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { LoginInput } from 'models/auth.model';
 
+import yandexIcon from 'assets/icons/ya.svg';
+
 import './Login.scss';
+import { useEffect } from 'react';
+import { api } from '../../api';
 
 const messages = defineMessages({
   buttonRegister: { id: 'auth.button.register', defaultMessage: 'Sign up' },
@@ -58,6 +62,7 @@ export const Login = () => {
   const [form] = Form.useForm();
 
   const location = useLocation();
+
   const redirectPath = location.state?.from?.pathname || ROUTES.MAIN_PAGE_PATH;
 
   async function onSubmit(values: LoginInput) {
@@ -72,10 +77,49 @@ export const Login = () => {
       }
     } catch (err) {
       handleErrorFromServer(err);
+      localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
     }
 
     form.resetFields();
   }
+
+  const onYandex = () => {
+    api
+      .get(
+        `oauth/yandex/service-id?redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fsignin`
+      )
+      .then((res) => {
+        const serviceId = res?.data?.service_id;
+        if (serviceId) {
+          const REDIRECT_URI = 'http://localhost:3000/';
+          const yandexRedirectPath = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URI}`;
+
+          const a = document.createElement('a');
+          a.href = yandexRedirectPath;
+          a.click();
+        }
+      });
+  };
+
+  useEffect(() => {
+    const code = location?.search?.replace('?code=', '');
+
+    console.log(code);
+    if (code) {
+      authApi
+        .oAuth({ code, redirect_uri: 'http://localhost:3000/' })
+        .then((response) => {
+          if (response.status === 200) {
+            localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
+            dispatch(getCurrentUser()).then(() => {
+              navigate('/');
+            });
+          } else {
+            localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
+          }
+        });
+    }
+  }, []);
 
   return (
     <div className="formLogin">
@@ -123,6 +167,9 @@ export const Login = () => {
           )}
         </Form.Item>
       </Form>
+      <div onClick={onYandex} className="forumPage__colTitle_centered">
+        <img src={yandexIcon} alt="yandexIcon" />
+      </div>
       <Typography.Text className="formLogin__linkText">
         {fm(messages.textNoAccount)}{' '}
         <Link to={ROUTES.REGISTER_PAGE_PATH}>

@@ -25,9 +25,11 @@ export const getCurrentUser = createAsyncThunk(
       const response = await authApi.getCurrentUser();
 
       if (response.status === 200) {
+        localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
         return { ...response.data };
       }
     } catch (err) {
+      localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
       handleErrorFromServer(err);
     }
   }
@@ -41,6 +43,7 @@ export const signOut = createAsyncThunk('user/signOut', async () => {
       localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
     }
   } catch (err) {
+    localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
     handleErrorFromServer(err);
   }
 });
@@ -82,29 +85,31 @@ export const userSlice = createSlice({
       .addCase(
         getCurrentUser.fulfilled,
         (state, action: PayloadAction<CurrentUserDto, string>) => {
-          const {
-            id,
-            first_name,
-            second_name,
-            display_name,
-            login,
-            email,
-            phone,
-            avatar,
-          } = action.payload;
+          if (action.payload?.id) {
+            const {
+              id,
+              first_name,
+              second_name,
+              display_name,
+              login,
+              email,
+              phone,
+              avatar,
+            } = action.payload;
 
-          state.isAuth = true;
-          state.isFetching = false;
-          state.currentUser = {
-            id,
-            firstName: first_name,
-            secondName: second_name,
-            displayName: display_name,
-            login,
-            email,
-            phone,
-            avatar,
-          } as CurrentUser;
+            state.isAuth = true;
+            state.isFetching = false;
+            state.currentUser = {
+              id,
+              firstName: first_name,
+              secondName: second_name,
+              displayName: display_name,
+              login,
+              email,
+              phone,
+              avatar,
+            } as CurrentUser;
+          }
         }
       )
       .addCase(getCurrentUser.rejected, (state) => {
