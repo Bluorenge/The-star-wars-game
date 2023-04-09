@@ -13,7 +13,10 @@ const RequireAuthRoute = ({ children }: { children: JSX.Element }) => {
 
   useEffect(() => {
     if (!isAuth) {
-      return navigate(ROUTES.LOGIN_PAGE, { replace: true, state: location });
+      return navigate(`${ROUTES.LOGIN_PAGE}${location?.search}`, {
+        replace: true,
+        state: location,
+      });
     }
   });
 

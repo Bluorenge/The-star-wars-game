@@ -12,8 +12,7 @@ const checkAuthLoader = () => {
     return redirect(ROUTES.MAIN_PAGE_PATH);
   }
 
-  // return redirect(ROUTES.LOGIN_PAGE);
-  return null;
+  return redirect(ROUTES.LOGIN_PAGE);
 };
 
 export default checkAuthLoader;
