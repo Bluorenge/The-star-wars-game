@@ -1,7 +1,8 @@
-.endGamePageWrapper {
+.gameEndWrapper {
   height: 100vh;
 
   &__endText {
+    margin-top: 0;
     font-size: 26px;
   }
 }

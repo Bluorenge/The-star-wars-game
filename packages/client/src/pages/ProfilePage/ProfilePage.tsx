@@ -1,4 +1,6 @@
 import { ProfileForm } from 'components/Profile';
+import { Layout } from 'layouts/Layout';
+
 import './ProfilePage.scss';
 
 export const ProfilePage = () => {
@@ -6,6 +8,7 @@ export const ProfilePage = () => {
 
   return (
     <div className="wrapperProfilePage">
+      <Layout></Layout>
       <ProfileForm />
     </div>
   );

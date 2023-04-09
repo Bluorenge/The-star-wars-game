@@ -3,11 +3,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { Col, Row } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import { links } from 'constants/navbar';
+
 import { useLocale } from 'hooks/useLocale';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { signOut } from 'app/slices/userSlice';
+
+import { navbarLinks } from 'constants/navbar';
 import { ROUTES } from 'constants/routes';
 
 import './Header.scss';
@@ -31,11 +33,12 @@ export const Header: FC = () => {
       <Link to={ROUTES.MAIN_PAGE_PATH} className="header__link">
         <FormattedMessage id="team.name" defaultMessage="STAR WARS KITTENS" />
       </Link>
+
       <Row className="header__row">
         {isAuth && (
           <nav className="header__navbar">
             <Row>
-              {links.map(({ to, key }) => (
+              {navbarLinks.map(({ to, key }) => (
                 <Col key={key} className="header__navbarItem">
                   <Link to={to} className="header__link">
                     <FormattedMessage

@@ -1,5 +1,7 @@
 import { defineMessages, useIntl } from 'react-intl';
 import { Table, Typography } from 'antd';
+
+import { Layout } from 'layouts/Layout';
 import { data } from './mock';
 
 import './Leaderboard.scss';
@@ -32,6 +34,7 @@ export const LeaderboardPage = () => {
 
   return (
     <div>
+      <Layout></Layout>
       <section className="leaderboard">
         <div className="leaderboard__wrapper">
           <Typography.Title className="leaderboard__title">
