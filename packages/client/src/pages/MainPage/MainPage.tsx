@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 
 import { Welcome } from 'components/Welcome';
 import { Layout } from 'layouts/Layout';

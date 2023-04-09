@@ -88,12 +88,12 @@ export const Login = () => {
   const onYandex = () => {
     api
       .get(
-        `oauth/yandex/service-id?redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fsignin`
+        `oauth/yandex/service-id?redirect_uri=${document.location.href}/signin`
       )
       .then((res) => {
         const serviceId = res?.data?.service_id;
         if (serviceId) {
-          const REDIRECT_URI = 'http://localhost:3000/';
+          const REDIRECT_URI = document.location.href;
           const yandexRedirectPath = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URI}`;
 
           const a = document.createElement('a');
@@ -106,10 +106,9 @@ export const Login = () => {
   useEffect(() => {
     const code = location?.search?.replace('?code=', '');
 
-    console.log(code);
     if (code) {
       authApi
-        .oAuth({ code, redirect_uri: 'http://localhost:3000/' })
+        .oAuth({ code, redirect_uri: document.location.href })
         .then((response) => {
           if (response.status === 200) {
             localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
