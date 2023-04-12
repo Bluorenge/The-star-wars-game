@@ -3,6 +3,8 @@ import { ROUTES } from 'constants/routes';
 
 import RequireAuthRoute from './RequireAuthRoute';
 import checkAuthLoader from 'helpers/checkAuthLoader';
+import { AppDispatch } from 'app/store';
+import { getCurrentUser } from 'app/slices/userSlice';
 
 import { LoginPage } from 'pages/LoginPage';
 import { LeaderboardPage } from 'pages/LeaderboardPage';
@@ -17,12 +19,16 @@ export const routes: RouteObject[] = [
   {
     path: ROUTES.LOGIN_PAGE,
     element: <LoginPage />,
-    loader: checkAuthLoader,
+    loader: (dispatch: any) => {
+      return dispatch(getCurrentUser());
+    },
   },
   {
     path: ROUTES.REGISTER_PAGE_PATH,
     element: <RegisterPage />,
-    loader: checkAuthLoader,
+    loader: (dispatch: any) => {
+      return dispatch(getCurrentUser());
+    },
   },
   {
     path: ROUTES.MAIN_PAGE_PATH,

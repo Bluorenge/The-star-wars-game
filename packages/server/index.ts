@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import dotenv from 'dotenv';
 import cors from 'cors';
 import { createServer as createViteServer } from 'vite';
@@ -9,6 +8,10 @@ dotenv.config();
 import express from 'express';
 import * as fs from 'fs';
 import * as path from 'path';
+import { createProxyMiddleware } from 'http-proxy-middleware';
+import cookieParser from 'cookie-parser';
+import jsesc from 'jsesc';
+import { YandexAPIRepository } from './repository/YandexAPIRepository';
 
 const isDev = () => process.env.NODE_ENV === 'development';
 
@@ -32,6 +35,17 @@ async function startServer() {
     app.use(vite.middlewares);
   }
 
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    })
+  );
+
   app.get('/api', (_, res) => {
     res.json('👋 Howdy from the server :)');
   });
@@ -41,7 +55,7 @@ async function startServer() {
     app.use('/images', express.static(path.resolve(distPath, 'images')));
   }
 
-  app.use('*', async (req, res, next) => {
+  app.use('*', cookieParser(), async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
@@ -61,7 +75,12 @@ async function startServer() {
         template = await vite!.transformIndexHtml(url, template);
       }
 
-      let render: (url: string) => Promise<string>;
+      type SSRModule = (
+        uri: string,
+        repository: any
+      ) => Promise<[string, string, Record<string, any>]>;
+
+      let render: SSRModule;
 
       if (!isDev()) {
         render = (await import(ssrClientPath)).render;
@@ -71,11 +90,20 @@ async function startServer() {
         ).render;
       }
 
-      const [appHtml, styleText] = await render(url);
+      const [appHtml, styleText, initialState] = await render(
+        url,
+        new YandexAPIRepository(req.headers['cookie'])
+      );
+
+      const initStateSerialized = jsesc(JSON.stringify(initialState), {
+        json: true,
+        isScriptContext: true,
+      });
 
       const html = template
         .replace(`<!--ssr-outlet-->`, appHtml)
-        .replace(`<!--inline-css-outlet-->`, styleText);
+        .replace(`<!--inline-css-outlet-->`, styleText)
+        .replace('<!--store-data-->', initStateSerialized);
 
       res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
     } catch (e) {

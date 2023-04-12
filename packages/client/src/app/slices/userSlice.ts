@@ -7,9 +7,9 @@ import { handleErrorFromServer } from 'helpers/errorNotification';
 
 import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
-import { CurrentUser, CurrentUserDto } from 'models/auth.model';
+import { CurrentUser, CurrentUserDto, IUserService } from 'models/auth.model';
 
-const initialState: {
+export const initialState: {
   isAuth: boolean;
   isFetching: boolean;
   currentUser: CurrentUser | null;
@@ -21,16 +21,9 @@ const initialState: {
 
 export const getCurrentUser = createAsyncThunk(
   'user/getCurrentUser',
-  async () => {
-    try {
-      const response = await authApi.getCurrentUser();
-
-      if (response.status === 200) {
-        return { ...response.data };
-      }
-    } catch (err) {
-      handleErrorFromServer(err);
-    }
+  async (_, thunkApi) => {
+    const service: IUserService = thunkApi.extra as IUserService;
+    return service.getCurrentUser();
   }
 );
 
@@ -80,34 +73,31 @@ export const userSlice = createSlice({
       .addCase(getCurrentUser.pending, (state) => {
         state.isFetching = true;
       })
-      .addCase(
-        getCurrentUser.fulfilled,
-        (state, action: PayloadAction<CurrentUserDto, string>) => {
-          const {
-            id,
-            first_name,
-            second_name,
-            display_name,
-            login,
-            email,
-            phone,
-            avatar,
-          } = action.payload;
+      .addCase(getCurrentUser.fulfilled, (state, action: any) => {
+        const {
+          id,
+          first_name,
+          second_name,
+          display_name,
+          login,
+          email,
+          phone,
+          avatar,
+        } = action.payload;
 
-          state.isAuth = true;
-          state.isFetching = false;
-          state.currentUser = {
-            id,
-            firstName: first_name,
-            secondName: second_name,
-            displayName: display_name,
-            login,
-            email,
-            phone,
-            avatar,
-          } as CurrentUser;
-        }
-      )
+        state.isAuth = true;
+        state.isFetching = false;
+        state.currentUser = {
+          id,
+          firstName: first_name,
+          secondName: second_name,
+          displayName: display_name,
+          login,
+          email,
+          phone,
+          avatar,
+        } as CurrentUser;
+      })
       .addCase(getCurrentUser.rejected, (state) => {
         state.isFetching = false;
       });
