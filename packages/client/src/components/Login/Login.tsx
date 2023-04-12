@@ -88,13 +88,13 @@ export const Login = () => {
   const onYandex = () => {
     api
       .get(
-        `oauth/yandex/service-id?redirect_uri=${document.location.href}/signin`
+        `oauth/yandex/service-id?redirect_uri=${document.location.origin}/signin`
       )
       .then((res) => {
         const serviceId = res?.data?.service_id;
         if (serviceId) {
-          const REDIRECT_URI = document.location.href;
-          const yandexRedirectPath = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URI}`;
+          const REDIRECT_URI = document.location.origin;
+          const yandexRedirectPath = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=${REDIRECT_URI}/`;
 
           const a = document.createElement('a');
           a.href = yandexRedirectPath;
@@ -108,7 +108,7 @@ export const Login = () => {
 
     if (code) {
       authApi
-        .oAuth({ code, redirect_uri: document.location.href })
+        .oAuth({ code, redirect_uri: `${document.location.origin}/` })
         .then((response) => {
           if (response.status === 200) {
             localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
@@ -117,6 +117,14 @@ export const Login = () => {
             });
           } else {
             localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
+          }
+        })
+        .catch((e) => {
+          if (e?.response?.data?.reason === 'User already in system') {
+            localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'true');
+            dispatch(getCurrentUser()).then(() => {
+              navigate('/');
+            });
           }
         });
     }
