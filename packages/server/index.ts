@@ -10,7 +10,6 @@ import * as fs from 'fs';
 import * as path from 'path';
 import { createProxyMiddleware } from 'http-proxy-middleware';
 import cookieParser from 'cookie-parser';
-import jsesc from 'jsesc';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 
 const isDev = () => process.env.NODE_ENV === 'development';
@@ -18,6 +17,8 @@ const isDev = () => process.env.NODE_ENV === 'development';
 async function startServer() {
   const app = express();
   app.use(cors());
+  app.use(cookieParser());
+
   const port = Number(process.env.SERVER_PORT) || 3001;
 
   let vite: ViteDevServer | undefined;
@@ -55,7 +56,7 @@ async function startServer() {
     app.use('/images', express.static(path.resolve(distPath, 'images')));
   }
 
-  app.use('*', cookieParser(), async (req, res, next) => {
+  app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
 
     try {
@@ -95,10 +96,9 @@ async function startServer() {
         new YandexAPIRepository(req.headers['cookie'])
       );
 
-      const initStateSerialized = jsesc(JSON.stringify(initialState), {
-        json: true,
-        isScriptContext: true,
-      });
+      const initStateSerialized = `<script>window.initialState = ${JSON.stringify(
+        initialState
+      ).replace(/</g, '\\u003c')}</script>`;
 
       const html = template
         .replace(`<!--ssr-outlet-->`, appHtml)

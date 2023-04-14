@@ -7,7 +7,7 @@ import { handleErrorFromServer } from 'helpers/errorNotification';
 
 import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
-import { CurrentUser, CurrentUserDto, IUserService } from 'models/auth.model';
+import { CurrentUser, IUserService } from 'models/auth.model';
 
 export const initialState: {
   isAuth: boolean;
@@ -23,15 +23,24 @@ export const getCurrentUser = createAsyncThunk(
   'user/getCurrentUser',
   async (_, thunkApi) => {
     const service: IUserService = thunkApi.extra as IUserService;
-    return service.getCurrentUser();
+
+    try {
+      const response = await service.getCurrentUser();
+
+      if (response) {
+        return response;
+      }
+    } catch (err) {
+      handleErrorFromServer(err);
+    }
   }
 );
 
 export const signOut = createAsyncThunk('user/signOut', async () => {
   try {
-    const resopnse = await authApi.signOut();
+    const response = await authApi.signOut();
 
-    if (resopnse.status === 200) {
+    if (response.status === 200) {
       window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
     }
   } catch (err) {

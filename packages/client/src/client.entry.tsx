@@ -7,27 +7,44 @@ import { App } from 'core/App/App';
 import { UserService } from './api/UserService';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { createStore } from 'app/store';
+import { getCurrentUser } from 'app/slices/userSlice';
+import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 
-let initialState;
+async function renderApp() {
+  if (window.initialState) {
+    const store = createStore(
+      new UserService(new YandexAPIRepository()),
+      window.initialState
+    );
+    delete window.initialState;
 
-if ((window as any).initialState) {
-  initialState = (window as any).initialState!;
+    ReactDOM.hydrateRoot(
+      document.getElementById('root') as HTMLElement,
+      <React.StrictMode>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </React.StrictMode>
+    );
+  } else {
+    const store = createStore(new UserService(new YandexAPIRepository()));
 
-  // delete (window as any).initialState!;
+    if (window.localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY)) {
+      await store.dispatch(getCurrentUser());
+    }
+
+    ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+      <React.StrictMode>
+        <Provider store={store}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+        </Provider>
+      </React.StrictMode>
+    );
+  }
 }
 
-ReactDOM.hydrateRoot(
-  document.getElementById('root') as HTMLElement,
-  <React.StrictMode>
-    <Provider
-      store={createStore(
-        new UserService(new YandexAPIRepository()),
-        initialState
-      )}
-    >
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
-);
+renderApp();

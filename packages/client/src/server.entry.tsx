@@ -6,24 +6,13 @@ import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
 
 import { App } from 'core/App';
 import { UserRepository, UserService } from 'api/UserService';
-import { routes } from 'core/Router';
-import { matchPath } from 'react-router-dom';
 import { createStore } from 'app/store';
+import { getCurrentUser } from 'app/slices/userSlice';
 
 export const render = async (url: string, repository: UserRepository) => {
-  const [pathname] = url.split('?');
   const store = createStore(new UserService(repository));
-  const currentRoute = routes.find((route) =>
-    matchPath(pathname, route.path as string)
-  );
 
-  if (currentRoute) {
-    const { loader } = currentRoute;
-
-    if (loader) {
-      await loader(store.dispatch as any);
-    }
-  }
+  await store.dispatch(getCurrentUser());
 
   const initialState = store.getState();
 
@@ -41,7 +30,7 @@ export const render = async (url: string, repository: UserRepository) => {
     </React.StrictMode>
   );
 
-  const styleText = extractStyle(cache);
+  const styleText = extractStyle(cache); // собираем инлайн-стили antd
 
   return [html, styleText, initialState];
 };
