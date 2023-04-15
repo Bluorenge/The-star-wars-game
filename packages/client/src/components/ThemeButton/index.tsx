@@ -5,7 +5,6 @@ export const ThemeButton = () => {
   const { theme, setTheme } = useTheme();
 
   const themeSwitcher = () => {
-    console.log('hello');
     if (theme === 'light') {
       setTheme('dark');
     } else {
@@ -14,7 +13,7 @@ export const ThemeButton = () => {
   };
   return (
     <input
-      id="theme__button"
+      id="btnTheme"
       type="button"
       value="Изменить тему"
       onClick={themeSwitcher}
