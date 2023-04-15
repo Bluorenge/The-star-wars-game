@@ -16,6 +16,8 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { ProfileInput } from 'models/profile.model';
 import { messages } from './common';
 
+import { ThemeButton } from 'components/ThemeButton';
+
 import './ProfileForm.scss';
 
 export const ProfileForm = () => {
@@ -225,6 +227,7 @@ export const ProfileForm = () => {
             ) : null}
           </Form>
         </Loader>
+
         <Button
           onClick={handleChangeProfileInfo}
           type="link"
@@ -232,6 +235,7 @@ export const ProfileForm = () => {
         >
           {fm(messages.buttonChangeProfileInfo)}
         </Button>
+
         <Button
           onClick={handleChangePassword}
           type="link"
@@ -239,6 +243,9 @@ export const ProfileForm = () => {
         >
           {fm(messages.buttonChangePassword)}
         </Button>
+
+        <ThemeButton />
+
         <Button
           onClick={handleSignOut}
           type="link"
