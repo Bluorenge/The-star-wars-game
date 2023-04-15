@@ -9,6 +9,7 @@ import { useAppDispatch } from 'hooks/useAppDispatch';
 import { en, ru } from 'translations';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import window from 'helpers/window';
+import { useTheme } from 'hooks/useTheme';
 
 import './App.scss';
 
@@ -16,6 +17,7 @@ export const App = () => {
   const dispatch = useAppDispatch();
   const [locale] = useLocale();
   const router = useRoutes(routes);
+  useTheme();
 
   useEffect(() => {
     if (window.localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY)) {
