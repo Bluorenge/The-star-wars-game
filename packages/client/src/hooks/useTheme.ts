@@ -11,5 +11,5 @@ export const useTheme = () => {
     localStorage.setItem('app-theme', theme);
   }, [theme]);
 
-  return { theme, setTheme };
+  return [theme, setTheme] as const;
 };
