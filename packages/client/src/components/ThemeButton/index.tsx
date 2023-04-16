@@ -13,7 +13,7 @@ export const ThemeButton = () => {
   };
   return (
     <input
-      id="btnTheme"
+      className="btnTheme"
       type="button"
       value="Изменить тему"
       onClick={themeSwitcher}

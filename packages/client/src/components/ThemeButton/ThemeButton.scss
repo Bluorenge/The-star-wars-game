@@ -1,4 +1,4 @@
-#btnTheme {
+.btnTheme {
   background-color: white;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
     'Helvetica Neue', Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji',
@@ -9,6 +9,6 @@
   cursor: pointer;
 }
 
-#btnTheme:hover {
+.btnTheme:hover {
   color: #79b5ff;
 }
