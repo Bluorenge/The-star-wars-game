@@ -16,8 +16,6 @@ import { useAppSelector } from 'hooks/useAppSelector';
 import { ProfileInput } from 'models/profile.model';
 import { messages } from './common';
 
-import { ThemeButton } from 'components/ThemeButton';
-
 import './ProfileForm.scss';
 
 export const ProfileForm = () => {
@@ -243,8 +241,6 @@ export const ProfileForm = () => {
         >
           {fm(messages.buttonChangePassword)}
         </Button>
-
-        <ThemeButton />
 
         <Button
           onClick={handleSignOut}
