@@ -6,8 +6,8 @@ export const ThemeButton = () => {
 
   const checked = theme === 'dark' ? true : undefined;
 
-  const themeSwitcher = (e: any) => {
-    e.blur();
+  const themeSwitcher = (inputEl: HTMLElement) => {
+    inputEl.blur();
     if (theme === 'light') {
       setTheme('dark');
     } else {
@@ -18,8 +18,8 @@ export const ThemeButton = () => {
     <label className="switch">
       <input
         type="checkbox"
-        value="light"
-        onClick={(e) => themeSwitcher(e.target)}
+        value={theme}
+        onClick={(e) => themeSwitcher(e.target as HTMLElement)}
         checked={checked}
       />
       <span className="slider"></span>
