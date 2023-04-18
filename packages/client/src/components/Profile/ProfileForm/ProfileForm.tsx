@@ -225,6 +225,7 @@ export const ProfileForm = () => {
             ) : null}
           </Form>
         </Loader>
+
         <Button
           onClick={handleChangeProfileInfo}
           type="link"
@@ -232,6 +233,7 @@ export const ProfileForm = () => {
         >
           {fm(messages.buttonChangeProfileInfo)}
         </Button>
+
         <Button
           onClick={handleChangePassword}
           type="link"
@@ -239,6 +241,7 @@ export const ProfileForm = () => {
         >
           {fm(messages.buttonChangePassword)}
         </Button>
+
         <Button
           onClick={handleSignOut}
           type="link"
