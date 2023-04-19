@@ -20,7 +20,7 @@ export const App = () => {
   useTheme();
 
   useEffect(() => {
-    if (window.localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY)) {
+    if (window.localStorage.getItem(LOCAL_STORAGE_IS_AUTH_KEY) === 'true') {
       dispatch(getCurrentUser());
     }
   }, []);
