@@ -11,6 +11,7 @@ import { signOut } from 'app/slices/userSlice';
 
 import { navbarLinks } from 'constants/navbar';
 import { ROUTES } from 'constants/routes';
+import { ThemeButton } from 'components/ThemeButton';
 
 import './Header.scss';
 
@@ -57,6 +58,10 @@ export const Header: FC = () => {
             onClick={toggleLocale}
             className="header__link_langIcon"
           />
+        </Col>
+
+        <Col className="header__navbarItem">
+          <ThemeButton />
         </Col>
 
         {isAuth && (

@@ -10,6 +10,7 @@ import './App.scss';
 export const App = () => {
   const [locale] = useLocale();
   const router = useRoutes(routes);
+  useTheme();
 
   return (
     <IntlProvider

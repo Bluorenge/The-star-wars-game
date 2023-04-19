@@ -44,6 +44,7 @@ export const signOut = createAsyncThunk('user/signOut', async () => {
       window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
     }
   } catch (err) {
+    localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
     handleErrorFromServer(err);
   }
 });
