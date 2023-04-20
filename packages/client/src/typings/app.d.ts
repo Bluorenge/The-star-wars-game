@@ -10,3 +10,9 @@ export type ErrorReponse = {
   status?: number;
   statusText?: string;
 };
+
+declare global {
+  interface Window {
+    initialState?: StoreData;
+  }
+}

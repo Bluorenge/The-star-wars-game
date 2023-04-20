@@ -4,17 +4,33 @@ import localeReducer from 'app/slices/localeSlice';
 import userReducer from 'app/slices/userSlice';
 import gameSlice from 'app/slices/gameSlice';
 import { listenerMiddleware } from 'app/middlewares/middlewares';
+import { CurrentUser, IUserService } from 'models/auth.model';
 
-export const store = configureStore({
-  reducer: {
-    locale: localeReducer,
-    user: userReducer,
-    game: gameSlice,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(listenerMiddleware.middleware),
-});
+export interface StoreState {
+  user: {
+    isAuth: boolean;
+    isFetching: boolean;
+    currentUser: CurrentUser | null;
+  };
+}
 
-export type RootState = ReturnType<typeof store.getState>;
+export function createStore(service: IUserService, initialState?: StoreState) {
+  return configureStore({
+    reducer: {
+      locale: localeReducer,
+      user: userReducer,
+      game: gameSlice,
+    },
+    preloadedState: initialState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        thunk: {
+          extraArgument: service,
+        },
+      }).concat(listenerMiddleware.middleware),
+  });
+}
 
-export type AppDispatch = typeof store.dispatch;
+export type RootState = ReturnType<any>;
+
+export type AppDispatch = ReturnType<typeof createStore>['dispatch'];
