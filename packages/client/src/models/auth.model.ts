@@ -61,3 +61,7 @@ export interface CurrentUser {
   phone: string;
   avatar: string;
 }
+
+export interface IUserService {
+  getCurrentUser(): Promise<CurrentUser>;
+}

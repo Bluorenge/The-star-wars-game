@@ -5,9 +5,17 @@ import { Provider } from 'react-redux';
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
 
 import { App } from 'core/App';
-import { store } from 'app/store';
+import { UserRepository, UserService } from 'api/UserService';
+import { createStore } from 'app/store';
+import { getCurrentUser } from 'app/slices/userSlice';
 
-export const render = (url: string) => {
+export const render = async (url: string, repository: UserRepository) => {
+  const store = createStore(new UserService(repository));
+
+  await store.dispatch(getCurrentUser());
+
+  const initialState = store.getState();
+
   const cache = createCache();
 
   const html = renderToString(
@@ -22,7 +30,7 @@ export const render = (url: string) => {
     </React.StrictMode>
   );
 
-  const styleText = extractStyle(cache);
+  const styleText = extractStyle(cache); // собираем инлайн-стили antd
 
-  return [html, styleText];
+  return [html, styleText, initialState];
 };

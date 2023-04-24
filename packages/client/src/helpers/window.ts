@@ -16,4 +16,6 @@ const windowSsr = {
 const win: Window | typeof windowSsr =
   typeof window !== 'undefined' ? window : windowSsr;
 
+export const isServer = !(typeof window !== 'undefined' && window.document);
+
 export default win;

@@ -13,6 +13,9 @@ export const authApi = {
   login: (data: LoginInput) => {
     return api.post('/auth/signin', new LoginInputDto(data));
   },
+  oAuth: (data: any) => {
+    return api.post('/oauth/yandex', data);
+  },
   register: (data: RegisterInput) => {
     return api.post('/auth/signup', new RegisterInputDto(data));
   },

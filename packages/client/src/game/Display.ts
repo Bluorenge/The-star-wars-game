@@ -10,6 +10,8 @@ import {
   LOCAL_STORAGE_PLAYER_GAMES_PLAYED,
 } from 'constants/localStorage';
 
+import battle from '../assets/img/battle1.png';
+
 export default class Display {
   public width = 0;
   public height = 0;
@@ -34,6 +36,7 @@ export default class Display {
   private readonly _context: CanvasRenderingContext2D;
   private isPaused: boolean;
   private setGameInfo: any;
+  private pic: HTMLImageElement;
 
   private MILLENNIUM_FALCON_HEALTH_GOOD = 70;
   private MILLENNIUM_FALCON_HEALTH_BAD = 30;
@@ -46,6 +49,9 @@ export default class Display {
     this._context = context;
     this.isPaused = isPaused;
     this.setGameInfo = setGameInfo;
+
+    this.pic = new Image();
+    this.pic.src = battle;
 
     this.height = context.canvas.height;
     this.width = context.canvas.width;
@@ -71,8 +77,7 @@ export default class Display {
 
     this.context.clearRect(0, 0, this.width, this.height);
 
-    this.context.fillStyle = 'black';
-    this.context.fillRect(0, 0, this.width, this.height);
+    this.context.drawImage(this.pic, 0, 0, this.width, this.height);
 
     this.millenniumFalcon.draw();
 
@@ -136,7 +141,7 @@ export default class Display {
   private drawScore() {
     this.context.fillStyle = 'yellow';
     this.context.font = 'bold 46px Arial';
-    this.context.fillText(String(this.currentScore), this.width - 50, 50);
+    this.context.fillText(String(this.currentScore), this.width - 100, 50);
   }
 
   upUpdate = () => {
