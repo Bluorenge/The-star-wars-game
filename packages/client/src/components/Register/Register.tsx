@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { Button, Form, Input, Typography } from 'antd';
 
 import { authApi } from 'api/auth';
-import { getCurrentUser } from 'app/slices/userSlice';
+import { getCurrentUser } from 'app/actions/userActions';
 import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';

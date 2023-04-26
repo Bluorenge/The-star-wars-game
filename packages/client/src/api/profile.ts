@@ -1,4 +1,4 @@
-import { api } from 'api';
+import { yandexApi } from 'api';
 import {
   ProfileChangePasswordInput,
   ProfileChangePasswordInputDto,
@@ -8,12 +8,15 @@ import {
 
 export const profileApi = {
   changeProfileInfo: (data: ProfileInput) => {
-    return api.put('/user/profile', new ProfileInputDto(data));
+    return yandexApi.put('/user/profile', new ProfileInputDto(data));
   },
   changeProfileAvatar: (data: FormData) => {
-    return api.put('/user/profile/avatar', data);
+    return yandexApi.put('/user/profile/avatar', data);
   },
   changeProfilePassword: (data: ProfileChangePasswordInput) => {
-    return api.put('/user/password', new ProfileChangePasswordInputDto(data));
+    return yandexApi.put(
+      '/user/password',
+      new ProfileChangePasswordInputDto(data)
+    );
   },
 };

@@ -7,7 +7,7 @@ import { App } from 'core/App/App';
 import { UserService } from './api/UserService';
 import { YandexAPIRepository } from './repository/YandexAPIRepository';
 import { createStore } from 'app/store';
-import { getCurrentUser } from 'app/slices/userSlice';
+import { getCurrentUser } from 'app/actions/userActions';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 
 async function renderApp() {

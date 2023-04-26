@@ -1,4 +1,4 @@
-import { api } from 'api';
+import { yandexApi } from 'api';
 import {
   LoginInput,
   LoginInputDto,
@@ -8,18 +8,18 @@ import {
 
 export const authApi = {
   getCurrentUser: async () => {
-    return api.get('/auth/user');
+    return yandexApi.get('/auth/user');
   },
   login: (data: LoginInput) => {
-    return api.post('/auth/signin', new LoginInputDto(data));
+    return yandexApi.post('/auth/signin', new LoginInputDto(data));
   },
   oAuth: (data: any) => {
-    return api.post('/oauth/yandex', data);
+    return yandexApi.post('/oauth/yandex', data);
   },
   register: (data: RegisterInput) => {
-    return api.post('/auth/signup', new RegisterInputDto(data));
+    return yandexApi.post('/auth/signup', new RegisterInputDto(data));
   },
   signOut: () => {
-    return api.post('/auth/logout');
+    return yandexApi.post('/auth/logout');
   },
 };

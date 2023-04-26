@@ -3,7 +3,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Button, Form, Input, Typography } from 'antd';
 
 import { authApi } from 'api/auth';
-import { getCurrentUser } from 'app/slices/userSlice';
+import { getCurrentUser } from 'app/actions/userActions';
 import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';
@@ -15,7 +15,7 @@ import yandexIcon from 'assets/icons/ya.svg';
 
 import './Login.scss';
 import { useEffect } from 'react';
-import { api } from '../../api';
+import { yandexApi } from '../../api';
 
 const messages = defineMessages({
   buttonRegister: { id: 'auth.button.register', defaultMessage: 'Sign up' },
@@ -86,7 +86,7 @@ export const Login = () => {
   }
 
   const onYandex = () => {
-    api
+    yandexApi
       .get(
         `oauth/yandex/service-id?redirect_uri=${document.location.origin}/signin`
       )

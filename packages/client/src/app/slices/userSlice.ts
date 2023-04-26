@@ -1,13 +1,7 @@
-import { PayloadAction, createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { UploadRequestOption } from 'rc-upload/lib/interface';
+import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { authApi } from 'api/auth';
-import { profileApi } from 'api/profile';
-import { handleErrorFromServer } from 'helpers/errorNotification';
-
-import window from 'helpers/window';
-import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
-import { CurrentUser, IUserService } from 'models/auth.model';
+import { getCurrentUser, signOut } from 'app/actions/userActions';
+import { CurrentUser } from 'models/auth.model';
 
 export const initialState: {
   isAuth: boolean;
@@ -18,54 +12,6 @@ export const initialState: {
   isFetching: false,
   currentUser: null,
 };
-
-export const getCurrentUser = createAsyncThunk(
-  'user/getCurrentUser',
-  async (_, thunkApi) => {
-    const service: IUserService = thunkApi.extra as IUserService;
-
-    try {
-      const response = await service.getCurrentUser();
-
-      if (response) {
-        return response;
-      }
-    } catch (err) {
-      handleErrorFromServer(err);
-    }
-  }
-);
-
-export const signOut = createAsyncThunk('user/signOut', async () => {
-  try {
-    const response = await authApi.signOut();
-
-    if (response.status === 200) {
-      window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
-    }
-  } catch (err) {
-    localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
-    handleErrorFromServer(err);
-  }
-});
-
-export const updateUserAvatar = createAsyncThunk(
-  'user/updateAvatar',
-  async (data: UploadRequestOption) => {
-    try {
-      const formData = new FormData();
-      formData.append('avatar', data.file);
-
-      const response = await profileApi.changeProfileAvatar(formData);
-
-      if (response.status === 200) {
-        return { ...response.data };
-      }
-    } catch (err) {
-      handleErrorFromServer(err);
-    }
-  }
-);
 
 export const userSlice = createSlice({
   name: 'user',

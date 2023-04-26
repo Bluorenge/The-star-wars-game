@@ -2,7 +2,8 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import localeReducer from 'app/slices/localeSlice';
 import userReducer from 'app/slices/userSlice';
-import gameSlice from 'app/slices/gameSlice';
+import gameReducer from 'app/slices/gameSlice';
+import forumReducer from './slices/forumSlice';
 import { listenerMiddleware } from 'app/middlewares/middlewares';
 import { CurrentUser, IUserService } from 'models/auth.model';
 
@@ -19,7 +20,8 @@ export function createStore(service: IUserService, initialState?: StoreState) {
     reducer: {
       locale: localeReducer,
       user: userReducer,
-      game: gameSlice,
+      game: gameReducer,
+      forum: forumReducer,
     },
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>

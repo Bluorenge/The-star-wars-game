@@ -23,9 +23,11 @@ const isDev = () => process.env.NODE_ENV === 'development';
 async function startServer() {
   const app = express();
   app.use(cors());
+  app.use(cookieParser());
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
 
   app.use(appRouter);
-  app.use(cookieParser());
 
   let vite: ViteDevServer | undefined;
 
@@ -39,21 +41,6 @@ async function startServer() {
     app.use(vite.middlewares);
   }
 
-  app.use(
-    '/api/v2',
-    createProxyMiddleware({
-      changeOrigin: true,
-      cookieDomainRewrite: {
-        '*': '',
-      },
-      target: 'https://ya-praktikum.tech',
-    })
-  );
-
-  app.get('/api', (_, res) => {
-    res.json('👋 Howdy from the server :)');
-  });
-
   if (!isDev()) {
     app.use(
       '/assets',
@@ -64,6 +51,17 @@ async function startServer() {
       express.static(path.resolve(config.paths.clientDistPath, 'images'))
     );
   }
+
+  app.use(
+    '/api/v2',
+    createProxyMiddleware({
+      changeOrigin: true,
+      cookieDomainRewrite: {
+        '*': '',
+      },
+      target: 'https://ya-praktikum.tech',
+    })
+  );
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
