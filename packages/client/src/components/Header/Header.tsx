@@ -7,7 +7,7 @@ import { GlobalOutlined } from '@ant-design/icons';
 import { useLocale } from 'hooks/useLocale';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { signOut } from 'app/slices/userSlice';
+import { signOut } from 'app/actions/userActions';
 
 import { navbarLinks } from 'constants/navbar';
 import { ROUTES } from 'constants/routes';

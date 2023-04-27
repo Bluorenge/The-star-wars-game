@@ -5,10 +5,10 @@ import { Avatar, Button, Form, Input, Modal, Typography, message } from 'antd';
 import { LeftOutlined, UserOutlined } from '@ant-design/icons';
 
 import { profileApi } from 'api/profile';
-import { getCurrentUser, signOut } from 'app/slices/userSlice';
+import { getCurrentUser, signOut } from 'app/actions/userActions';
 import { ProfileChangeAvatar } from 'components/Profile/ProfileChangeAvatar';
 import { Loader } from 'components-ui/Loader';
-import { API_URL } from 'constants/main';
+import { YNDEX_API_URL } from 'constants/main';
 import { ROUTES } from 'constants/routes';
 import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
@@ -91,7 +91,7 @@ export const ProfileForm = () => {
             size={100}
             src={
               currentUser?.avatar
-                ? `${API_URL}/resources${currentUser.avatar}`
+                ? `${YNDEX_API_URL}/resources${currentUser.avatar}`
                 : undefined
             }
             icon={<UserOutlined />}

@@ -7,7 +7,7 @@ import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
 import { App } from 'core/App';
 import { UserRepository, UserService } from 'api/UserService';
 import { createStore } from 'app/store';
-import { getCurrentUser } from 'app/slices/userSlice';
+import { getCurrentUser } from 'app/actions/userActions';
 
 export const render = async (url: string, repository: UserRepository) => {
   const store = createStore(new UserService(repository));

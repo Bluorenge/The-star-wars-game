@@ -63,7 +63,6 @@ export const ProfileChangePassword = () => {
   const [form] = Form.useForm();
 
   async function onSubmit(values: ProfileChangePasswordInput) {
-    console.log({ values });
     try {
       const response = await profileApi.changeProfilePassword(values);
 

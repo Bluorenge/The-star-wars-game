@@ -11,6 +11,7 @@ const windowSsr = {
   removeEventListener() {},
   innerWidth: 500,
   innerHeight: 500,
+  matchMedia: () => null,
 };
 
 const win: Window | typeof windowSsr =

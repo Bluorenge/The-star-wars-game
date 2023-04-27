@@ -1,7 +1,12 @@
 import axios from 'axios';
-import { API_URL } from 'constants/main';
+import { OUR_API_URL, YNDEX_API_URL } from 'constants/main';
 
-export const api = axios.create({
-  baseURL: API_URL,
+export const yandexApi = axios.create({
+  baseURL: YNDEX_API_URL,
+  withCredentials: true,
+});
+
+export const ourApi = axios.create({
+  baseURL: OUR_API_URL,
   withCredentials: true,
 });

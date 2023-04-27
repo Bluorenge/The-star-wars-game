@@ -11,7 +11,9 @@ import { GamePage } from 'pages/GamePage';
 import { ProfilePage } from 'pages/ProfilePage';
 import { RegisterPage } from 'pages/RegisterPage';
 import { ProfileChangePasswordPage } from 'pages/ProfileChangePasswordPage';
-import { ForumMainPage } from 'pages/ForumMainPage';
+import { ForumsPage } from 'pages/ForumsPage';
+import { ForumPage } from 'pages/ForumPage';
+import { ThreadPage } from 'pages/ThreadPage';
 
 export const routes: RouteObject[] = [
   {
@@ -68,7 +70,23 @@ export const routes: RouteObject[] = [
     path: ROUTES.FORUM_MAIN_PAGE_PATH,
     element: (
       <RequireAuthRoute>
-        <ForumMainPage />
+        <ForumsPage />
+      </RequireAuthRoute>
+    ),
+  },
+  {
+    path: `${ROUTES.FORUM_MAIN_PAGE_PATH}/:forumId`,
+    element: (
+      <RequireAuthRoute>
+        <ForumPage />
+      </RequireAuthRoute>
+    ),
+  },
+  {
+    path: `${ROUTES.FORUM_THREAD_PAGE_PATH}/:threadId`,
+    element: (
+      <RequireAuthRoute>
+        <ThreadPage />
       </RequireAuthRoute>
     ),
   },
