@@ -13,7 +13,6 @@ import './ThreadMain.scss';
 export const ThreadMain: React.FC = () => {
   const dispatch = useAppDispatch();
   const { thread } = useAppSelector((state) => state.forum);
-  console.log('thread: ', thread);
   const { login } = useAppSelector((state) => state.user.currentUser);
 
   const [formCreateMessage] = Form.useForm();

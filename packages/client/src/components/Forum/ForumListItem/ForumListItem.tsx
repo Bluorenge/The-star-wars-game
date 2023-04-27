@@ -19,7 +19,7 @@ export const ForumListItem: React.FC<{ forumListItemData: ThreadModel }> = ({
 
       <Col span={4}>
         <div className="forumListItem__answerQuantity">
-          {forumListItemData.messageCount}
+          {forumListItemData.messageCount ?? 0}
         </div>
       </Col>
     </Row>

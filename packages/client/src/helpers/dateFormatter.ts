@@ -10,7 +10,6 @@ function dateFormater(unformatedDate: string | null | undefined) {
 
   const day = calcDate.getDate();
   const diff = new Date().getDate() - day;
-  console.log('diff: ', diff);
 
   const isYesterday = diff === 1;
   const isToday = diff >= 0 && diff < 1;

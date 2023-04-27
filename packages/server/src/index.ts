@@ -24,10 +24,6 @@ async function startServer() {
   const app = express();
   app.use(cors());
   app.use(cookieParser());
-  app.use(express.urlencoded({ extended: false }));
-  app.use(express.json());
-
-  app.use(appRouter);
 
   let vite: ViteDevServer | undefined;
 
@@ -62,6 +58,11 @@ async function startServer() {
       target: 'https://ya-praktikum.tech',
     })
   );
+
+  app.use(express.urlencoded({ extended: false }));
+  app.use(express.json());
+
+  app.use(appRouter);
 
   app.use('*', async (req, res, next) => {
     const url = req.originalUrl;
