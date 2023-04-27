@@ -1,10 +1,12 @@
 import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Typography, Modal, Input, message, Form } from 'antd';
+import { useParams } from 'react-router-dom';
 
 import { ForumCreateModalProps } from 'models/forum.model';
 import { INPUT_CREATE_NAME } from 'constants/forum';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
 import { createForum, createThread } from 'app/actions/forumActions';
 
 import './ForumCreateModal.scss';
@@ -34,13 +36,13 @@ const messages = defineMessages({
 });
 
 export const ForumCreateModal: React.FC<ForumCreateModalProps> = ({
-  currentForum,
   isCreateModalOpen,
   toggleOpenCreateModal,
 }) => {
   const { formatMessage: fm } = useIntl();
   const dispatch = useAppDispatch();
-  const isForumCreating = !currentForum;
+  const { forumId } = useParams();
+  const { forum } = useAppSelector((state) => state.forum);
 
   const [isCreateLoading, setIsCreateLoading] = useState<boolean>(false);
   const [messageApi, contextHolder] = message.useMessage();
@@ -52,12 +54,10 @@ export const ForumCreateModal: React.FC<ForumCreateModalProps> = ({
     try {
       const threadName = formCreate.getFieldValue(INPUT_CREATE_NAME);
 
-      if (isForumCreating) {
+      if (forumId) {
         await dispatch(createForum({ title: threadName }));
       } else {
-        await dispatch(
-          createThread({ name: threadName, forumId: currentForum.id })
-        );
+        await dispatch(createThread({ name: threadName, forumId: forum.id }));
       }
 
       messageApi.open({
@@ -76,7 +76,7 @@ export const ForumCreateModal: React.FC<ForumCreateModalProps> = ({
       title={
         <Typography.Title level={3} className="forumCreateModal__title">
           {fm(messages.modalAddTopicTitle)}
-          {currentForum ? ` "${currentForum.title}"` : null}
+          {forumId ? ` "${forum.title}"` : null}
         </Typography.Title>
       }
       open={isCreateModalOpen}

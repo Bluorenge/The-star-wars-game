@@ -1,11 +1,36 @@
 @import 'core/vars';
 
 .threadMain {
-  max-width: 1140px;
+  max-width: 600px;
   margin: $headerHeight auto 0;
   padding: 24px;
 
   &__title {
     margin-top: 0;
+  }
+
+  &__messagesWrap,
+  &__mainContentWrap {
+    display: flex;
+  }
+
+  &__messagesWrap {
+    margin-bottom: 40px;
+  }
+
+  &__message {
+    display: flex;
+    flex-direction: column;
+    padding: $paddingM;
+    border: 1px solid $lightGrayColor;
+    border-radius: $borderRadiusPrimary;
+  }
+
+  &__messageInfo {
+    align-self: flex-end;
+  }
+
+  &__submitBtn {
+    margin-right: 15px;
   }
 }

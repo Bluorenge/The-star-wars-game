@@ -43,5 +43,4 @@ export interface CreateMessageModel {
 export interface ForumCreateModalProps {
   isCreateModalOpen: boolean;
   toggleOpenCreateModal: () => void;
-  currentForum?: ForumModel;
 }

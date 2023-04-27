@@ -1,9 +1,7 @@
-import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Typography, Button, Col, Row, Space } from 'antd';
 
 import { ForumsListItem } from 'components/Forum/ForumsListItem';
-import { ForumCreateModal } from 'components/Forum/ForumCreateModal';
 import { Loader } from 'components-ui/Loader';
 import { ForumModel } from 'models/forum.model';
 import { useAppSelector } from 'hooks/useAppSelector';
@@ -26,15 +24,11 @@ const messages = defineMessages({
   },
 });
 
-export const ForumsMain: React.FC = () => {
+export const ForumsMain: React.FC<{ onCreateBtnClick: () => void }> = ({
+  onCreateBtnClick,
+}) => {
   const { formatMessage: fm } = useIntl();
   const { forums, loading } = useAppSelector((state) => state.forum);
-
-  const [isCreateModalOpen, setisCreateModalOpen] = useState<boolean>(false);
-
-  const toggleOpenCreateModal = () => {
-    setisCreateModalOpen((prevState) => !prevState);
-  };
 
   return (
     <Loader loading={loading} spinning>
@@ -51,13 +45,13 @@ export const ForumsMain: React.FC = () => {
           {forums.length !== 0 && (
             <>
               <Row gutter={[20, 50]}>
-                <Col span={19}>
+                <Col span={16}>
                   <Typography.Title level={4} className="forumsMain__colTitle">
                     {fm(messages.titleColumnForums)}
                   </Typography.Title>
                 </Col>
 
-                <Col span={3}>
+                <Col span={4}>
                   <Typography.Title
                     level={4}
                     className="forumsMain__colTitle forumsMain__colTitle_centered"
@@ -66,7 +60,7 @@ export const ForumsMain: React.FC = () => {
                   </Typography.Title>
                 </Col>
 
-                <Col span={2}>
+                <Col span={4}>
                   <Typography.Title
                     level={4}
                     className="forumsMain__colTitle forumsMain__colTitle_centered"
@@ -81,13 +75,9 @@ export const ForumsMain: React.FC = () => {
               ))}
             </>
           )}
-          <Button onClick={toggleOpenCreateModal}>Создать форум</Button>
-        </Space>
 
-        <ForumCreateModal
-          isCreateModalOpen={isCreateModalOpen}
-          toggleOpenCreateModal={toggleOpenCreateModal}
-        />
+          <Button onClick={onCreateBtnClick}>Создать форум</Button>
+        </Space>
       </div>
     </Loader>
   );

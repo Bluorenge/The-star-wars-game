@@ -11,13 +11,13 @@ export const ForumListItem: React.FC<{ forumListItemData: ThreadModel }> = ({
 }) => {
   return (
     <Row key={forumListItemData.id} align="middle" gutter={[20, 50]}>
-      <Col span={19}>
+      <Col span={20}>
         <Link to={`${ROUTES.FORUM_THREAD_PAGE_PATH}/${forumListItemData.id}`}>
           <Typography.Text>{forumListItemData.name}</Typography.Text>
         </Link>
       </Col>
 
-      <Col span={5}>
+      <Col span={4}>
         <div className="forumListItem__answerQuantity">
           {forumListItemData.messageCount}
         </div>

@@ -4,13 +4,16 @@ import { Typography, Button, Space, Form, Input, Spin } from 'antd';
 import { createMessage } from 'app/actions/forumActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
+import dateFormater from 'helpers/dateFormatter';
 import { INPUT_MESSAGE_NAME } from 'constants/forum';
+import { MessageModel } from 'models/forum.model';
 
 import './ThreadMain.scss';
 
 export const ThreadMain: React.FC = () => {
   const dispatch = useAppDispatch();
   const { thread } = useAppSelector((state) => state.forum);
+  console.log('thread: ', thread);
   const { login } = useAppSelector((state) => state.user.currentUser);
 
   const [formCreateMessage] = Form.useForm();
@@ -36,37 +39,57 @@ export const ThreadMain: React.FC = () => {
   };
 
   return (
-    <div className="forumsMain">
-      <Typography.Title className="forumsMain__title">
+    <div className="threadMain">
+      <Typography.Title className="threadMain__title">
         Тема "{thread?.name}"
       </Typography.Title>
 
-      <Space
-        direction="vertical"
-        size={20}
-        className="forumsMain__mainContentWrap"
-      >
-        <Form form={formCreateMessage} onFinish={handleCreate}>
-          <Form.Item
-            name={INPUT_MESSAGE_NAME}
-            rules={[
-              {
-                required: true,
-                message: 'Введите текст сообщения',
-              },
-            ]}
-          >
-            <TextArea rows={4} />
-          </Form.Item>
+      {thread?.messages.length > 0 && (
+        <Space
+          direction="vertical"
+          size={20}
+          className="threadMain__messagesWrap"
+        >
+          {thread.messages.map((message: MessageModel) => (
+            <div className="threadMain__message" key={message.id}>
+              <p>{message.message}</p>
 
-          <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Отправить
-            </Button>
-            {isCreateLoading ? <Spin /> : null}
-          </Form.Item>
-        </Form>
-      </Space>
+              <div className="threadMain__messageInfo">
+                <span>Автор: {message.nickname}</span>
+                <span> — </span>
+                <span>{dateFormater(message.createdAt)}</span>
+              </div>
+            </div>
+          ))}
+        </Space>
+      )}
+
+      <Form form={formCreateMessage} onFinish={handleCreate}>
+        <p>Текст сообщения:</p>
+        <Form.Item
+          name={INPUT_MESSAGE_NAME}
+          rules={[
+            {
+              required: true,
+              message: 'Введите текст сообщения',
+            },
+          ]}
+        >
+          <TextArea rows={4} />
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            className="threadMain__submitBtn"
+          >
+            Отправить
+          </Button>
+
+          {isCreateLoading ? <Spin /> : null}
+        </Form.Item>
+      </Form>
     </div>
   );
 };
