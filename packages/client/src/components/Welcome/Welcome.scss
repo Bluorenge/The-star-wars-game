@@ -1,0 +1,12 @@
+.welcomeWrapper {
+  height: 100vh;
+
+  &__topContent {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+
+  &__greetings {
+    font-size: 22px;
+  }
+}

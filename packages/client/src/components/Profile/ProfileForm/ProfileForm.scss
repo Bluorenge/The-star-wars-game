@@ -1,0 +1,66 @@
+@import 'core/vars';
+
+.formProfile {
+  width: 600px;
+  padding: $paddingL;
+  border: 1px solid $lightGrayColor;
+  border-radius: 10px;
+
+  &__heading {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__avatarContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: $paddingL;
+  }
+
+  &__avatar {
+    border: 1px solid $lightGrayColor;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  &__form {
+    width: 100%;
+  }
+
+  &__editButtons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__editButton {
+    width: 100px;
+    margin: 0 $paddingS;
+  }
+
+  &__submitButton {
+    width: 100%;
+  }
+
+  &__button {
+    display: block;
+    color: $primaryColor;
+    padding: 0;
+
+    &_signOut {
+      display: block;
+      color: $redColor;
+      padding: 0;
+    }
+  }
+}
+
+.buttonBackProfile {
+  position: absolute;
+  top: 50%;
+  left: $paddingL;
+}

@@ -1,0 +1,25 @@
+@import 'core/vars';
+
+.formRegister {
+  width: 350px;
+  padding: $paddingL;
+  border: 1px solid $lightGrayColor;
+  border-radius: 10px;
+
+  &__heading {
+    width: 100%;
+    text-align: center;
+    margin: 0;
+  }
+
+  &__submitButton {
+    width: 100%;
+  }
+
+  &__linkText {
+    color: $blackColor;
+    display: block;
+    width: 100%;
+    text-align: center;
+  }
+}

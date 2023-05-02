@@ -1,0 +1,18 @@
+html[data-theme='dark'] {
+  filter: invert(1) brightness(1.2);
+}
+
+html[data-theme='dark'] canvas {
+  filter: invert(100%) brightness(100%);
+  border: 1px solid #696969;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+.locIcon {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

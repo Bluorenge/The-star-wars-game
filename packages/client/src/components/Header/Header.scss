@@ -1,0 +1,43 @@
+@import 'core/vars';
+
+.header {
+  height: $headerHeight;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: $primaryColor;
+  padding: 0 $paddingM;
+  box-sizing: border-box;
+
+  &__row {
+    align-items: center;
+  }
+
+  &__navbarItem {
+    margin: 0 calc($paddingXS + $paddingS);
+  }
+
+  &__link {
+    color: $whiteColor;
+    font-size: 16px;
+    text-decoration: none;
+
+    &_langIcon {
+      color: $whiteColor;
+      font-size: 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &:hover {
+      cursor: pointer;
+      color: lighten($color: $primaryColor, $amount: 20);
+    }
+  }
+}
