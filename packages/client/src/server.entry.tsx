@@ -8,20 +8,35 @@ import { App } from 'core/App';
 import { UserRepository, UserService } from 'api/UserService';
 import { createStore } from 'app/store';
 import { getCurrentUser } from 'app/actions/userActions';
+import { ROUTES } from 'constants/routes';
 
 export const render = async (url: string, repository: UserRepository) => {
-  const store = createStore(new UserService(repository));
+  let redirectUrl = null;
 
+  const [pathname] = url.split('?');
+
+  const store = createStore(new UserService(repository));
   await store.dispatch(getCurrentUser());
 
   const initialState = store.getState();
+
+  const isAuthPage = [ROUTES.LOGIN_PAGE, ROUTES.REGISTER_PAGE_PATH].includes(
+    pathname
+  );
+  const isAuth = initialState.user.isAuth;
+
+  if (isAuth && isAuthPage) {
+    redirectUrl = ROUTES.MAIN_PAGE_PATH;
+  } else if (!isAuth && !isAuthPage) {
+    redirectUrl = ROUTES.LOGIN_PAGE;
+  }
 
   const cache = createCache();
 
   const html = renderToString(
     <React.StrictMode>
       <Provider store={store}>
-        <StaticRouter location={url}>
+        <StaticRouter location={redirectUrl ?? url}>
           <StyleProvider cache={cache}>
             <App />
           </StyleProvider>
@@ -32,5 +47,5 @@ export const render = async (url: string, repository: UserRepository) => {
 
   const styleText = extractStyle(cache); // собираем инлайн-стили antd
 
-  return [html, styleText, initialState];
+  return [html, styleText, initialState, redirectUrl];
 };

@@ -33,6 +33,6 @@ export function createStore(service: IUserService, initialState?: StoreState) {
   });
 }
 
-export type RootState = ReturnType<any>;
+export type RootState = ReturnType<ReturnType<typeof createStore>['getState']>;
 
 export type AppDispatch = ReturnType<typeof createStore>['dispatch'];

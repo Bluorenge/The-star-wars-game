@@ -1,7 +1,6 @@
 import type { RouteObject } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
 
-import RequireAuthRoute from './RequireAuthRoute';
 import checkAuthLoader from 'helpers/checkAuthLoader';
 
 import { LoginPage } from 'pages/LoginPage';
@@ -15,80 +14,46 @@ import { ForumsPage } from 'pages/ForumsPage';
 import { ForumPage } from 'pages/ForumPage';
 import { ThreadPage } from 'pages/ThreadPage';
 
-export const routes: RouteObject[] = [
+export const routes = [
   {
     path: ROUTES.LOGIN_PAGE,
     element: <LoginPage />,
-    loader: checkAuthLoader,
   },
   {
     path: ROUTES.REGISTER_PAGE_PATH,
     element: <RegisterPage />,
-    loader: checkAuthLoader,
   },
   {
     path: ROUTES.MAIN_PAGE_PATH,
-    element: (
-      <RequireAuthRoute>
-        <MainPage />
-      </RequireAuthRoute>
-    ),
+    element: <MainPage />,
   },
   {
     path: ROUTES.GAME_PAGE_PATH,
-    element: (
-      <RequireAuthRoute>
-        <GamePage />
-      </RequireAuthRoute>
-    ),
+    element: <GamePage />,
   },
   {
     path: ROUTES.LEADERBOARD_PAGE_PATH,
-    element: (
-      <RequireAuthRoute>
-        <LeaderboardPage />
-      </RequireAuthRoute>
-    ),
+    element: <LeaderboardPage />,
   },
   {
     path: ROUTES.PROFILE_PAGE_PATH,
-    element: (
-      <RequireAuthRoute>
-        <ProfilePage />
-      </RequireAuthRoute>
-    ),
+    element: <ProfilePage />,
   },
   {
     path: ROUTES.PROFILE_CHANGE_PASSWORD_PAGE_PATH,
-    element: (
-      <RequireAuthRoute>
-        <ProfileChangePasswordPage />
-      </RequireAuthRoute>
-    ),
+    element: <ProfileChangePasswordPage />,
   },
   {
     path: ROUTES.FORUM_MAIN_PAGE_PATH,
-    element: (
-      <RequireAuthRoute>
-        <ForumsPage />
-      </RequireAuthRoute>
-    ),
+    element: <ForumsPage />,
   },
   {
     path: `${ROUTES.FORUM_MAIN_PAGE_PATH}/:forumId`,
-    element: (
-      <RequireAuthRoute>
-        <ForumPage />
-      </RequireAuthRoute>
-    ),
+    element: <ForumPage />,
   },
   {
     path: `${ROUTES.FORUM_THREAD_PAGE_PATH}/:threadId`,
-    element: (
-      <RequireAuthRoute>
-        <ThreadPage />
-      </RequireAuthRoute>
-    ),
+    element: <ThreadPage />,
   },
   {
     path: '*',

@@ -6,6 +6,7 @@ import { profileApi } from 'api/profile';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { handleErrorFromServer } from 'helpers/errorNotification';
 import { IUserService } from 'models/auth.model';
+import window from 'helpers/window';
 
 export const getCurrentUser = createAsyncThunk(
   'user/getCurrentUser',
@@ -19,6 +20,7 @@ export const getCurrentUser = createAsyncThunk(
         return response;
       }
     } catch (err) {
+      window.localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
       handleErrorFromServer(err);
     }
   }
@@ -32,7 +34,7 @@ export const signOut = createAsyncThunk('user/signOut', async () => {
       window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
     }
   } catch (err) {
-    localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
+    window.localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
     handleErrorFromServer(err);
   }
 });
