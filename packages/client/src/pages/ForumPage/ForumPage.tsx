@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Layout } from 'layouts/Layout';
 import { ForumMain } from 'components/Forum/ForumMain';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { getForumById } from 'app/actions/forumActions';
+import { getForumById } from 'core/store/actions/forumActions';
 import { ForumCreateModal } from 'components/Forum/ForumCreateModal';
 
 export const ForumPage = () => {
@@ -24,13 +24,12 @@ export const ForumPage = () => {
   }, [forumId]);
 
   return (
-    <>
-      <Layout />
+    <Layout>
       <ForumMain onCreateBtnClick={toggleOpenCreateModal} />
       <ForumCreateModal
         isCreateModalOpen={isCreateModalOpen}
         toggleOpenCreateModal={toggleOpenCreateModal}
       />
-    </>
+    </Layout>
   );
 };

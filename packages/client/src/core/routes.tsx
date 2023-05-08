@@ -1,7 +1,4 @@
-import type { RouteObject } from 'react-router-dom';
 import { ROUTES } from 'constants/routes';
-
-import checkAuthLoader from 'helpers/checkAuthLoader';
 
 import { LoginPage } from 'pages/LoginPage';
 import { LeaderboardPage } from 'pages/LeaderboardPage';

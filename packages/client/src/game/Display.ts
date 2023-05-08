@@ -2,7 +2,7 @@ import { MillenniumFalcon } from './MillenniumFalcon';
 import { Bullet } from './Bullet';
 import { CloneShip } from './CloneShip';
 
-import { setGameStatus } from 'app/slices/gameSlice';
+import { setGameStatus } from 'core/store/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 import {
   LOCAL_STORAGE_CURRENT_GAME_SCORE,

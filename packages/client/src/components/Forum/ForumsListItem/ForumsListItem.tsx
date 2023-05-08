@@ -18,17 +18,15 @@ export const ForumsListItem: React.FC<{ forumsListItemData: ForumModel }> = ({
       </Col>
 
       <Col span={4}>
-        <div className="forumsListItem__topicQuantityWrap">
-          <span className="forumsListItem__topicQuantity">
-            {forumsListItemData.threadCount}
-          </span>
-        </div>
+        <Typography.Text className="forumsListItem__topicQuantity">
+          {forumsListItemData.threadCount}
+        </Typography.Text>
       </Col>
 
       <Col span={4}>
-        <div className="forumsListItem__answerQuantity">
+        <Typography.Text className="forumsListItem__answerQuantity">
           {forumsListItemData.messageCount}
-        </div>
+        </Typography.Text>
       </Col>
     </Row>
   );

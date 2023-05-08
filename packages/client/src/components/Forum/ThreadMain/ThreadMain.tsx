@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Typography, Button, Space, Form, Input, Spin } from 'antd';
 
-import { createMessage } from 'app/actions/forumActions';
+import { createMessage } from 'core/store/actions/forumActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import dateFormater from 'helpers/dateFormatter';
@@ -51,13 +51,13 @@ export const ThreadMain: React.FC = () => {
         >
           {forum.thread.messages!.map((message: MessageModel) => (
             <div className="threadMain__message" key={message.id}>
-              <p>{message.message}</p>
+              <Typography.Text>{message.message}</Typography.Text>
 
-              <div className="threadMain__messageInfo">
+              <Typography.Text className="threadMain__messageInfo">
                 <span>Автор: {message.nickname}</span>
                 <span> — </span>
                 <span>{dateFormater(message.createdAt)}</span>
-              </div>
+              </Typography.Text>
             </div>
           ))}
         </Space>

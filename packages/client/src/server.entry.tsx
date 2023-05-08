@@ -3,27 +3,33 @@ import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
 import { Provider } from 'react-redux';
 import { createCache, extractStyle, StyleProvider } from '@ant-design/cssinjs';
+import { ConfigProvider, theme } from 'antd';
 
 import { App } from 'core/App';
 import { UserRepository, UserService } from 'api/UserService';
-import { createStore } from 'app/store';
-import { getCurrentUser } from 'app/actions/userActions';
+import { createStore } from 'core/store/store';
+import { getCurrentUser } from 'core/store/actions/userActions';
 import { ROUTES } from 'constants/routes';
+import { THEME_DARK } from 'constants/themization';
 
 export const render = async (url: string, repository: UserRepository) => {
-  let redirectUrl = null;
-
-  const [pathname] = url.split('?');
-
   const store = createStore(new UserService(repository));
   await store.dispatch(getCurrentUser());
 
   const initialState = store.getState();
 
+  const antdColorTheme =
+    initialState.colorTheme === THEME_DARK
+      ? theme.darkAlgorithm
+      : theme.defaultAlgorithm;
+
+  const [pathname] = url.split('?');
   const isAuthPage = [ROUTES.LOGIN_PAGE, ROUTES.REGISTER_PAGE_PATH].includes(
     pathname
   );
   const isAuth = initialState.user.isAuth;
+
+  let redirectUrl = null;
 
   if (isAuth && isAuthPage) {
     redirectUrl = ROUTES.MAIN_PAGE_PATH;
@@ -38,7 +44,13 @@ export const render = async (url: string, repository: UserRepository) => {
       <Provider store={store}>
         <StaticRouter location={redirectUrl ?? url}>
           <StyleProvider cache={cache}>
-            <App />
+            <ConfigProvider
+              theme={{
+                algorithm: antdColorTheme,
+              }}
+            >
+              <App />
+            </ConfigProvider>
           </StyleProvider>
         </StaticRouter>
       </Provider>

@@ -5,9 +5,8 @@ import { Layout } from 'layouts/Layout';
 
 export const MainPage: FC = () => {
   return (
-    <>
-      <Layout />
+    <Layout>
       <Welcome />
-    </>
+    </Layout>
   );
 };

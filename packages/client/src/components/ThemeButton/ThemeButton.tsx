@@ -1,27 +1,36 @@
-import './ThemeButton.scss';
-import { useTheme } from 'hooks/useTheme';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { updateColorTheme } from 'core/store/actions/colorThemeActions';
 import { THEME_LIGHT, THEME_DARK } from 'constants/themization';
 
+import './ThemeButton.scss';
+
 export const ThemeButton = () => {
-  const [theme, setTheme] = useTheme();
+  const {
+    colorTheme,
+    user: { currentUser },
+  } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
 
-  const checked = theme === THEME_DARK;
+  const checked = colorTheme === THEME_DARK;
 
-  const themeSwitcher = (inputEl: HTMLElement) => {
+  const themeSwitcher = async (inputEl: HTMLElement) => {
     inputEl.blur();
+    const newTheme = colorTheme === THEME_LIGHT ? THEME_DARK : THEME_LIGHT;
 
-    if (theme === THEME_LIGHT) {
-      setTheme(THEME_DARK);
-    } else {
-      setTheme(THEME_LIGHT);
-    }
+    await dispatch(
+      updateColorTheme({
+        userId: currentUser?.id,
+        theme: newTheme,
+      })
+    );
   };
 
   return (
     <label className="switch">
       <input
         type="checkbox"
-        value={theme}
+        value={colorTheme}
         onChange={(e) => themeSwitcher(e.target as HTMLElement)}
         checked={checked}
       />

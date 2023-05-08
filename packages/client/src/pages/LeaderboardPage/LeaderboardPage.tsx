@@ -33,8 +33,7 @@ export const LeaderboardPage = () => {
   ];
 
   return (
-    <div>
-      <Layout></Layout>
+    <Layout>
       <section className="leaderboard">
         <div className="leaderboard__wrapper">
           <Typography.Title className="leaderboard__title">
@@ -48,6 +47,6 @@ export const LeaderboardPage = () => {
           />
         </div>
       </section>
-    </div>
+    </Layout>
   );
 };

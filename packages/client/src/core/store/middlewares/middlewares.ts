@@ -1,6 +1,6 @@
 import { createListenerMiddleware } from '@reduxjs/toolkit';
 
-import { setGameStatus } from 'app/slices/gameSlice';
+import { setGameStatus } from 'core/store/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 import { LOCAL_STORAGE_CURRENT_GAME_SCORE } from 'constants/localStorage';
 

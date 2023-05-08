@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { Button, Row, Space, Spin } from 'antd';
+import { Button, Row, Space, Spin, Typography } from 'antd';
 
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { setGameStatus } from 'app/slices/gameSlice';
+import { setGameStatus } from 'core/store/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 import { ROUTES } from 'constants/routes';
 
@@ -21,14 +21,18 @@ export const Welcome: FC = () => {
       <Row className="welcomeWrapper" align="middle" justify="center">
         <Space direction="vertical" align="center">
           <div className="welcomeWrapper__topContent">
-            <div className="welcomeWrapper__greetings">
+            <Typography.Paragraph className="welcomeWrapper__greetings">
               Добро пожаловать, {isUserFetching ? <Spin /> : currentUser?.login}{' '}
               !
-            </div>
+            </Typography.Paragraph>
 
-            <p>Цель игры: сбить как можно больше имперских кораблей.</p>
+            <Typography.Paragraph>
+              Цель игры: сбить как можно больше имперских кораблей.
+            </Typography.Paragraph>
 
-            <p>Управление кораблем стрелками, выстрелы пробелом</p>
+            <Typography.Paragraph>
+              Управление кораблем стрелками, выстрелы пробелом
+            </Typography.Paragraph>
           </div>
 
           <Button

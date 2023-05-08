@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { setLocale } from 'app/slices/localeSlice';
+import { setLocale } from 'core/store/slices/localeSlice';
 import window from 'helpers/window';
 import { LOCAL_STORAGE_LOCALE_KEY } from 'constants/localStorage';
 import { useAppDispatch } from './useAppDispatch';

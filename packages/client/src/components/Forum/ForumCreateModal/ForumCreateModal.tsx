@@ -6,7 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ForumCreateModalProps } from 'models/forum.model';
 import { INPUT_CREATE_NAME } from 'constants/forum';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { createForum, createThread } from 'app/actions/forumActions';
+import { createForum, createThread } from 'core/store/actions/forumActions';
 
 import './ForumCreateModal.scss';
 

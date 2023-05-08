@@ -1,23 +1,11 @@
 .forumsListItem {
-  &__topicQuantityWrap,
+  &__topicQuantity,
   &__answerQuantity {
-    box-sizing: border-box;
     display: flex;
     align-items: center;
     justify-content: center;
-    text-align: right;
     height: 54px;
     border: 1px solid;
     border-radius: 30px;
-  }
-
-  &__topicQuantity {
-    min-width: 50px;
-    margin-right: 16px;
-    text-align: right;
-  }
-
-  &__answerQuantity {
-    text-align: right;
   }
 }

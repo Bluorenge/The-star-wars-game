@@ -1,8 +1,8 @@
 import axios from 'axios';
-import { OUR_API_URL, YNDEX_API_URL } from 'constants/main';
+import { OUR_API_URL, YANDEX_API_URL } from 'constants/main';
 
 export const yandexApi = axios.create({
-  baseURL: YNDEX_API_URL,
+  baseURL: YANDEX_API_URL,
   withCredentials: true,
 });
 

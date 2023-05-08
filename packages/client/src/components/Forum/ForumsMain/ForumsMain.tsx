@@ -2,7 +2,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Typography, Button, Col, Row, Space } from 'antd';
 
 import { ForumsListItem } from 'components/Forum/ForumsListItem';
-import { Loader } from 'components-ui/Loader';
+import { Loader } from 'components/ui/Loader';
 import { ForumModel } from 'models/forum.model';
 import { useAppSelector } from 'hooks/useAppSelector';
 

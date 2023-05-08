@@ -4,7 +4,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { Button, Form, Input, Typography } from 'antd';
 
 import { authApi } from 'api/auth';
-import { getCurrentUser } from 'app/actions/userActions';
+import { getCurrentUser } from 'core/store/actions/userActions';
 import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';
@@ -15,6 +15,9 @@ import { yandexApi } from 'api/index';
 
 import yandexIcon from 'assets/icons/ya.svg';
 import './Login.scss';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { getColorTheme } from 'core/store/actions/colorThemeActions';
+import { unwrapResult } from '@reduxjs/toolkit';
 
 const messages = defineMessages({
   buttonRegister: { id: 'auth.button.register', defaultMessage: 'Sign up' },

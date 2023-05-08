@@ -1,7 +1,7 @@
-import { Button, Col, Row, Space } from 'antd';
+import { Button, Col, Row, Space, Typography } from 'antd';
 
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { setGameStatus } from 'app/slices/gameSlice';
+import { setGameStatus } from 'core/store/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 import {
   LOCAL_STORAGE_PLAYER_GAMES_PLAYED,
@@ -30,24 +30,26 @@ export const GameEnd = () => {
       <Space direction="vertical" align="center">
         <Row gutter={16}>
           <Col>
-            <p>Игр сыграно: {gamesPlayed}</p>
+            <Typography.Text>Игр сыграно: {gamesPlayed}</Typography.Text>
           </Col>
 
           <Col>
-            <p>Счёт игры: {currentScore}</p>
+            <Typography.Text>Счёт игры: {currentScore}</Typography.Text>
           </Col>
 
           <Col>
-            <p>Ваш рекорд: {playerBestScore}</p>
+            <Typography.Text>Ваш рекорд: {playerBestScore}</Typography.Text>
           </Col>
 
           <Col>
-            <p>Рекорд лидера: {leaderScore}</p>
+            <Typography.Text>Рекорд лидера: {leaderScore}</Typography.Text>
           </Col>
         </Row>
 
         <Row>
-          <p className="gameEndWrapper__endText">Игра окончена</p>
+          <Typography.Paragraph className="gameEndWrapper__endText">
+            Игра окончена
+          </Typography.Paragraph>
         </Row>
 
         <Button

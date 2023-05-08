@@ -1,17 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import localeReducer from 'app/slices/localeSlice';
-import userReducer from 'app/slices/userSlice';
-import gameReducer from 'app/slices/gameSlice';
+import localeReducer from 'core/store/slices/localeSlice';
+import userReducer from 'core/store/slices/userSlice';
+import gameReducer from 'core/store/slices/gameSlice';
 import forumReducer from './slices/forumSlice';
-import { listenerMiddleware } from 'app/middlewares/middlewares';
+import colorThemeReducer from './slices/colorThemeSlice';
+import { listenerMiddleware } from 'core/store/middlewares/middlewares';
 import { CurrentUser, IUserService } from 'models/auth.model';
+import { ThemeType } from 'typings/app';
 
 export interface StoreState {
   user: {
     isAuth: boolean;
     isFetching: boolean;
     currentUser: CurrentUser | null;
+    colorTheme: ThemeType;
   };
 }
 
@@ -22,6 +25,7 @@ export function createStore(service: IUserService, initialState?: StoreState) {
       user: userReducer,
       game: gameReducer,
       forum: forumReducer,
+      colorTheme: colorThemeReducer,
     },
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>

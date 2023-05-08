@@ -4,7 +4,7 @@ import { Button, Space } from 'antd';
 import Display from 'game/Display';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { useAppSelector } from 'hooks/useAppSelector';
-import { setGameStatus } from 'app/slices/gameSlice';
+import { setGameStatus } from 'core/store/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 import window from 'helpers/window';
 

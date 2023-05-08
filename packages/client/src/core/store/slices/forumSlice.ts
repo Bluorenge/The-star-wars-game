@@ -7,7 +7,7 @@ import {
   createMessage,
   createThread,
   getThreadById,
-} from 'app/actions/forumActions';
+} from 'core/store/actions/forumActions';
 import { ForumModel, ThreadModel } from 'models/forum.model';
 
 interface ForumState {
