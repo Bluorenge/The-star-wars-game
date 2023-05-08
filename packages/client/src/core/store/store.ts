@@ -5,16 +5,16 @@ import userReducer from 'core/store/slices/userSlice';
 import gameReducer from 'core/store/slices/gameSlice';
 import forumReducer from './slices/forumSlice';
 import colorThemeReducer from './slices/colorThemeSlice';
+import leaderboardReducer from './slices/leaderboardSlice';
+
 import { listenerMiddleware } from 'core/store/middlewares/middlewares';
 import { CurrentUser, IUserService } from 'models/auth.model';
-import { ThemeType } from 'typings/app';
 
 export interface StoreState {
   user: {
     isAuth: boolean;
     isFetching: boolean;
     currentUser: CurrentUser | null;
-    colorTheme: ThemeType;
   };
 }
 
@@ -26,6 +26,7 @@ export function createStore(service: IUserService, initialState?: StoreState) {
       game: gameReducer,
       forum: forumReducer,
       colorTheme: colorThemeReducer,
+      leaderboard: leaderboardReducer,
     },
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>

@@ -1,8 +1,13 @@
+import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Table, Typography } from 'antd';
+import { Avatar, Table, Typography } from 'antd';
+import { AlignType } from 'rc-table/lib/interface';
 
 import { Layout } from 'layouts/Layout';
-import { data } from './mock';
+import { getAllLeaders } from 'core/store/actions/leaderboardAction';
+import { useAppDispatch } from 'hooks/useAppDispatch';
+import { useAppSelector } from 'hooks/useAppSelector';
+import { YANDEX_API_URL } from 'constants/main';
 
 import './Leaderboard.scss';
 
@@ -23,8 +28,22 @@ export const LeaderboardPage = () => {
 
   const columns = [
     {
+      title: 'Аватар',
+      dataIndex: 'avatar',
+      width: 80,
+      align: 'center' as AlignType,
+      render: (avatar: string) => {
+        return (
+          <Avatar
+            size={30}
+            src={avatar ? `${YANDEX_API_URL}/resources${avatar}` : undefined}
+          />
+        );
+      },
+    },
+    {
       title: fm(messages.titleColumnName),
-      dataIndex: 'name',
+      dataIndex: 'user_name',
     },
     {
       title: fm(messages.titleColumnScore),
@@ -32,21 +51,30 @@ export const LeaderboardPage = () => {
     },
   ];
 
+  const dispatch = useAppDispatch();
+  const { leaders, loading } = useAppSelector((state) => state.leaderboard);
+
+  useEffect(() => {
+    dispatch(getAllLeaders({ ratingFieldName: 'score', cursor: 0, limit: 10 }));
+  }, []);
+
   return (
-    <Layout>
-      <section className="leaderboard">
-        <div className="leaderboard__wrapper">
-          <Typography.Title className="leaderboard__title">
-            {fm(messages.titleMain)}
-          </Typography.Title>
-          <Table
-            columns={columns}
-            dataSource={data}
-            pagination={false}
-            rowKey="key"
-          />
-        </div>
-      </section>
+    <Layout className="leaderboard">
+      <div className="leaderboard__wrapper">
+        <Typography.Title className="leaderboard__title">
+          {fm(messages.titleMain)}
+        </Typography.Title>
+
+        <Table
+          columns={columns}
+          dataSource={leaders}
+          pagination={false}
+          loading={loading}
+          locale={{
+            emptyText: 'нет данных',
+          }}
+        />
+      </div>
     </Layout>
   );
 };

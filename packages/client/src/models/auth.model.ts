@@ -16,6 +16,7 @@ export class LoginInputDto {
 export interface RegisterInput {
   firstName: string;
   secondName: string;
+  displayName: string;
   login: string;
   email: string;
   password: string;
@@ -25,6 +26,7 @@ export interface RegisterInput {
 export class RegisterInputDto {
   first_name: string;
   second_name: string;
+  display_name: string;
   login: string;
   email: string;
   password: string;
@@ -33,6 +35,7 @@ export class RegisterInputDto {
   constructor(info: RegisterInput) {
     this.first_name = info.firstName;
     this.second_name = info.secondName;
+    this.display_name = info.displayName;
     this.login = info.login.toLowerCase();
     this.email = info.email.toLowerCase();
     this.password = info.password;

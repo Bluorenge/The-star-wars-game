@@ -7,10 +7,8 @@ export const ProfilePage = () => {
   // some logic
 
   return (
-    <Layout>
-      <div className="wrapperProfilePage">
-        <ProfileForm />
-      </div>
+    <Layout className="wrapperProfilePage">
+      <ProfileForm />
     </Layout>
   );
 };

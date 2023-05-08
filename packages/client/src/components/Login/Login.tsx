@@ -15,9 +15,6 @@ import { yandexApi } from 'api/index';
 
 import yandexIcon from 'assets/icons/ya.svg';
 import './Login.scss';
-import { useAppSelector } from 'hooks/useAppSelector';
-import { getColorTheme } from 'core/store/actions/colorThemeActions';
-import { unwrapResult } from '@reduxjs/toolkit';
 
 const messages = defineMessages({
   buttonRegister: { id: 'auth.button.register', defaultMessage: 'Sign up' },
