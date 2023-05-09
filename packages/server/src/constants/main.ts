@@ -6,7 +6,7 @@ export const SERVER_PORT = Number(process.env.SERVER_PORT) || 3001;
 
 export const POSTGRES_DB = process.env.POSTGRES_DB || 'postgres';
 export const POSTGRES_PORT = Number(process.env.POSTGRES_PORT) || 5432;
-export const POSTGRES_HOST = process.env.POSTGRES_HOST || '';
+export const POSTGRES_HOST = process.env.POSTGRES_HOST || 'postgres';
 export const POSTGRES_USER = process.env.POSTGRES_USER || 'postgres';
 export const POSTGRES_PASSWORD = process.env.POSTGRES_PASSWORD || 'postgres';
 

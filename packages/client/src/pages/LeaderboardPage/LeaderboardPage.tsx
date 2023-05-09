@@ -33,6 +33,7 @@ export const LeaderboardPage = () => {
       width: 80,
       align: 'center' as AlignType,
       render: (avatar: string) => {
+        // TODO: avatar отправляется при создании записи в борд. Соответвенно, если после он обновился, то мы это узнаем только при новом рекорде.
         return (
           <Avatar
             size={30}
