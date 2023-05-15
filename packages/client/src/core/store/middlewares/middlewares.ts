@@ -21,7 +21,6 @@ listenerMiddleware.startListening({
       return;
     }
 
-    console.log('action.payload: ', action.payload);
     if (action.payload === GameStatus.End) {
       const state: RootState = listenerApi.getState() as RootState;
       const currentUser = state.user.currentUser;
