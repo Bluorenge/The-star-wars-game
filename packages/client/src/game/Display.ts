@@ -2,7 +2,7 @@ import { MillenniumFalcon } from './MillenniumFalcon';
 import { Bullet } from './Bullet';
 import { CloneShip } from './CloneShip';
 
-import { setGameStatus } from 'app/slices/gameSlice';
+import { setGameStatus } from 'core/store/slices/gameSlice';
 import { GameStatus } from 'constants/game';
 import {
   LOCAL_STORAGE_CURRENT_GAME_SCORE,
@@ -35,7 +35,8 @@ export default class Display {
 
   private readonly _context: CanvasRenderingContext2D;
   private isPaused: boolean;
-  private setGameInfo: any;
+  private dispacth: any;
+
   private pic: HTMLImageElement;
 
   private MILLENNIUM_FALCON_HEALTH_GOOD = 70;
@@ -44,11 +45,11 @@ export default class Display {
   constructor(
     context: CanvasRenderingContext2D,
     isPaused: boolean,
-    setGameInfo: any
+    dispacth: any
   ) {
     this._context = context;
     this.isPaused = isPaused;
-    this.setGameInfo = setGameInfo;
+    this.dispacth = dispacth;
 
     this.pic = new Image();
     this.pic.src = battle;
@@ -293,7 +294,7 @@ export default class Display {
 
         this.millenniumFalcon.clearShipInfo();
 
-        this.setGameInfo(setGameStatus(GameStatus.End));
+        this.dispacth(setGameStatus(GameStatus.End));
       }, 0);
     }
   };

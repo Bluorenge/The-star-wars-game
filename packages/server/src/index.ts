@@ -90,7 +90,7 @@ async function startServer() {
       type SSRModule = (
         uri: string,
         repository: any
-      ) => Promise<[string, string, Record<string, any>]>;
+      ) => Promise<[string, string, Record<string, any>, string?]>;
 
       let render: SSRModule;
 
@@ -104,7 +104,7 @@ async function startServer() {
         ).render;
       }
 
-      const [appHtml, styleText, initialState] = await render(
+      const [appHtml, styleText, initialState, redirectUrl] = await render(
         url,
         new YandexAPIRepository(req.headers['cookie'])
       );
@@ -118,7 +118,12 @@ async function startServer() {
         .replace(`<!--inline-css-outlet-->`, styleText)
         .replace('<!--store-data-->', initStateSerialized);
 
-      res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+      if (redirectUrl) {
+        res.redirect(redirectUrl);
+        next();
+      } else {
+        res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
+      }
     } catch (e) {
       if (isDev()) {
         vite!.ssrFixStacktrace(e as Error);

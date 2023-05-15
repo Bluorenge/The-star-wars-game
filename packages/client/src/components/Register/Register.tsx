@@ -3,15 +3,15 @@ import { useIntl } from 'react-intl';
 import { Button, Form, Input, Typography } from 'antd';
 
 import { authApi } from 'api/auth';
-import { getCurrentUser } from 'app/actions/userActions';
-import window from 'helpers/window';
+import { getCurrentUser } from 'core/store/actions/userActions';
+import { useAppDispatch } from 'hooks/useAppDispatch';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';
-import { handleErrorFromServer } from 'helpers/errorNotification';
-import { useAppDispatch } from 'hooks/useAppDispatch';
 import { RegisterInput } from 'models/auth.model';
-import { messages } from './common';
+import { handleErrorFromServer } from 'helpers/errorNotification';
+import window from 'helpers/window';
 
+import { messages } from './common';
 import './Register.scss';
 
 export const Register = () => {
@@ -40,6 +40,7 @@ export const Register = () => {
       <Typography.Title className="formRegister__heading">
         {fm(messages.formHeading)}
       </Typography.Title>
+
       <Form
         form={form}
         name="formRegister"
@@ -57,6 +58,7 @@ export const Register = () => {
         >
           <Input placeholder={fm(messages.placeholderFirstName)} />
         </Form.Item>
+
         <Form.Item
           name="secondName"
           label={fm(messages.labelSecondName)}
@@ -68,6 +70,7 @@ export const Register = () => {
         >
           <Input placeholder={fm(messages.placeholderSecondName)} />
         </Form.Item>
+
         <Form.Item
           name="login"
           label={fm(messages.labelLogin)}
@@ -79,6 +82,7 @@ export const Register = () => {
         >
           <Input placeholder={fm(messages.placeholderLogin)} />
         </Form.Item>
+
         <Form.Item
           name="email"
           label={fm(messages.labelEmail)}
@@ -94,6 +98,7 @@ export const Register = () => {
         >
           <Input placeholder={fm(messages.placeholderEmail)} />
         </Form.Item>
+
         <Form.Item
           name="password"
           label={fm(messages.labelPassword)}
@@ -105,6 +110,7 @@ export const Register = () => {
         >
           <Input.Password placeholder={fm(messages.placeholderPassword)} />
         </Form.Item>
+
         <Form.Item
           name="phone"
           label={fm(messages.labelPhone)}
@@ -137,6 +143,7 @@ export const Register = () => {
           )}
         </Form.Item>
       </Form>
+
       <Typography.Text className="formRegister__linkText">
         {fm(messages.textAlreadyHaveAccount)}{' '}
         <Link to={ROUTES.LOGIN_PAGE}>{fm(messages.buttonLogin)}</Link>

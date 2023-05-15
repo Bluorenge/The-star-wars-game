@@ -1,8 +1,10 @@
 import { isServer } from 'helpers/window';
 
-export const YNDEX_API_URL =
+export const YANDEX_API_URL =
   isServer || window.location.port === '3001'
-    ? 'http://localhost:3001/api/v2'
+    ? 'http://localhost:3001/api/v2' // чтобы запросы шли через мидлвару на нашем сервере
     : 'https://ya-praktikum.tech/api/v2';
 
 export const OUR_API_URL = 'http://localhost:3001/api/v1';
+
+export const LEADERBOARD_NAME = 'the-star-wars-kitten';

@@ -1,21 +1,20 @@
+import { useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { Button, Form, Input, Typography } from 'antd';
 
 import { authApi } from 'api/auth';
-import { getCurrentUser } from 'app/actions/userActions';
+import { getCurrentUser } from 'core/store/actions/userActions';
 import window from 'helpers/window';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { ROUTES } from 'constants/routes';
 import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { LoginInput } from 'models/auth.model';
+import { yandexApi } from 'api/index';
 
 import yandexIcon from 'assets/icons/ya.svg';
-
 import './Login.scss';
-import { useEffect } from 'react';
-import { yandexApi } from '../../api';
 
 const messages = defineMessages({
   buttonRegister: { id: 'auth.button.register', defaultMessage: 'Sign up' },
@@ -135,6 +134,7 @@ export const Login = () => {
       <Typography.Title className="formLogin__heading">
         {fm(messages.formHeading)}
       </Typography.Title>
+
       <Form form={form} name="formLogin" onFinish={onSubmit} layout="vertical">
         <Form.Item
           name="login"
@@ -176,9 +176,11 @@ export const Login = () => {
           )}
         </Form.Item>
       </Form>
-      <div onClick={onYandex} className="forumPage__colTitle_centered">
-        <img src={yandexIcon} alt="yandexIcon" />
+
+      <div className="formLogin__yandexIconWrap">
+        <img src={yandexIcon} alt="yandexIcon" onClick={onYandex} />
       </div>
+
       <Typography.Text className="formLogin__linkText">
         {fm(messages.textNoAccount)}{' '}
         <Link to={ROUTES.REGISTER_PAGE_PATH}>

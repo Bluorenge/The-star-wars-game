@@ -11,15 +11,15 @@ WORKDIR /app
 
 FROM base as builder
 # COPY %local file% %container file%
-COPY package.json yarn.lock
+COPY package.json yarn.lock ./
 # RUN запускает операцию в командной строке на этапе сборки
 RUN yarn install --frozen-lockfile
 
 COPY . .
 
 RUN yarn lerna bootstrap
-RUN rm -rf /app/packages/client/dist/ && yarn build --scope=client
 RUN rm -rf /app/packages/server/dist/ && yarn build --scope=server
+RUN rm -rf /app/packages/client/dist/ && yarn build --scope=client
 
 FROM node:$NODE_VERSION-buster-slim as production
 WORKDIR /app
@@ -29,7 +29,7 @@ COPY --from=builder /app/packages/server/package.json /app/package.json
 
 RUN yarn install --production=true
 
-COPY --from=builder /app/packages/client/dist /app/node_modules/client/dist
+COPY --from=builder /app/packages/client/dist/ /app/node_modules/client/dist
 COPY --from=builder /app/packages/client/src/server.entry.tsx /app/node_modules/client/src/server.entry.tsx
 
 # При старте контейнер начнёт общаться через указанный порт

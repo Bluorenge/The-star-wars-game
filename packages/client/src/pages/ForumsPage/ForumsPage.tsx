@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { Layout } from 'layouts/Layout';
 import { ForumsMain } from 'components/Forum/ForumsMain';
-import { getForums } from 'app/actions/forumActions';
+import { getForums } from 'core/store/actions/forumActions';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import { ForumCreateModal } from 'components/Forum/ForumCreateModal';
 
@@ -22,13 +22,12 @@ export const ForumsPage = () => {
   }, [dispatch]);
 
   return (
-    <>
-      <Layout />
+    <Layout>
       <ForumsMain onCreateBtnClick={toggleOpenCreateModal} />
       <ForumCreateModal
         isCreateModalOpen={isCreateModalOpen}
         toggleOpenCreateModal={toggleOpenCreateModal}
       />
-    </>
+    </Layout>
   );
 };

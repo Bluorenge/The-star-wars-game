@@ -10,9 +10,6 @@ export const GamePage: FC = () => {
   const { status } = useAppSelector((state) => state.game);
 
   return (
-    <>
-      <Layout />
-      {status !== GameStatus.End ? <GameMain /> : <GameEnd />}
-    </>
+    <Layout>{status !== GameStatus.End ? <GameMain /> : <GameEnd />}</Layout>
   );
 };

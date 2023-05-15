@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Layout } from 'layouts/Layout';
 import { ThreadMain } from 'components/Forum/ThreadMain';
 import { useAppDispatch } from 'hooks/useAppDispatch';
-import { getThreadById } from 'app/actions/forumActions';
+import { getThreadById } from 'core/store/actions/forumActions';
 
 export const ThreadPage = () => {
   const { threadId } = useParams();
@@ -17,9 +17,8 @@ export const ThreadPage = () => {
   }, [dispatch, threadId]);
 
   return (
-    <>
-      <Layout />
+    <Layout>
       <ThreadMain />
-    </>
+    </Layout>
   );
 };

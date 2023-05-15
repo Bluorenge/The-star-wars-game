@@ -1,4 +1,5 @@
 export type LocaleType = 'en' | 'ru';
+export type ThemeType = 'light' | 'dark';
 
 export type ErrorReponse = {
   data?: string;

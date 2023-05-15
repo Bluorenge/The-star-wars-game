@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 
-import { getCurrentUser, signOut } from 'app/actions/userActions';
+import { getCurrentUser, signOut } from 'core/store/actions/userActions';
 import { CurrentUser } from 'models/auth.model';
 
 export const initialState: {

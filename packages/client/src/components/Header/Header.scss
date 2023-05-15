@@ -25,18 +25,21 @@
     color: $whiteColor;
     font-size: 16px;
     text-decoration: none;
+    cursor: pointer;
+    transition: color ease-in-out 0.2s;
 
     &_langIcon {
       color: $whiteColor;
       font-size: 16px;
       text-decoration: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      transition: opacity ease-in-out 0.2s;
+
+      &:hover {
+        opacity: 0.7;
+      }
     }
 
     &:hover {
-      cursor: pointer;
       color: lighten($color: $primaryColor, $amount: 20);
     }
   }

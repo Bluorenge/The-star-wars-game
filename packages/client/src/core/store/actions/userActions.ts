@@ -6,6 +6,9 @@ import { profileApi } from 'api/profile';
 import { LOCAL_STORAGE_IS_AUTH_KEY } from 'constants/localStorage';
 import { handleErrorFromServer } from 'helpers/errorNotification';
 import { IUserService } from 'models/auth.model';
+import window from 'helpers/window';
+import { setDefaultTheme } from 'core/store/slices/colorThemeSlice';
+import { getColorTheme } from './colorThemeActions';
 
 export const getCurrentUser = createAsyncThunk(
   'user/getCurrentUser',
@@ -16,26 +19,33 @@ export const getCurrentUser = createAsyncThunk(
       const response = await service.getCurrentUser();
 
       if (response) {
+        await thunkApi.dispatch(getColorTheme(response.id));
         return response;
       }
     } catch (err) {
+      window.localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
       handleErrorFromServer(err);
     }
   }
 );
 
-export const signOut = createAsyncThunk('user/signOut', async () => {
-  try {
-    const response = await authApi.signOut();
+export const signOut = createAsyncThunk(
+  'user/signOut',
+  async (_, { dispatch }) => {
+    dispatch(setDefaultTheme());
 
-    if (response.status === 200) {
-      window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
+    try {
+      const response = await authApi.signOut();
+
+      if (response.status === 200) {
+        window.localStorage.removeItem(LOCAL_STORAGE_IS_AUTH_KEY);
+      }
+    } catch (err) {
+      window.localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
+      handleErrorFromServer(err);
     }
-  } catch (err) {
-    localStorage.setItem(LOCAL_STORAGE_IS_AUTH_KEY, 'false');
-    handleErrorFromServer(err);
   }
-});
+);
 
 export const updateUserAvatar = createAsyncThunk(
   'user/updateAvatar',

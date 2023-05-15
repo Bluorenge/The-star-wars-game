@@ -1,10 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import localeReducer from 'app/slices/localeSlice';
-import userReducer from 'app/slices/userSlice';
-import gameReducer from 'app/slices/gameSlice';
+import localeReducer from 'core/store/slices/localeSlice';
+import userReducer from 'core/store/slices/userSlice';
+import gameReducer from 'core/store/slices/gameSlice';
 import forumReducer from './slices/forumSlice';
-import { listenerMiddleware } from 'app/middlewares/middlewares';
+import colorThemeReducer from './slices/colorThemeSlice';
+import leaderboardReducer from './slices/leaderboardSlice';
+
+import { listenerMiddleware } from 'core/store/middlewares/middlewares';
 import { CurrentUser, IUserService } from 'models/auth.model';
 
 export interface StoreState {
@@ -22,6 +25,8 @@ export function createStore(service: IUserService, initialState?: StoreState) {
       user: userReducer,
       game: gameReducer,
       forum: forumReducer,
+      colorTheme: colorThemeReducer,
+      leaderboard: leaderboardReducer,
     },
     preloadedState: initialState,
     middleware: (getDefaultMiddleware) =>
@@ -33,6 +38,6 @@ export function createStore(service: IUserService, initialState?: StoreState) {
   });
 }
 
-export type RootState = ReturnType<any>;
+export type RootState = ReturnType<ReturnType<typeof createStore>['getState']>;
 
 export type AppDispatch = ReturnType<typeof createStore>['dispatch'];

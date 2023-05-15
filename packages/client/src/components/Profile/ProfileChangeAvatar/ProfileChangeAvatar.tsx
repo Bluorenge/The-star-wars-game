@@ -5,7 +5,7 @@ import { RcFile } from 'antd/es/upload/interface';
 import { PlusOutlined } from '@ant-design/icons';
 import { UploadRequestOption } from 'rc-upload/lib/interface';
 import { profileApi } from 'api/profile';
-import { setCurrentUser } from 'app/slices/userSlice';
+import { setCurrentUser } from 'core/store/slices/userSlice';
 import { handleErrorFromServer } from 'helpers/errorNotification';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 

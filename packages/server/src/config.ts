@@ -25,7 +25,7 @@ export const config: Config = {
 
   database: {
     host: POSTGRES_HOST,
-    port: Number(POSTGRES_PORT),
+    port: POSTGRES_PORT,
     user: POSTGRES_USER,
     database: POSTGRES_DB,
     password: POSTGRES_PASSWORD,

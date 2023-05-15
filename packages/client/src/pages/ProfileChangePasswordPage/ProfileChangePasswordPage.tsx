@@ -1,13 +1,16 @@
 import { ProfileChangePassword } from 'components/Profile/ProfileChangePassword';
 
 import './ProfileChangePasswordPage.scss';
+import { Layout } from 'layouts/Layout';
 
 export const ProfileChangePasswordPage = () => {
   // some logic
 
   return (
-    <div className="wrapperProfileChangePasswordPage">
-      <ProfileChangePassword />
-    </div>
+    <Layout>
+      <div className="wrapperProfileChangePasswordPage">
+        <ProfileChangePassword />
+      </div>
+    </Layout>
   );
 };

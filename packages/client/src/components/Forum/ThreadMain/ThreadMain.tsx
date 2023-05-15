@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Typography, Button, Space, Form, Input, Spin } from 'antd';
 
-import { createMessage } from 'app/actions/forumActions';
+import { createMessage } from 'core/store/actions/forumActions';
 import { useAppSelector } from 'hooks/useAppSelector';
 import { useAppDispatch } from 'hooks/useAppDispatch';
 import dateFormater from 'helpers/dateFormatter';
@@ -12,8 +12,8 @@ import './ThreadMain.scss';
 
 export const ThreadMain: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { thread } = useAppSelector((state) => state.forum);
-  const { login } = useAppSelector((state) => state.user.currentUser);
+  const forum = useAppSelector((state) => state.forum);
+  const currentUser = useAppSelector((state) => state.user.currentUser);
 
   const [formCreateMessage] = Form.useForm();
   const { TextArea } = Input;
@@ -27,9 +27,9 @@ export const ThreadMain: React.FC = () => {
 
       await dispatch(
         createMessage({
-          nickname: login,
+          nickname: currentUser!.login,
           message: messageText,
-          threadId: thread.id,
+          threadId: forum.thread?.id,
         })
       );
     } finally {
@@ -40,24 +40,24 @@ export const ThreadMain: React.FC = () => {
   return (
     <div className="threadMain">
       <Typography.Title className="threadMain__title">
-        Тема "{thread?.name}"
+        Тема "{forum.thread?.name}"
       </Typography.Title>
 
-      {thread?.messages.length > 0 && (
+      {forum.thread && forum.thread.messages!.length > 0 && (
         <Space
           direction="vertical"
           size={20}
           className="threadMain__messagesWrap"
         >
-          {thread.messages.map((message: MessageModel) => (
+          {forum.thread.messages!.map((message: MessageModel) => (
             <div className="threadMain__message" key={message.id}>
-              <p>{message.message}</p>
+              <Typography.Text>{message.message}</Typography.Text>
 
-              <div className="threadMain__messageInfo">
+              <Typography.Text className="threadMain__messageInfo">
                 <span>Автор: {message.nickname}</span>
                 <span> — </span>
                 <span>{dateFormater(message.createdAt)}</span>
-              </div>
+              </Typography.Text>
             </div>
           ))}
         </Space>
